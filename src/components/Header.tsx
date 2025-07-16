@@ -17,6 +17,8 @@ import {
   DrawerClose,
 } from "@/components/ui/drawer";
 import { CartContext } from "@/components/CartContext";
+import { useHeroBg } from "@/components/HeroBgContext";
+import { Switch } from "@/components/ui/switch";
 import FFlogo from "@/assets/FFlogo.png";
 
 const Header = () => {
@@ -26,6 +28,7 @@ const Header = () => {
   const [userOpen, setUserOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const { cartCount, cartItems, removeFromCart } = useContext(CartContext);
+  const { heroBg, toggleHeroBg } = useHeroBg();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,7 +49,7 @@ const Header = () => {
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       isScrolled 
-        ? 'bg-[linear-gradient(135deg,_hsl(0,0%,10%),_hsl(45,33%,90%))] border-b border-[hsl(45,33%,90%)] shadow-elegant' 
+        ? 'bg-[linear-gradient(135deg,_hsl(0,0%,10%),_hsl(45,33%,80%))] border-b border-[hsl(45,33%,80%)] shadow-elegant' 
         : 'bg-gradient-hero'
     }`}>
       {/* Search Modal */}
@@ -174,18 +177,28 @@ const Header = () => {
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-3">
             <Button variant="ghost" size="icon" className="hover:bg-brand-purple/20 hover:scale-110 transition-all duration-300" onClick={() => setSearchOpen(true)}>
-              <Search className="h-5 w-5 text-black" />
+              <Search className="h-5 w-5" />
             </Button>
             <Button variant="ghost" size="icon" className="hover:bg-brand-purple/20 hover:scale-110 transition-all duration-300" onClick={() => setUserOpen(true)}>
-              <User className="h-5 w-5 text-black" />
+              <User className="h-5 w-5" />
             </Button>
             <Button variant="ghost" size="icon" className="relative hover:bg-brand-purple/20 hover:scale-110 transition-all duration-300 group" onClick={() => setCartOpen(true)}>
-              <ShoppingBag className="h-5 w-5 text-black" />
-              <span className="absolute -top-2 -right-2 bg-[hsl(45,33%,90%)] text-brand-dark text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold group-hover:scale-110 transition-transform duration-300 border border-[hsl(45,33%,56%)]">
+              <ShoppingBag className="h-5 w-5" />
+              <span className="absolute -top-2 -right-2 bg-[hsl(45,33%,80%)] text-brand-dark text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold group-hover:scale-110 transition-transform duration-300 border border-[hsl(45,33%,56%)]">
                 +{cartCount}
               </span>
             </Button>
             <img src={FFlogo} alt="FitForge Logo" className="w-10 h-10 rounded-full object-cover shadow-md ml-2" />
+            <div className="flex items-center ml-2">
+              <Switch
+                checked={heroBg === 'beigeblack2.png'}
+                onCheckedChange={toggleHeroBg}
+                className="data-[state=checked]:bg-gradient-to-r data-[state=checked]:from-[hsl(45,33%,40%)] data-[state=checked]:to-[hsl(45,33%,60%)] data-[state=unchecked]:bg-gradient-to-r data-[state=unchecked]:from-brand-purple data-[state=unchecked]:to-brand-blue border-2 border-brand-dark shadow focus:ring-2 focus:ring-brand-purple transition-all duration-300"
+              />
+              <span className="ml-2 text-xs font-semibold text-muted-foreground select-none">
+                {heroBg === 'beigeblack2.png' ? 'Beige' : 'Purple'}
+              </span>
+            </div>
           </div>
 
           {/* Mobile menu button */}
@@ -203,7 +216,7 @@ const Header = () => {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 bg-[rgba(30,30,30,0.92)] border-t border-border">
+            <div className="px-2 pt-2 pb-3 space-y-1 bg-card border-t border-border">
               <Link
                 to="/collection"
                 className="block px-3 py-2 text-foreground hover:text-brand-purple transition-colors"
@@ -248,13 +261,13 @@ const Header = () => {
               </Link>
               <div className="flex items-center space-x-4 px-3 py-2">
                 <Button variant="ghost" size="icon" onClick={() => setSearchOpen(true)}>
-                  <Search className="h-5 w-5 text-black" />
+                  <Search className="h-5 w-5" />
                 </Button>
                 <Button variant="ghost" size="icon" onClick={() => setUserOpen(true)}>
-                  <User className="h-5 w-5 text-black" />
+                  <User className="h-5 w-5" />
                 </Button>
                 <Button variant="ghost" size="icon" className="relative" onClick={() => setCartOpen(true)}>
-                  <ShoppingBag className="h-5 w-5 text-black" />
+                  <ShoppingBag className="h-5 w-5" />
                   <span className="absolute -top-1 -right-1 bg-brand-purple text-brand-light text-xs rounded-full h-5 w-5 flex items-center justify-center">
                     {cartCount}
                   </span>

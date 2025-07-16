@@ -1,13 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import heroImage from "@/assets/beigeblack.jpg";
+import { useHeroBg } from "@/components/HeroBgContext";
+import heroImage1 from "@/assets/beigeblack.jpg";
+import heroImage2 from "@/assets/beigeblack2.png";
 import FFlogo from "@/assets/FFlogo.png";
 
 const Hero = () => {
   const bgRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const [contentVisible, setContentVisible] = useState(false);
+  const { heroBg } = useHeroBg();
 
   // Parallax effect
   useEffect(() => {
@@ -51,7 +54,7 @@ const Hero = () => {
       <div
         ref={bgRef}
         className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat will-change-transform transition-transform duration-700"
-        style={{ backgroundImage: `url(${heroImage})` }}
+        style={{ backgroundImage: `url(${heroBg === 'beigeblack.jpg' ? heroImage1 : heroImage2})` }}
         aria-hidden="true"
       >
         <div className="absolute inset-0 bg-gradient-to-r from-brand-dark/80 via-brand-dark/60 to-transparent" />
@@ -77,7 +80,11 @@ const Hero = () => {
             <img src={FFlogo} alt="FitForge Logo" className="mx-auto animate-bounce-slow rounded-full shadow-lg" style={{ width: '120px', height: '120px', objectFit: 'cover' }} />
           </span>
           Forge
-          <span className="block bg-gradient-hero bg-clip-text text-transparent animate-hero-slide-in-delay">Your Style</span>
+          <span
+            className={`block bg-clip-text text-transparent animate-hero-slide-in-delay ${heroBg === 'beigeblack.jpg' ? 'bg-gradient-hero' : 'bg-gradient-to-r from-[hsl(45,33%,40%)] via-[hsl(45,33%,50%)] to-[hsl(45,33%,40%)]'}`}
+          >
+            Your Style
+          </span>
         </h1>
         {/* Tagline/subtitle for extra brand messaging */}
         <div className="text-lg md:text-2xl text-brand-light/80 font-serif italic mb-8 animate-hero-fade-in-delay2">Luxury streetwear, crafted for royalty.</div>
