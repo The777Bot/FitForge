@@ -1,0 +1,96 @@
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Heart, ShoppingCart } from "lucide-react";
+
+interface ProductCardProps {
+  id: string;
+  name: string;
+  price: number;
+  originalPrice?: number;
+  image: string;
+  category: string;
+  isNew?: boolean;
+  isSale?: boolean;
+  onAddToCart?: (product: { id: string; name: string; price: number; image: string }) => void;
+}
+
+const ProductCard = ({ 
+  id,
+  name, 
+  price, 
+  originalPrice, 
+  image, 
+  category, 
+  isNew, 
+  isSale, 
+  onAddToCart
+}: ProductCardProps) => {
+  return (
+    <Card className="group relative overflow-hidden border border-foreground bg-background shadow-sm hover:shadow-[0_0_16px_4px_hsl(45,33%,56%)] transition-all duration-500 hover-lift rounded-3xl">
+      <div className="relative overflow-hidden rounded-t-3xl">
+        {/* Product Image */}
+        <div className="aspect-square overflow-hidden rounded-t-3xl">
+          <img
+            src={image}
+            alt={name}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          />
+        </div>
+
+        {/* Modern Badges */}
+        <div className="absolute top-4 left-4 flex flex-col gap-2">
+          {isNew && (
+            <span className="bg-foreground text-background px-4 py-2 text-xs font-bold rounded-full shadow-sm backdrop-blur-sm">NEW</span>
+          )}
+          {isSale && (
+            <span className="bg-background text-foreground px-4 py-2 text-xs font-bold rounded-full border border-foreground shadow-sm">SALE</span>
+          )}
+        </div>
+
+        {/* Modern Wishlist Button */}
+        <Button
+          variant="modern"
+          size="icon"
+          className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 backdrop-blur-md bg-background border border-foreground text-foreground"
+        >
+          <Heart className="h-4 w-4" />
+        </Button>
+
+        {/* Enhanced Quick Add to Cart */}
+        <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
+          <Button
+            variant="hero"
+            className="w-full backdrop-blur-md rounded-2xl font-bold bg-[hsl(45,33%,80%)] text-[hsl(0,0%,10%)] border border-[hsl(45,33%,80%)] hover:bg-[hsl(45,33%,90%)] hover:text-[hsl(0,0%,0%)] transition"
+            onClick={() => onAddToCart && onAddToCart({ id, name, price, image })}
+          >
+            <ShoppingCart className="h-4 w-4 mr-2" />
+            Add to Cart
+          </Button>
+        </div>
+      </div>
+
+      <CardContent className="p-6 bg-gradient-to-b from-card to-brand-surface/30">
+        <div className="space-y-3">
+          <p className="text-xs text-brand-purple uppercase tracking-widest font-bold">
+            {category}
+          </p>
+          <h3 className="font-bold text-lg text-foreground group-hover:text-brand-purple transition-colors duration-300">
+            {name}
+          </h3>
+          <div className="flex items-center gap-3">
+            <span className="text-2xl font-black text-brand-dark bg-gradient-accent bg-clip-text text-transparent">
+              ${price}
+            </span>
+            {originalPrice && (
+              <span className="text-sm text-muted-foreground line-through bg-muted/50 px-2 py-1 rounded-lg">
+                ${originalPrice}
+              </span>
+            )}
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
+
+export default ProductCard;
