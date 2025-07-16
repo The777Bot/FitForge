@@ -18,7 +18,6 @@ import {
 } from "@/components/ui/drawer";
 import { CartContext } from "@/components/CartContext";
 import { useHeroBg } from "@/components/HeroBgContext";
-import { Switch } from "@/components/ui/switch";
 import FFlogo from "@/assets/FFlogo.png";
 
 const Header = () => {
@@ -189,16 +188,6 @@ const Header = () => {
               </span>
             </Button>
             <img src={FFlogo} alt="FitForge Logo" className="w-10 h-10 rounded-full object-cover shadow-md ml-2" />
-            <div className="flex items-center ml-2">
-              <Switch
-                checked={heroBg === 'beigeblack2.png'}
-                onCheckedChange={toggleHeroBg}
-                className="data-[state=checked]:bg-gradient-to-r data-[state=checked]:from-[hsl(45,33%,40%)] data-[state=checked]:to-[hsl(45,33%,60%)] data-[state=unchecked]:bg-gradient-to-r data-[state=unchecked]:from-brand-purple data-[state=unchecked]:to-brand-blue border-2 border-brand-dark shadow focus:ring-2 focus:ring-brand-purple transition-all duration-300"
-              />
-              <span className="ml-2 text-xs font-semibold text-muted-foreground select-none">
-                {heroBg === 'beigeblack2.png' ? 'Beige' : 'Purple'}
-              </span>
-            </div>
           </div>
 
           {/* Mobile menu button */}

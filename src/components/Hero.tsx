@@ -5,12 +5,13 @@ import { useHeroBg } from "@/components/HeroBgContext";
 import heroImage1 from "@/assets/beigeblack.jpg";
 import heroImage2 from "@/assets/beigeblack2.png";
 import FFlogo from "@/assets/FFlogo.png";
+import { Switch } from "@/components/ui/switch";
 
 const Hero = () => {
   const bgRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const [contentVisible, setContentVisible] = useState(false);
-  const { heroBg } = useHeroBg();
+  const { heroBg, toggleHeroBg } = useHeroBg();
 
   // Parallax effect
   useEffect(() => {
@@ -88,6 +89,19 @@ const Hero = () => {
         </h1>
         {/* Tagline/subtitle for extra brand messaging */}
         <div className="text-lg md:text-2xl text-brand-light/80 font-serif italic mb-8 animate-hero-fade-in-delay2">Luxury streetwear, crafted for royalty.</div>
+
+        {/* On/Off Switch for Hero BG */}
+        <div className="flex flex-col items-center mb-6">
+          <div className="flex items-center gap-3">
+            <span className="text-sm font-semibold text-black select-none">Beige</span>
+            <Switch
+              checked={heroBg === 'beigeblack2.png'}
+              onCheckedChange={toggleHeroBg}
+              className="data-[state=checked]:bg-gradient-to-r data-[state=checked]:from-[hsl(45,33%,40%)] data-[state=checked]:to-[hsl(45,33%,60%)] data-[state=unchecked]:bg-gradient-to-r data-[state=unchecked]:from-brand-purple data-[state=unchecked]:to-brand-blue border-2 border-brand-dark shadow focus:ring-2 focus:ring-brand-purple transition-all duration-300"
+            />
+            <span className="text-sm font-semibold text-black select-none">Black</span>
+          </div>
+        </div>
 
         <Button
           onClick={scrollToFeatured}
