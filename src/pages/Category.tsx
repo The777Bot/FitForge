@@ -1,5 +1,4 @@
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import Categories from "@/components/Categories";
 
 const Category = () => {
@@ -13,9 +12,8 @@ const Category = () => {
         </section>
         <Categories />
       </main>
-      <Footer />
     </div>
   );
 };
 
-export default Category; 
+export default Category;

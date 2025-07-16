@@ -1,5 +1,4 @@
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 
 const Women = () => {
   return (
@@ -10,9 +9,8 @@ const Women = () => {
         <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl text-center mb-8">Elegance meets street style. Discover the latest in women's fashion.</p>
         {/* Add women's products or sections here */}
       </main>
-      <Footer />
     </div>
   );
 };
 
-export default Women; 
+export default Women;

@@ -1,5 +1,4 @@
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 
 const Men = () => {
   return (
@@ -10,9 +9,8 @@ const Men = () => {
         <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl text-center mb-8">Bold styles for the modern man. Shop the latest trends and timeless classics.</p>
         {/* Add men's products or sections here */}
       </main>
-      <Footer />
     </div>
   );
 };
 
-export default Men; 
+export default Men;

@@ -5,7 +5,6 @@ import Hero from "@/components/Hero";
 import FeaturedSection from "@/components/FeaturedSection";
 import Categories from "@/components/Categories";
 import Newsletter from "@/components/Newsletter";
-import Footer from "@/components/Footer";
 
 const Index = () => {
   const { addToCart } = useContext(CartContext);
@@ -18,7 +17,6 @@ const Index = () => {
         <Categories />
         <Newsletter />
       </main>
-      <Footer />
     </div>
   );
 };

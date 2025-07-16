@@ -1,5 +1,4 @@
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 
 const Unisex = () => {
   return (
@@ -10,9 +9,8 @@ const Unisex = () => {
         <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl text-center mb-8">Explore our versatile unisex styles designed for everyone. Fashion without boundaries, comfort without compromise.</p>
         {/* Add unisex products or sections here */}
       </main>
-      <Footer />
     </div>
   );
 };
 
-export default Unisex; 
+export default Unisex;

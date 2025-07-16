@@ -1,5 +1,4 @@
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 
 const Gaming = () => {
   return (
@@ -10,9 +9,8 @@ const Gaming = () => {
         <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl text-center mb-8">Level up your style with our Gaming-inspired apparel and gear. New arrivals and exclusive releases coming soon!</p>
         {/* Add more gaming-themed content here */}
       </main>
-      <Footer />
     </div>
   );
 };
 
-export default Gaming; 
+export default Gaming;

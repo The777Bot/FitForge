@@ -1,5 +1,4 @@
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 
 const Sale = () => {
   return (
@@ -10,9 +9,8 @@ const Sale = () => {
         <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl text-center mb-8">Don't miss out on our exclusive deals and discounts. Shop the sale now!</p>
         {/* Add sale products or sections here */}
       </main>
-      <Footer />
     </div>
   );
 };
 
-export default Sale; 
+export default Sale;
