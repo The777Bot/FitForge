@@ -40,3 +40,55 @@
 .read-the-docs {
   color: #888;
 }
+
+@keyframes gradient-x {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.animate-gradient-x {
+  background-size: 200% 200%;
+  animation: gradient-x 6s ease-in-out infinite;
+}
+
+/* Universal hover effect for interactive elements */
+:where(a, button, [role="button"], .card, .product-card, input[type="submit"], input[type="button"], .hoverable, [tabindex]:not([tabindex="-1"])):hover, 
+:where(a, button, [role="button"], .card, .product-card, input[type="submit"], input[type="button"], .hoverable, [tabindex]:not([tabindex="-1"])):focus-visible {
+  filter: brightness(1.08) drop-shadow(0 2px 12px rgba(186, 163, 109, 0.10));
+  transition: filter 0.2s cubic-bezier(.4,0,.2,1), box-shadow 0.2s cubic-bezier(.4,0,.2,1);
+  box-shadow: 0 2px 16px 0 rgba(186, 163, 109, 0.08);
+  outline: none;
+}
+
+/* Optional: pointer cursor for all clickable elements */
+:where(a, button, [role="button"], .card, .product-card, input[type="submit"], input[type="button"], .hoverable, [tabindex]:not([tabindex="-1"])) {
+  cursor: pointer;
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+.animate-pulse-slow {
+  animation: pulse-slow 3.5s ease-in-out infinite;
+}
+@keyframes pulse-slow2 {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.3); }
+}
+.animate-pulse-slow2 {
+  animation: pulse-slow2 4.2s ease-in-out infinite;
+}
+@keyframes pulse-slow3 {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.15); }
+}
+.animate-pulse-slow3 {
+  animation: pulse-slow3 5.1s ease-in-out infinite;
+}
+@keyframes pulse-slow4 {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.18); }
+}
+.animate-pulse-slow4 {
+  animation: pulse-slow4 3.8s ease-in-out infinite;
+}

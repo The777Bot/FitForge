@@ -138,18 +138,9 @@ const Header = () => {
           isScrolled ? 'h-14' : 'h-20'
         }`}>
           {/* Logo */}
-          <Link to="/" className="flex items-center group cursor-pointer">
-            <div className="relative">
-              <h1 className={`font-black transition-all duration-300 ${
-                isScrolled
-                  ? 'text-2xl text-[hsl(45,33%,80%)]' // lighter beige
-                  : 'text-3xl bg-gradient-hero bg-clip-text text-transparent'
-              }`}>
-                FitForge
-              </h1>
-              <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-hero group-hover:w-full transition-all duration-300"></div>
-            </div>
-          </Link>
+          <a href="/" className="logo">
+            <span className="font-serif font-extrabold text-3xl">FitForge</span>
+          </a>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
