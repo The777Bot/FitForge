@@ -13,6 +13,7 @@ import Men from "./pages/Men";
 import Women from "./pages/Women";
 import Sale from "./pages/Sale";
 import Unisex from "./pages/Unisex";
+import Customized from "./pages/Customized";
 import { CartProvider } from "@/components/CartContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -37,6 +38,7 @@ const App = () => (
             <Route path="/women" element={<Women />} />
             <Route path="/sale" element={<Sale />} />
             <Route path="/unisex" element={<Unisex />} />
+            <Route path="/customized" element={<Customized />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

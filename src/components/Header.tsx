@@ -159,12 +159,8 @@ const Header = () => {
               Unisex
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-hero group-hover:w-full transition-all duration-300"></span>
             </Link>
-            <Link to="/anime" className="relative group text-foreground hover:text-brand-purple transition-all duration-300 font-medium">
-              Anime
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-hero group-hover:w-full transition-all duration-300"></span>
-            </Link>
-            <Link to="/gaming" className="relative group text-foreground hover:text-brand-purple transition-all duration-300 font-medium">
-              Gaming
+            <Link to="/customized" className="relative group text-foreground hover:text-brand-purple transition-all duration-300 font-medium">
+              Customized
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-hero group-hover:w-full transition-all duration-300"></span>
             </Link>
             <Link to="/sale" className="relative group text-foreground hover:text-brand-purple transition-all duration-300 font-medium">
@@ -234,18 +230,11 @@ const Header = () => {
                 Unisex
               </Link>
               <Link
-                to="/anime"
+                to="/customized"
                 className="block px-3 py-2 text-foreground hover:text-brand-purple transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Anime
-              </Link>
-              <Link
-                to="/gaming"
-                className="block px-3 py-2 text-foreground hover:text-brand-purple transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Gaming
+                Customized
               </Link>
               <Link
                 to="/sale"
