@@ -17,6 +17,7 @@ import {
   DrawerClose,
 } from "@/components/ui/drawer";
 import { CartContext } from "@/components/CartContext";
+import FFlogo from "@/assets/FFlogo.jpeg";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -138,7 +139,8 @@ const Header = () => {
           isScrolled ? 'h-14' : 'h-20'
         }`}>
           {/* Logo */}
-          <a href="/" className="logo">
+          <a href="/" className="logo flex items-center gap-2">
+            <img src={FFlogo} alt="FitForge Logo" className="w-10 h-10 rounded-full object-cover shadow-md" />
             <span className="font-serif font-extrabold text-3xl">FitForge</span>
           </a>
 
@@ -173,13 +175,13 @@ const Header = () => {
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-3">
             <Button variant="ghost" size="icon" className="hover:bg-brand-purple/20 hover:scale-110 transition-all duration-300" onClick={() => setSearchOpen(true)}>
-              <Search className="h-5 w-5" />
+              <Search className="h-5 w-5 text-black" />
             </Button>
             <Button variant="ghost" size="icon" className="hover:bg-brand-purple/20 hover:scale-110 transition-all duration-300" onClick={() => setUserOpen(true)}>
-              <User className="h-5 w-5" />
+              <User className="h-5 w-5 text-black" />
             </Button>
             <Button variant="ghost" size="icon" className="relative hover:bg-brand-purple/20 hover:scale-110 transition-all duration-300 group" onClick={() => setCartOpen(true)}>
-              <ShoppingBag className="h-5 w-5" />
+              <ShoppingBag className="h-5 w-5 text-black" />
               <span className="absolute -top-2 -right-2 bg-[hsl(45,33%,80%)] text-brand-dark text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold group-hover:scale-110 transition-transform duration-300 border border-[hsl(45,33%,56%)]">
                 +{cartCount}
               </span>
@@ -246,13 +248,13 @@ const Header = () => {
               </Link>
               <div className="flex items-center space-x-4 px-3 py-2">
                 <Button variant="ghost" size="icon" onClick={() => setSearchOpen(true)}>
-                  <Search className="h-5 w-5" />
+                  <Search className="h-5 w-5 text-black" />
                 </Button>
                 <Button variant="ghost" size="icon" onClick={() => setUserOpen(true)}>
-                  <User className="h-5 w-5" />
+                  <User className="h-5 w-5 text-black" />
                 </Button>
                 <Button variant="ghost" size="icon" className="relative" onClick={() => setCartOpen(true)}>
-                  <ShoppingBag className="h-5 w-5" />
+                  <ShoppingBag className="h-5 w-5 text-black" />
                   <span className="absolute -top-1 -right-1 bg-brand-purple text-brand-light text-xs rounded-full h-5 w-5 flex items-center justify-center">
                     {cartCount}
                   </span>

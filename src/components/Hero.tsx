@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import heroImage from "@/assets/beigeblack.jpg";
+import FFlogo from "@/assets/FFlogo.jpeg";
 
 const Hero = () => {
   const bgRef = useRef<HTMLDivElement>(null);
@@ -73,26 +74,7 @@ const Hero = () => {
       >
         <h1 className="text-6xl md:text-8xl lg:text-9xl font-black text-brand-light mb-8 leading-none tracking-tight animate-hero-slide-in flex flex-col items-center">
           <span className="block mb-4">
-            <svg width="120" height="120" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg" className="mx-auto animate-bounce-slow">
-              <path d="M20 70 Q48 90 76 70" stroke="#7A653A" strokeWidth="5" fill="url(#crownBase)"/>
-              <circle cx="24" cy="44" r="8" fill="#A08A54" stroke="#5A4A23" strokeWidth="2.5"/>
-              <circle cx="48" cy="28" r="10" fill="#A08A54" stroke="#5A4A23" strokeWidth="2.5"/>
-              <circle cx="72" cy="44" r="8" fill="#A08A54" stroke="#5A4A23" strokeWidth="2.5"/>
-              <polygon points="24,44 36,66 48,28 60,66 72,44 48,60" fill="url(#crownGradient)" stroke="#5A4A23" strokeWidth="2.5"/>
-              <circle cx="36" cy="66" r="3.5" fill="#7B61FF" />
-              <circle cx="60" cy="66" r="3.5" fill="#7B61FF" />
-              <circle cx="48" cy="60" r="3.5" fill="#A08A54" />
-              <defs>
-                <linearGradient id="crownGradient" x1="24" y1="44" x2="72" y2="44" gradientUnits="userSpaceOnUse">
-                  <stop stopColor="#7A653A"/>
-                  <stop offset="1" stopColor="#5A4A23"/>
-                </linearGradient>
-                <linearGradient id="crownBase" x1="20" y1="80" x2="76" y2="80" gradientUnits="userSpaceOnUse">
-                  <stop stopColor="#5A4A23"/>
-                  <stop offset="1" stopColor="#7A653A"/>
-                </linearGradient>
-              </defs>
-            </svg>
+            <img src={FFlogo} alt="FitForge Logo" className="mx-auto animate-bounce-slow rounded-full shadow-lg" style={{ width: '120px', height: '120px', objectFit: 'cover' }} />
           </span>
           Forge
           <span className="block bg-gradient-hero bg-clip-text text-transparent animate-hero-slide-in-delay">Your Style</span>
