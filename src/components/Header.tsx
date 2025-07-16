@@ -17,7 +17,7 @@ import {
   DrawerClose,
 } from "@/components/ui/drawer";
 import { CartContext } from "@/components/CartContext";
-import FFlogo from "@/assets/FFlogo.jpeg";
+import FFlogo from "@/assets/FFlogo.png";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -46,7 +46,7 @@ const Header = () => {
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       isScrolled 
-        ? 'bg-[linear-gradient(135deg,_hsl(0,0%,10%),_hsl(45,33%,80%))] border-b border-[hsl(45,33%,80%)] shadow-elegant' 
+        ? 'bg-[linear-gradient(135deg,_hsl(0,0%,10%),_hsl(45,33%,90%))] border-b border-[hsl(45,33%,90%)] shadow-elegant' 
         : 'bg-gradient-hero'
     }`}>
       {/* Search Modal */}
@@ -140,7 +140,6 @@ const Header = () => {
         }`}>
           {/* Logo */}
           <a href="/" className="logo flex items-center gap-2">
-            <img src={FFlogo} alt="FitForge Logo" className="w-10 h-10 rounded-full object-cover shadow-md" />
             <span className="font-serif font-extrabold text-3xl">FitForge</span>
           </a>
 
@@ -182,10 +181,11 @@ const Header = () => {
             </Button>
             <Button variant="ghost" size="icon" className="relative hover:bg-brand-purple/20 hover:scale-110 transition-all duration-300 group" onClick={() => setCartOpen(true)}>
               <ShoppingBag className="h-5 w-5 text-black" />
-              <span className="absolute -top-2 -right-2 bg-[hsl(45,33%,80%)] text-brand-dark text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold group-hover:scale-110 transition-transform duration-300 border border-[hsl(45,33%,56%)]">
+              <span className="absolute -top-2 -right-2 bg-[hsl(45,33%,90%)] text-brand-dark text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold group-hover:scale-110 transition-transform duration-300 border border-[hsl(45,33%,56%)]">
                 +{cartCount}
               </span>
             </Button>
+            <img src={FFlogo} alt="FitForge Logo" className="w-10 h-10 rounded-full object-cover shadow-md ml-2" />
           </div>
 
           {/* Mobile menu button */}
@@ -203,7 +203,7 @@ const Header = () => {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 bg-card border-t border-border">
+            <div className="px-2 pt-2 pb-3 space-y-1 bg-[rgba(30,30,30,0.92)] border-t border-border">
               <Link
                 to="/collection"
                 className="block px-3 py-2 text-foreground hover:text-brand-purple transition-colors"

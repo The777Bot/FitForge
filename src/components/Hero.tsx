@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import heroImage from "@/assets/beigeblack.jpg";
-import FFlogo from "@/assets/FFlogo.jpeg";
+import FFlogo from "@/assets/FFlogo.png";
 
 const Hero = () => {
   const bgRef = useRef<HTMLDivElement>(null);
@@ -72,7 +72,7 @@ const Hero = () => {
         className={`relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center min-h-screen text-center ${contentVisible ? 'opacity-100' : 'opacity-0'}`}
         tabIndex={-1}
       >
-        <h1 className="text-6xl md:text-8xl lg:text-9xl font-black text-brand-light mb-8 leading-none tracking-tight animate-hero-slide-in flex flex-col items-center">
+        <h1 className="text-6xl md:text-8xl lg:text-9xl font-black text-brand-light mb-8 leading-none tracking-tight animate-hero-slide-in flex flex-col items-center" style={{ fontFamily: 'Ethnocentric Bold, Playfair Display, DM Serif Display, serif' }}>
           <span className="block mb-4">
             <img src={FFlogo} alt="FitForge Logo" className="mx-auto animate-bounce-slow rounded-full shadow-lg" style={{ width: '120px', height: '120px', objectFit: 'cover' }} />
           </span>

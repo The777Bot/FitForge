@@ -65,7 +65,7 @@ const ProductCard = ({
         <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0 group-focus:translate-y-0">
           <Button
             variant="hero"
-            className="w-full backdrop-blur-md rounded-2xl font-bold bg-[hsl(45,33%,80%)] text-[hsl(0,0%,10%)] border border-[hsl(45,33%,80%)] hover:bg-[hsl(45,33%,90%)] hover:text-[hsl(0,0%,0%)] transition animate-scale-in"
+            className="w-full backdrop-blur-md rounded-2xl font-bold bg-[hsl(45,33%,90%)] text-[hsl(0,0%,10%)] border border-[hsl(45,33%,90%)] hover:bg-[hsl(45,33%,95%)] hover:text-[hsl(0,0%,0%)] transition animate-scale-in"
             onClick={() => onAddToCart && onAddToCart({ id, name, price, image })}
             aria-label={`Add ${name} to cart`}
           >

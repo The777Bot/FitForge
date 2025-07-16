@@ -95,7 +95,7 @@ const Checkout = () => {
         </div>
         <button
           type="submit"
-          className="w-full py-3 rounded-lg bg-[hsl(45,33%,80%)] text-[hsl(0,0%,10%)] font-bold text-lg hover:bg-[hsl(45,33%,90%)] transition"
+          className="w-full py-3 rounded-lg bg-[hsl(45,33%,90%)] text-[hsl(0,0%,10%)] font-bold text-lg hover:bg-[hsl(45,33%,95%)] transition"
         >
           Place Order
         </button>

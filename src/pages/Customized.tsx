@@ -6,7 +6,9 @@ const Customized = () => {
   return (
     <div className="min-h-screen bg-background">
       <div className="max-w-4xl mx-auto py-16 px-4">
-        <h1 className="text-4xl md:text-6xl font-black text-foreground mb-8 text-center">Customized Clothing</h1>
+        <h1 className="text-4xl md:text-6xl font-black text-foreground mb-8 text-center" style={{ fontFamily: 'Ethnocentric Bold, Playfair Display, DM Serif Display, serif' }}>
+          Customized Clothing
+        </h1>
         <p className="text-xl text-muted-foreground mb-12 text-center">
           Explore our exclusive collection of Anime and Gaming inspired customized clothes. Unique designs, premium quality, and made for fans!
         </p>

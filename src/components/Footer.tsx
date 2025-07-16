@@ -10,14 +10,14 @@ const Footer = () => {
             <h3 className="text-2xl font-bold text-[hsl(45,33%,95%)]">
               FitForge
             </h3>
-            <p className="text-[hsl(45,33%,80%)]">
+            <p className="text-[hsl(45,33%,90%)]">
               Forge your style with premium streetwear and contemporary fashion.
             </p>
             <div className="flex space-x-4">
-              <Facebook className="h-5 w-5 text-[hsl(45,33%,80%)] hover:text-[hsl(45,33%,95%)] transition-colors cursor-pointer" />
-              <Instagram className="h-5 w-5 text-[hsl(45,33%,80%)] hover:text-[hsl(45,33%,95%)] transition-colors cursor-pointer" />
-              <Twitter className="h-5 w-5 text-[hsl(45,33%,80%)] hover:text-[hsl(45,33%,95%)] transition-colors cursor-pointer" />
-              <Youtube className="h-5 w-5 text-[hsl(45,33%,80%)] hover:text-[hsl(45,33%,95%)] transition-colors cursor-pointer" />
+              <Facebook className="h-5 w-5 text-[hsl(45,33%,90%)] hover:text-[hsl(45,33%,95%)] transition-colors cursor-pointer" />
+              <Instagram className="h-5 w-5 text-[hsl(45,33%,90%)] hover:text-[hsl(45,33%,95%)] transition-colors cursor-pointer" />
+              <Twitter className="h-5 w-5 text-[hsl(45,33%,90%)] hover:text-[hsl(45,33%,95%)] transition-colors cursor-pointer" />
+              <Youtube className="h-5 w-5 text-[hsl(45,33%,90%)] hover:text-[hsl(45,33%,95%)] transition-colors cursor-pointer" />
             </div>
           </div>
 
@@ -59,11 +59,11 @@ const Footer = () => {
 
         {/* Bottom */}
         <div className="border-t border-[hsl(45,33%,40%)] mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-[hsl(45,33%,80%)] text-sm">
+          <p className="text-[hsl(45,33%,90%)] text-sm">
             © 2024 FitForge. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <span className="text-[hsl(45,33%,80%)] text-sm">Payment methods:</span>
+            <span className="text-[hsl(45,33%,90%)] text-sm">Payment methods:</span>
             <div className="flex space-x-2">
               <div className="w-8 h-5 bg-[hsl(45,33%,40%)] rounded"></div>
               <div className="w-8 h-5 bg-[hsl(45,33%,40%)] rounded"></div>
