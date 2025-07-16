@@ -17,6 +17,7 @@ import Customized from "./pages/Customized";
 import { CartProvider } from "@/components/CartContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Checkout from "./pages/Checkout";
 
 const queryClient = new QueryClient();
 
@@ -39,6 +40,7 @@ const App = () => (
             <Route path="/sale" element={<Sale />} />
             <Route path="/unisex" element={<Unisex />} />
             <Route path="/customized" element={<Customized />} />
+            <Route path="/checkout" element={<Checkout />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

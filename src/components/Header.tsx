@@ -116,7 +116,17 @@ const Header = () => {
                 ))}
               </div>
             )}
-            <Button className="w-full mt-4" variant="hero" disabled={cartItems.length === 0}>Checkout</Button>
+            <Button
+              className="w-full mt-4"
+              variant="hero"
+              disabled={cartItems.length === 0}
+              onClick={() => {
+                setCartOpen(false);
+                window.location.href = '/checkout';
+              }}
+            >
+              Checkout
+            </Button>
           </div>
           <DrawerClose asChild>
             <Button variant="ghost" className="absolute top-4 right-4">Close</Button>
