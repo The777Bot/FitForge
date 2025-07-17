@@ -163,12 +163,12 @@ const Header = () => {
               Unisex
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-hero group-hover:w-full transition-all duration-300"></span>
             </Link>
-            <Link to="/customized" className="relative group text-foreground hover:text-brand-purple transition-all duration-300 font-medium">
-              Customized
+            <Link to="/weeb" className="relative group text-foreground hover:text-brand-purple transition-all duration-300 font-medium">
+              Weeb
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-hero group-hover:w-full transition-all duration-300"></span>
             </Link>
-            <Link to="/sale" className="relative group text-foreground hover:text-brand-purple transition-all duration-300 font-medium">
-              Sale
+            <Link to="/customized" className="relative group text-foreground hover:text-brand-purple transition-all duration-300 font-medium">
+              Customized
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-premium group-hover:w-full transition-all duration-300"></span>
             </Link>
           </nav>
@@ -235,18 +235,18 @@ const Header = () => {
                 Unisex
               </Link>
               <Link
+                to="/weeb"
+                className="block px-3 py-2 text-foreground hover:text-brand-purple transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Weeb
+              </Link>
+              <Link
                 to="/customized"
                 className="block px-3 py-2 text-foreground hover:text-brand-purple transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Customized
-              </Link>
-              <Link
-                to="/sale"
-                className="block px-3 py-2 text-foreground hover:text-brand-purple transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Sale
               </Link>
               <div className="flex items-center space-x-4 px-3 py-2">
                 <Button variant="ghost" size="icon" onClick={() => setSearchOpen(true)}>
