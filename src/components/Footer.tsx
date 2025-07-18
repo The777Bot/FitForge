@@ -7,9 +7,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="space-y-4">
-            <h3 className="text-2xl font-bold text-[hsl(45,33%,95%)]">
-              FitForge
-            </h3>
+            <h3 className="text-2xl font-bold text-[hsl(45,33%,95%)]">FitForge</h3>
             <p className="text-[hsl(45,33%,90%)]">
               Forge your style with premium streetwear and contemporary fashion.
             </p>
@@ -60,7 +58,7 @@ const Footer = () => {
         {/* Bottom */}
         <div className="border-t border-[hsl(45,33%,40%)] mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-[hsl(45,33%,90%)] text-sm">
-            © 2024 FitForge. All rights reserved.
+            © 2025 FitForge. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <span className="text-[hsl(45,33%,90%)] text-sm">Payment methods:</span>
