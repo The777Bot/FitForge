@@ -7,11 +7,28 @@ import heroImage2 from "@/assets/beigeblack2.png";
 import FFlogo from "@/assets/FFlogo.png";
 import { Switch } from "@/components/ui/switch";
 
+// Typewriter effect hook
+function useTypewriter(text: string, speed = 60) {
+  const [displayed, setDisplayed] = useState("");
+  useEffect(() => {
+    setDisplayed("");
+    let i = 0;
+    const interval = setInterval(() => {
+      setDisplayed((prev) => prev + text[i]);
+      i++;
+      if (i >= text.length) clearInterval(interval);
+    }, speed);
+    return () => clearInterval(interval);
+  }, [text, speed]);
+  return displayed;
+}
+
 const Hero = () => {
   const bgRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const [contentVisible, setContentVisible] = useState(false);
   const { heroBg, toggleHeroBg } = useHeroBg();
+  const tagline = useTypewriter("Luxury streetwear, crafted for royalty.", 40);
 
   // Parallax effect
   useEffect(() => {
@@ -75,10 +92,13 @@ const Hero = () => {
         ref={contentRef}
         className={`relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center min-h-screen text-center ${contentVisible ? 'opacity-100' : 'opacity-0'}`}
         tabIndex={-1}
+        aria-label="FitForge Hero Content"
       >
-        <h1 className="text-6xl md:text-8xl lg:text-9xl font-black text-brand-light mb-8 leading-none tracking-tight animate-hero-slide-in flex flex-col items-center" style={{ fontFamily: 'Ethnocentric Bold, Playfair Display, DM Serif Display, serif' }}>
+        {/* Glassmorphism background */}
+        <div className="absolute inset-0 mx-auto max-w-3xl h-full rounded-3xl bg-white/30 backdrop-blur-xl shadow-2xl border border-white/40 z-[-1]" aria-hidden="true"></div>
+        <h1 className="text-6xl md:text-8xl lg:text-9xl font-black text-brand-light mb-8 leading-tight tracking-tight animate-hero-slide-in flex flex-col items-center animate-float-slow" style={{ fontFamily: 'Ethnocentric Bold, Playfair Display, DM Serif Display, serif' }}>
           <span className="block mb-4">
-            <img src={FFlogo} alt="FitForge Logo" className="mx-auto animate-bounce-slow rounded-full shadow-lg" style={{ width: '120px', height: '120px', objectFit: 'cover' }} />
+            <img src={FFlogo} alt="FitForge Logo" className="mx-auto animate-bounce-slow rounded-full shadow-2xl border-4 border-white/70" style={{ width: '120px', height: '120px', objectFit: 'cover', boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)' }} />
           </span>
           Forge
           <span
@@ -87,8 +107,11 @@ const Hero = () => {
             Your Style
           </span>
         </h1>
-        {/* Tagline/subtitle for extra brand messaging */}
-        <div className="text-lg md:text-2xl text-brand-light/80 font-serif italic mb-8 animate-hero-fade-in-delay2">Luxury streetwear, crafted for royalty.</div>
+        {/* Tagline/subtitle for extra brand messaging with typewriter effect */}
+        <div className="text-lg md:text-2xl text-brand-light/80 font-serif italic mb-8 animate-hero-fade-in-delay2 min-h-[2.5em] mt-8">
+          {tagline}
+          <span className="inline-block w-2 h-6 align-middle bg-brand-light/80 animate-typewriter-cursor ml-1" />
+        </div>
 
         {/* On/Off Switch for Hero BG */}
         <div className="flex flex-col items-center mb-6">
@@ -98,6 +121,7 @@ const Hero = () => {
               checked={heroBg === 'beigeblack2.png'}
               onCheckedChange={toggleHeroBg}
               className="data-[state=checked]:bg-gradient-to-r data-[state=checked]:from-[hsl(45,33%,40%)] data-[state=checked]:to-[hsl(45,33%,60%)] data-[state=unchecked]:bg-gradient-to-r data-[state=unchecked]:from-brand-purple data-[state=unchecked]:to-brand-blue border-2 border-brand-dark shadow focus:ring-2 focus:ring-brand-purple transition-all duration-300"
+              aria-label="Toggle hero background"
             />
             <span className="text-sm font-semibold text-black select-none">Black</span>
           </div>
@@ -105,11 +129,18 @@ const Hero = () => {
 
         <Button
           onClick={scrollToFeatured}
-          className="relative inline-flex items-center px-6 py-3 text-lg font-semibold text-brand-dark bg-brand-light rounded-full shadow-md hover:bg-brand-light/90 transition-all duration-300 group"
+          className="relative inline-flex items-center px-6 py-3 text-lg font-semibold text-brand-dark bg-brand-light rounded-full shadow-md hover:bg-brand-light/90 transition-all duration-300 group focus:ring-2 focus:ring-brand-purple focus:outline-none before:absolute before:inset-0 before:rounded-full before:opacity-0 before:transition-opacity before:duration-300 before:bg-gradient-to-r before:from-brand-purple/30 before:to-brand-light/30 hover:before:opacity-100"
+          aria-label="Scroll to featured collection"
         >
           Discover More
           <ArrowRight className="w-5 h-5 ml-2 transition-transform duration-300 transform group-hover:translate-x-1" />
         </Button>
+
+        {/* Animated scroll indicator */}
+        <div className="absolute left-1/2 -translate-x-1/2 bottom-8 flex flex-col items-center z-20" aria-hidden="true">
+          <span className="block w-2 h-8 rounded-full bg-brand-dark/40 animate-scroll-bounce mb-1"></span>
+          <span className="text-xs text-brand-dark/70 font-semibold tracking-wide">Scroll</span>
+        </div>
       </div>
     </section>
   );

@@ -9,26 +9,49 @@ const premadeDesigns = [
   { id: 4, name: "Retro Console", img: "/placeholder.svg" },
 ];
 
-const colorOptions = ["Black", "White", "Beige", "Pink", "Blue"];
+// Modern, full color palette
+const colorOptions = [
+  { name: "Black", code: "#000000" },
+  { name: "White", code: "#FFFFFF", border: true },
+  { name: "Beige", code: "#e7dbc7" },
+  { name: "Cream", code: "#f8f6f1" },
+  { name: "Brown", code: "#8d6748" },
+  { name: "Red", code: "#ef4444" },
+  { name: "Orange", code: "#fb923c" },
+  { name: "Yellow", code: "#fde047" },
+  { name: "Green", code: "#22c55e" },
+  { name: "Teal", code: "#14b8a6" },
+  { name: "Blue", code: "#3b82f6" },
+  { name: "Indigo", code: "#6366f1" },
+  { name: "Purple", code: "#a21caf" },
+  { name: "Pink", code: "#ec4899" },
+  { name: "Gray", code: "#6b7280" }
+];
 const sizeOptions = ["S", "M", "L", "XL", "XXL"];
 
 const Customized: React.FC = () => {
   const [uploadedDesign, setUploadedDesign] = useState<string | null>(null);
   const [selectedPremade, setSelectedPremade] = useState<number | null>(null);
-  const [color, setColor] = useState(colorOptions[0]);
+  const [color, setColor] = useState(colorOptions[0].name);
   const [size, setSize] = useState(sizeOptions[0]);
   const { setLoading } = useLoader();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUpload = (input: React.ChangeEvent<HTMLInputElement> | FileList) => {
     setLoading(true);
-    if (e.target.files && e.target.files[0]) {
+    let files: FileList | null = null;
+    if (input instanceof FileList) {
+      files = input;
+    } else if (input.target.files) {
+      files = input.target.files;
+    }
+    if (files && files[0]) {
       const reader = new FileReader();
       reader.onload = (ev) => {
         setUploadedDesign(ev.target?.result as string);
         setLoading(false);
       };
-      reader.readAsDataURL(e.target.files[0]);
+      reader.readAsDataURL(files[0]);
     } else {
       setLoading(false);
     }
@@ -38,7 +61,7 @@ const Customized: React.FC = () => {
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      handleUpload({ target: { files: e.dataTransfer.files } } as any);
+      handleUpload(e.dataTransfer.files);
     }
   };
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
@@ -47,7 +70,7 @@ const Customized: React.FC = () => {
   const resetAll = () => {
     setUploadedDesign(null);
     setSelectedPremade(null);
-    setColor(colorOptions[0]);
+    setColor(colorOptions[0].name);
     setSize(sizeOptions[0]);
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
@@ -127,19 +150,40 @@ const Customized: React.FC = () => {
               <div className="flex flex-col items-center gap-4">
                 <div className="flex gap-4 items-center">
                   <label className="font-semibold text-black">Color:</label>
-                  <div className="flex gap-2">
+                  <div className="flex flex-wrap gap-2 max-w-[320px]">
                     {colorOptions.map(opt => (
                       <button
-                        key={opt}
-                        className={`w-8 h-8 rounded-full border-2 ${color === opt ? 'border-black ring-2 ring-black' : 'border-[#b6a98c]'} flex items-center justify-center`}
-                        style={{ background: opt === 'Beige' ? '#e7dbc7' : opt.toLowerCase() }}
-                        onClick={() => setColor(opt)}
-                        title={opt}
+                        key={opt.name}
+                        className={`w-9 h-9 rounded-full border-2 shadow transition-all flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black relative
+                          ${color === opt.name ? 'ring-2 ring-black border-black scale-110' : (opt.border ? 'border-gray-300' : 'border-[#b6a98c]')} 
+                          hover:scale-105 active:scale-95
+                        `}
+                        style={{ background: opt.code }}
+                        onClick={() => setColor(opt.name)}
+                        title={opt.name}
+                        aria-label={opt.name}
+                        type="button"
+                        tabIndex={0}
                       >
-                        {color === opt && <span className="w-3 h-3 bg-black rounded-full"></span>}
+                        {/* Checkmark for selected color */}
+                        {color === opt.name && (
+                          <span className="absolute text-white text-lg pointer-events-none select-none">
+                            <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M5 10.5L9 14.5L15 7.5" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                          </span>
+                        )}
+                        {/* White/cream swatch border for visibility */}
+                        {(opt.name === 'White' || opt.name === 'Cream') && (
+                          <span className="absolute w-8 h-8 rounded-full border border-gray-300 pointer-events-none"></span>
+                        )}
                       </button>
                     ))}
                   </div>
+                </div>
+                {/* Show selected color name below swatches */}
+                <div className="mt-2 text-sm text-black font-medium text-center w-full">
+                  Selected: <span className="font-bold">{color}</span>
                 </div>
                 <div className="flex gap-4 items-center">
                   <label className="font-semibold text-black">Size:</label>

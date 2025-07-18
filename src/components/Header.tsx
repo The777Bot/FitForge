@@ -46,11 +46,11 @@ const Header = () => {
   };
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 backdrop-blur-xl bg-[rgba(30,30,36,0.85)] shadow-xl border-b-0 before:content-[''] before:absolute before:inset-x-0 before:bottom-0 before:h-1 before:bg-gradient-to-r before:from-brand-purple before:via-[#e7dbc7] before:to-brand-purple before:rounded-b-xl before:blur-[2px] ${
       isScrolled 
-        ? 'bg-[linear-gradient(135deg,_hsl(0,0%,10%),_hsl(45,33%,80%))] border-b border-[hsl(45,33%,80%)] shadow-elegant' 
-        : 'bg-gradient-hero'
-    }`}>
+        ? 'bg-[linear-gradient(135deg,_hsl(0,0%,15%),_hsl(45,33%,30%))]/90 shadow-elegant border-b border-[hsl(45,33%,30%)]' 
+        : 'bg-gradient-hero/80'
+    }`} style={{boxShadow: '0 8px 32px 0 rgba(31,38,135,0.10)'}}>
       {/* Search Modal */}
       <Dialog open={searchOpen} onOpenChange={setSearchOpen}>
         <DialogContent className="max-w-xl">
@@ -141,49 +141,55 @@ const Header = () => {
           isScrolled ? 'h-14' : 'h-20'
         }`}>
           {/* Logo */}
-          <a href="/" className="logo flex items-center gap-2">
-            <span className="font-serif font-extrabold text-3xl">FitForge</span>
+          <a href="/" className="logo flex items-center gap-2 group relative">
+            <span className="relative">
+              {/* Beige inner ring behind logo */}
+              <span className="absolute inset-0 rounded-full bg-[#e7dbc7] scale-110 z-0"></span>
+              <img src={FFlogo} alt="FitForge Logo" className="w-12 h-12 rounded-full object-cover shadow-lg border-2 border-white/80 group-hover:scale-110 group-hover:shadow-xl transition-all duration-300 relative z-10" />
+              <span className="absolute inset-0 rounded-full ring-2 ring-brand-purple/40 group-hover:ring-4 group-hover:ring-brand-purple/80 animate-glow z-20" aria-hidden="true"></span>
+            </span>
+            <span className="font-serif font-extrabold text-3xl bg-gradient-to-r from-brand-purple via-[#e7dbc7] to-brand-purple bg-clip-text text-transparent drop-shadow-lg tracking-wider group-hover:scale-105 transition-transform duration-300">FitForge</span>
           </a>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link to="/collection" className="relative group text-foreground hover:text-brand-purple transition-all duration-300 font-medium">
+            {/* Add a subtle gradient underline and font enhancements */}
+            <Link to="/collection" className="relative group text-foreground hover:text-brand-purple transition-all duration-300 font-semibold tracking-wide text-lg px-2">
               Collection
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-hero group-hover:w-full transition-all duration-300"></span>
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-purple via-[#e7dbc7] to-brand-purple group-hover:w-full transition-all duration-300 rounded-full"></span>
             </Link>
-            <Link to="/men" className="relative group text-foreground hover:text-brand-purple transition-all duration-300 font-medium">
+            <Link to="/men" className="relative group text-foreground hover:text-brand-purple transition-all duration-300 font-semibold tracking-wide text-lg px-2">
               Men
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-hero group-hover:w-full transition-all duration-300"></span>
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-purple via-[#e7dbc7] to-brand-purple group-hover:w-full transition-all duration-300 rounded-full"></span>
             </Link>
-            <Link to="/women" className="relative group text-foreground hover:text-brand-purple transition-all duration-300 font-medium">
+            <Link to="/women" className="relative group text-foreground hover:text-brand-purple transition-all duration-300 font-semibold tracking-wide text-lg px-2">
               Women
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-hero group-hover:w-full transition-all duration-300"></span>
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-purple via-[#e7dbc7] to-brand-purple group-hover:w-full transition-all duration-300 rounded-full"></span>
             </Link>
-            <Link to="/unisex" className="relative group text-foreground hover:text-brand-purple transition-all duration-300 font-medium">
+            <Link to="/unisex" className="relative group text-foreground hover:text-brand-purple transition-all duration-300 font-semibold tracking-wide text-lg px-2">
               Unisex
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-hero group-hover:w-full transition-all duration-300"></span>
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-purple via-[#e7dbc7] to-brand-purple group-hover:w-full transition-all duration-300 rounded-full"></span>
             </Link>
-            <Link to="/customized" className="relative group text-foreground hover:text-brand-purple transition-all duration-300 font-medium">
+            <Link to="/customized" className="relative group text-foreground hover:text-brand-purple transition-all duration-300 font-semibold tracking-wide text-lg px-2">
               Customized
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-premium group-hover:w-full transition-all duration-300"></span>
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-purple via-[#e7dbc7] to-brand-purple group-hover:w-full transition-all duration-300 rounded-full"></span>
             </Link>
           </nav>
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-3">
-            <Button variant="ghost" size="icon" className="hover:bg-brand-purple/20 hover:scale-110 transition-all duration-300" onClick={() => setSearchOpen(true)}>
+            <Button variant="ghost" size="icon" className="hover:bg-brand-purple/20 hover:scale-110 transition-all duration-300 focus:ring-2 focus:ring-brand-purple">
               <Search className="h-5 w-5" />
             </Button>
-            <Button variant="ghost" size="icon" className="hover:bg-brand-purple/20 hover:scale-110 transition-all duration-300" onClick={() => setUserOpen(true)}>
+            <Button variant="ghost" size="icon" className="hover:bg-brand-purple/20 hover:scale-110 transition-all duration-300 focus:ring-2 focus:ring-brand-purple">
               <User className="h-5 w-5" />
             </Button>
-            <Button variant="ghost" size="icon" className="relative hover:bg-brand-purple/20 hover:scale-110 transition-all duration-300 group" onClick={() => setCartOpen(true)}>
+            <Button variant="ghost" size="icon" className="relative hover:bg-brand-purple/20 hover:scale-110 transition-all duration-300 group focus:ring-2 focus:ring-brand-purple">
               <ShoppingBag className="h-5 w-5" />
-              <span className="absolute -top-2 -right-2 bg-[hsl(45,33%,80%)] text-brand-dark text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold group-hover:scale-110 transition-transform duration-300 border border-[hsl(45,33%,56%)]">
+              <span className="absolute -top-2 -right-2 bg-gradient-to-br from-brand-purple via-[#e7dbc7] to-brand-purple text-brand-dark text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold group-hover:scale-110 transition-transform duration-300 border border-[hsl(45,33%,56%)] animate-bounce-badge shadow-lg">
                 +{cartCount}
               </span>
             </Button>
-            <img src={FFlogo} alt="FitForge Logo" className="w-10 h-10 rounded-full object-cover shadow-md ml-2" />
           </div>
 
           {/* Mobile menu button */}
