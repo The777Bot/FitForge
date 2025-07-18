@@ -90,14 +90,14 @@ const Hero = () => {
       {/* Animated Content + Side Image */}
       <div
         ref={contentRef}
-        className={`relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center min-h-screen text-center ${contentVisible ? 'opacity-100' : 'opacity-0'}`}
+        className={`relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center min-h-screen text-center pt-16 md:pt-24 ${contentVisible ? 'opacity-100' : 'opacity-0'}`}
         tabIndex={-1}
         aria-label="FitForge Hero Content"
       >
         {/* Glassmorphism background */}
         <div className="absolute inset-0 mx-auto max-w-3xl h-full rounded-3xl bg-white/30 backdrop-blur-xl shadow-2xl border border-white/40 z-[-1]" aria-hidden="true"></div>
         <h1 className="text-6xl md:text-8xl lg:text-9xl font-black text-brand-light mb-8 leading-tight tracking-tight animate-hero-slide-in flex flex-col items-center animate-float-slow" style={{ fontFamily: 'Ethnocentric Bold, Playfair Display, DM Serif Display, serif' }}>
-          <span className="block mb-4">
+          <span className="block mb-4 pt-6 md:pt-8">
             <img src={FFlogo} alt="FitForge Logo" className="mx-auto animate-bounce-slow rounded-full shadow-2xl border-4 border-white/70" style={{ width: '120px', height: '120px', objectFit: 'cover', boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)' }} />
           </span>
           Forge
@@ -135,12 +135,6 @@ const Hero = () => {
           Discover More
           <ArrowRight className="w-5 h-5 ml-2 transition-transform duration-300 transform group-hover:translate-x-1" />
         </Button>
-
-        {/* Animated scroll indicator */}
-        <div className="absolute left-1/2 -translate-x-1/2 bottom-8 flex flex-col items-center z-20" aria-hidden="true">
-          <span className="block w-2 h-8 rounded-full bg-brand-dark/40 animate-scroll-bounce mb-1"></span>
-          <span className="text-xs text-brand-dark/70 font-semibold tracking-wide">Scroll</span>
-        </div>
       </div>
     </section>
   );
