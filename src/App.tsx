@@ -65,7 +65,7 @@ const App = () => {
                   <Footer />
                   {/* WhatsApp Floating Button */}
                   <a
-                    href="https://wa.me/923302255220"
+                    href="https://wa.me/923392183002"
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Chat with us on WhatsApp"

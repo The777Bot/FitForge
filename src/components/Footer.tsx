@@ -1,4 +1,4 @@
-import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
+import { Facebook, Instagram, Twitter, Youtube, Mail } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -11,6 +11,7 @@ const Footer = () => {
             <p className="text-[hsl(45,33%,90%)]">
               Forge your style with premium streetwear and contemporary fashion.
             </p>
+            <a href="mailto:fitforge.pk@gmail.com" className="block text-[hsl(45,33%,95%)] font-semibold underline underline-offset-2 hover:text-brand-purple transition-colors">fitforge.pk@gmail.com</a>
             <div className="flex space-x-4">
               <Facebook className="h-5 w-5 text-[hsl(45,33%,90%)] hover:text-[hsl(45,33%,95%)] transition-colors cursor-pointer" />
               <Instagram className="h-5 w-5 text-[hsl(45,33%,90%)] hover:text-[hsl(45,33%,95%)] transition-colors cursor-pointer" />
@@ -35,6 +36,7 @@ const Footer = () => {
           <div className="space-y-4">
             <h4 className="font-semibold text-[hsl(45,33%,95%)]">Support</h4>
             <ul className="space-y-2">
+              <li><a href="mailto:fitforge.pk@gmail.com" className="text-[hsl(45,33%,90%)] hover:text-brand-purple transition-colors">Email: fitforge.pk@gmail.com</a></li>
               <li><a href="#" className="text-[hsl(45,33%,90%)] hover:text-brand-purple transition-colors">Size Guide</a></li>
               <li><a href="#" className="text-[hsl(45,33%,90%)] hover:text-brand-purple transition-colors">Shipping</a></li>
               <li><a href="#" className="text-[hsl(45,33%,90%)] hover:text-brand-purple transition-colors">Returns</a></li>
@@ -56,7 +58,7 @@ const Footer = () => {
         </div>
 
         {/* Bottom */}
-        <div className="border-t border-[hsl(45,33%,40%)] mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+        <div className="border-t border-[hsl(45,33%,40%)] mt-12 pt-8 flex flex-col md:flex-row justify-between items-center relative">
           <p className="text-[hsl(45,33%,90%)] text-sm">
             © 2025 FitForge. All rights reserved.
           </p>
@@ -68,6 +70,15 @@ const Footer = () => {
               <div className="w-8 h-5 bg-[hsl(45,33%,40%)] rounded"></div>
             </div>
           </div>
+          <a
+            href="mailto:ubadahme@gmail.com"
+            className="absolute right-4 bottom-4 md:static md:ml-auto text-xs md:text-sm text-[hsl(45,33%,90%)] bg-[hsl(0,0%,10%)] px-4 py-2 rounded-full shadow-lg hover:bg-[hsl(45,33%,90%)] hover:text-[hsl(0,0%,5%)] transition-all duration-300 font-semibold flex items-center group border border-[hsl(45,33%,90%)] hover:shadow-2xl hover:shadow-brand-purple/40"
+            style={{ letterSpacing: '0.05em', boxShadow: '0 2px 12px 0 hsl(45,33%,80%,0.15)' }}
+            title="Contact the developer"
+          >
+            <Mail className="inline-block w-4 h-4 mr-2 group-hover:text-[hsl(0,0%,5%)] transition-all duration-300" />
+            Developed by <span className="underline underline-offset-2 ml-1">ubadahme@gmail.com</span>
+          </a>
         </div>
       </div>
     </footer>
