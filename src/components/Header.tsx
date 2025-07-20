@@ -16,7 +16,7 @@ import {
   DrawerTitle,
   DrawerClose,
 } from "@/components/ui/drawer";
-import { CartContext } from "@/components/CartContext";
+import { CartContext, CartUIContext } from "@/components/CartContext";
 import { useHeroBg } from "@/components/HeroBgContext";
 import FFlogo from "@/assets/FFlogo.png";
 
@@ -25,9 +25,9 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
-  const [cartOpen, setCartOpen] = useState(false);
   const { cartCount, cartItems, removeFromCart } = useContext(CartContext);
   const { heroBg, toggleHeroBg } = useHeroBg();
+  const { cartOpen, setCartOpen } = useContext(CartUIContext);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -184,7 +184,7 @@ const Header = () => {
             <Button variant="ghost" size="icon" className="hover:bg-brand-purple/20 hover:scale-110 transition-all duration-300 focus:ring-2 focus:ring-brand-purple">
               <User className="h-5 w-5" />
             </Button>
-            <Button variant="ghost" size="icon" className="relative hover:bg-brand-purple/20 hover:scale-110 transition-all duration-300 group focus:ring-2 focus:ring-brand-purple">
+            <Button variant="ghost" size="icon" className="relative hover:bg-brand-purple/20 hover:scale-110 transition-all duration-300 group focus:ring-2 focus:ring-brand-purple" onClick={() => setCartOpen(true)}>
               <ShoppingBag className="h-5 w-5" />
               <span className="absolute -top-2 -right-2 bg-gradient-to-br from-brand-purple via-[#e7dbc7] to-brand-purple text-brand-dark text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold group-hover:scale-110 transition-transform duration-300 border border-[hsl(45,33%,56%)] animate-bounce-badge shadow-lg">
                 +{cartCount}

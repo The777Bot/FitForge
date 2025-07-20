@@ -3,8 +3,9 @@ import { allProducts } from "@/assets/products";
 import { Button } from "@/components/ui/button";
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { X } from "lucide-react";
+import { CartContext, CartUIContext } from "@/components/CartContext";
 
 const SIZES = ["XS", "S", "M", "L", "XL"];
 const COLORS = ["Black", "White", "Beige", "Purple"];
@@ -12,10 +13,13 @@ const COLORS = ["Black", "White", "Beige", "Purple"];
 const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { addToCart } = useContext(CartContext);
+  const { setCartOpen } = useContext(CartUIContext);
   const product = allProducts.find((p) => p.id === id);
   const [size, setSize] = useState<string>("");
   const [color, setColor] = useState<string>("");
   const [quantity, setQuantity] = useState<number>(1);
+  const [added, setAdded] = useState(false);
 
   if (!product) {
     return (
@@ -25,6 +29,20 @@ const ProductDetails = () => {
       </div>
     );
   }
+
+  const handleAddToCart = () => {
+    for (let i = 0; i < quantity; i++) {
+      addToCart({
+        id: product.id + (size ? `-${size}` : "") + (color ? `-${color}` : ""),
+        name: `${product.name}${size ? ` (${size}` : ""}${color ? `, ${color}` : ""}${size ? ")" : ""}`,
+        price: product.price,
+        image: product.image,
+      });
+    }
+    setAdded(true);
+    setCartOpen(true);
+    setTimeout(() => setAdded(false), 1500);
+  };
 
   return (
     <div
@@ -116,9 +134,9 @@ const ProductDetails = () => {
               size="lg"
               className="mt-2 w-full md:w-auto"
               disabled={!size || !color}
-              onClick={() => {/* Add to cart logic here */}}
+              onClick={handleAddToCart}
             >
-              Add to Cart
+              {added ? "Added!" : "Add to Cart"}
             </Button>
           </div>
           {/* Description or more details can go here */}

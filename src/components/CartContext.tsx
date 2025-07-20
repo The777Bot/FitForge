@@ -94,3 +94,23 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     </CartContext.Provider>
   );
 };
+
+// Cart UI Context for global cart drawer state
+interface CartUIContextType {
+  cartOpen: boolean;
+  setCartOpen: (open: boolean) => void;
+}
+
+export const CartUIContext = createContext<CartUIContextType>({
+  cartOpen: false,
+  setCartOpen: () => {},
+});
+
+export const CartUIProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [cartOpen, setCartOpen] = useState(false);
+  return (
+    <CartUIContext.Provider value={{ cartOpen, setCartOpen }}>
+      {children}
+    </CartUIContext.Provider>
+  );
+};
