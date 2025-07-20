@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { useHeroBg } from "@/components/HeroBgContext";
 import heroImage1 from "@/assets/beigeblack.jpg";
 import heroImage2 from "@/assets/beigeblack2.png";
+import heroVideo from "@/assets/hero-back.mp4";
 import FFlogo from "@/assets/FFlogo.png";
 import { Switch } from "@/components/ui/switch";
 
@@ -68,15 +69,27 @@ const Hero = () => {
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
       aria-label="Hero section"
     >
-      {/* Parallax Background Image */}
+      {/* Video Background */}
+      <video
+        className="absolute inset-0 w-full h-full object-cover z-0"
+        src={heroVideo}
+        autoPlay
+        loop
+        muted
+        playsInline
+        aria-hidden="true"
+      />
+      {/* Parallax Background Image (fallback, can be removed if not needed) */}
+      {/*
       <div
         ref={bgRef}
-        className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat will-change-transform transition-transform duration-700"
-        style={{ backgroundImage: `url(${heroBg === 'beigeblack.jpg' ? heroImage1 : heroImage2})` }}
+        className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat will-change-transform transition-transform duration-700 z-10"
+        style={{ backgroundImage: `url(${heroBg === 'beigeblack.jpg' ? heroImage1 : heroImage2})`, opacity: 0.5 }}
         aria-hidden="true"
       >
         <div className="absolute inset-0 bg-gradient-to-r from-brand-dark/80 via-brand-dark/60 to-transparent" />
       </div>
+      */}
 
       {/* Animated Sparkle/Glow Background */}
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
