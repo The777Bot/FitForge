@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { Button } from "@/components/ui/button";
-import { ShoppingBag, Menu, X, Search, User } from "lucide-react";
+import { ShoppingBag, Menu, X, Search, User, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
 import {
   Dialog,
@@ -25,6 +25,9 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
+  const [loginOpen, setLoginOpen] = useState(false);
+  const [loginEmail, setLoginEmail] = useState("");
+  const [currentUser, setCurrentUser] = useState<string | null>(null);
   const { cartCount, cartItems, removeFromCart } = useContext(CartContext);
   const { heroBg, toggleHeroBg } = useHeroBg();
   const { cartOpen, setCartOpen } = useContext(CartUIContext);
@@ -36,6 +39,25 @@ const Header = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("currentUserEmail");
+    if (saved) setCurrentUser(saved);
+  }, []);
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (loginEmail) {
+      localStorage.setItem("currentUserEmail", loginEmail);
+      setCurrentUser(loginEmail);
+      setLoginOpen(false);
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("currentUserEmail");
+    setCurrentUser(null);
+  };
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -136,6 +158,25 @@ const Header = () => {
           </DrawerClose>
         </DrawerContent>
       </Drawer>
+      {/* Login Modal */}
+      <Dialog open={loginOpen} onOpenChange={setLoginOpen}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Login</DialogTitle>
+          </DialogHeader>
+          <form onSubmit={handleLogin} className="space-y-4">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              className="w-full p-3 rounded-lg border border-border bg-muted/30 text-lg focus:outline-none focus:ring-2 focus:ring-brand-purple"
+              value={loginEmail}
+              onChange={e => setLoginEmail(e.target.value)}
+              required
+            />
+            <Button type="submit" className="w-full" variant="brand">Login</Button>
+          </form>
+        </DialogContent>
+      </Dialog>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`flex items-center justify-between transition-all duration-300 ${
           isScrolled ? 'h-14' : 'h-20'
@@ -174,6 +215,10 @@ const Header = () => {
               Customized
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-purple via-[#e7dbc7] to-brand-purple group-hover:w-full transition-all duration-300 rounded-full"></span>
             </Link>
+            <Link to="/order-history" className="relative group text-foreground hover:text-brand-purple transition-all duration-300 font-semibold tracking-wide text-lg px-2">
+              Order History
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-purple via-[#e7dbc7] to-brand-purple group-hover:w-full transition-all duration-300 rounded-full"></span>
+            </Link>
           </nav>
 
           {/* Desktop Actions */}
@@ -184,6 +229,24 @@ const Header = () => {
             <Button variant="ghost" size="icon" className="hover:bg-brand-purple/20 hover:scale-110 transition-all duration-300 focus:ring-2 focus:ring-brand-purple">
               <User className="h-5 w-5" />
             </Button>
+            {currentUser ? (
+              <span className="text-sm font-semibold text-brand-light bg-brand-dark/80 px-3 py-1 rounded-full mr-2">{currentUser}</span>
+            ) : (
+              <Button variant="ghost" size="sm" className="text-xs px-3 py-1 border border-brand-purple" onClick={() => setLoginOpen(true)}>
+                Login
+              </Button>
+            )}
+            {currentUser && (
+              <Button variant="ghost" size="sm" className="text-xs px-3 py-1 border border-brand-purple" onClick={handleLogout}>
+                Logout
+              </Button>
+            )}
+            <Link to="/order-history">
+              <Button variant="ghost" size="icon" className="relative hover:bg-brand-purple/20 hover:scale-110 transition-all duration-300 group focus:ring-2 focus:ring-brand-purple">
+                <Clock className="h-5 w-5" />
+                <span className="sr-only">Order History</span>
+              </Button>
+            </Link>
             <Button variant="ghost" size="icon" className="relative hover:bg-brand-purple/20 hover:scale-110 transition-all duration-300 group focus:ring-2 focus:ring-brand-purple" onClick={() => setCartOpen(true)}>
               <ShoppingBag className="h-5 w-5" />
               <span className="absolute -top-2 -right-2 bg-gradient-to-br from-brand-purple via-[#e7dbc7] to-brand-purple text-brand-dark text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold group-hover:scale-110 transition-transform duration-300 border border-[hsl(45,33%,56%)] animate-bounce-badge shadow-lg">

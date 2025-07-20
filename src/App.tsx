@@ -23,6 +23,7 @@ import { LoaderProvider } from "@/components/LoaderContext";
 import Loader from "@/components/Loader";
 import { useLoader } from "@/components/LoaderContext";
 import ProductDetails from "./pages/ProductDetails";
+import OrderHistory from "./pages/OrderHistory";
 
 const queryClient = new QueryClient();
 
@@ -57,6 +58,7 @@ const App = () => {
                     <Route path="/customized" element={<Customized />} />
                     <Route path="/checkout" element={<Checkout />} />
                     <Route path="/product/:id" element={<ProductDetails />} />
+                    <Route path="/order-history" element={<OrderHistory />} />
                     {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                     <Route path="*" element={<NotFound />} />
                   </Routes>
