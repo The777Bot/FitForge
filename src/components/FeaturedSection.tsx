@@ -1,54 +1,12 @@
 import { Button } from "@/components/ui/button";
 import ProductCard from "./ProductCard";
-import featuredImage from "@/assets/featured-collection.jpg";
+import { featuredProducts } from "@/assets/products";
 
 interface FeaturedSectionProps {
   onAddToCart?: (product: { id: string; name: string; price: number; image: string }) => void;
 }
 
 const FeaturedSection = ({ onAddToCart }: FeaturedSectionProps) => {
-  // Mock product data
-  const featuredProducts = [
-    {
-      id: "1",
-      name: "Urban Bomber Jacket",
-      price: 89,
-      originalPrice: 120,
-      image: featuredImage,
-      category: "Outerwear",
-      isNew: true,
-      isSale: true
-    },
-    {
-      id: "2",
-      name: "Classic Hoodie",
-      price: 65,
-      image: featuredImage,
-      category: "Hoodies",
-      isNew: false,
-      isSale: false
-    },
-    {
-      id: "3",
-      name: "Slim Fit Jeans",
-      price: 78,
-      image: featuredImage,
-      category: "Denim",
-      isNew: true,
-      isSale: false
-    },
-    {
-      id: "4",
-      name: "Streetwear Tee",
-      price: 35,
-      originalPrice: 45,
-      image: featuredImage,
-      category: "T-Shirts",
-      isNew: false,
-      isSale: true
-    }
-  ];
-
   return (
     <section id="featured" className="py-20 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">

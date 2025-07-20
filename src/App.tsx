@@ -22,6 +22,7 @@ import { HeroBgProvider } from "@/components/HeroBgContext";
 import { LoaderProvider } from "@/components/LoaderContext";
 import Loader from "@/components/Loader";
 import { useLoader } from "@/components/LoaderContext";
+import ProductDetails from "./pages/ProductDetails";
 
 const queryClient = new QueryClient();
 
@@ -54,6 +55,7 @@ const App = () => {
                   <Route path="/unisex" element={<Unisex />} />
                   <Route path="/customized" element={<Customized />} />
                   <Route path="/checkout" element={<Checkout />} />
+                  <Route path="/product/:id" element={<ProductDetails />} />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
                 </Routes>
