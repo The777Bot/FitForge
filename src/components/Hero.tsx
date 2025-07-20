@@ -107,13 +107,19 @@ const Hero = () => {
         tabIndex={-1}
         aria-label="FitForge Hero Content"
       >
-        {/* Glassmorphism background */}
-        <div className="absolute inset-0 mx-auto max-w-3xl h-full rounded-3xl bg-white/30 backdrop-blur-xl shadow-2xl border border-white/40 z-[-1]" aria-hidden="true"></div>
-        <h1 className="text-6xl md:text-8xl lg:text-9xl font-black text-brand-light mb-8 leading-tight tracking-tight animate-hero-slide-in flex flex-col items-center animate-float-slow" style={{ fontFamily: 'Ethnocentric Bold, Playfair Display, DM Serif Display, serif' }}>
-          <span className="block mb-4 pt-6 md:pt-8">
+        {/* Glassmorphism background removed */}
+        {/* <div className="absolute inset-0 mx-auto max-w-3xl h-full rounded-3xl bg-white/30 backdrop-blur-xl shadow-2xl border border-white/40 z-[-1]" aria-hidden="true"></div> */}
+        <h1 className="text-6xl md:text-8xl lg:text-9xl font-black text-white mb-8 leading-tight tracking-tight animate-hero-slide-in flex flex-col items-center animate-float-slow" style={{ fontFamily: 'Ethnocentric Bold, Playfair Display, DM Serif Display, serif' }}>
+          <span className="block mb-4 pt-6 md:pt-8 relative">
             <img src={FFlogo} alt="FitForge Logo" className="mx-auto animate-bounce-slow rounded-full shadow-2xl border-4 border-white/70" style={{ width: '120px', height: '120px', objectFit: 'cover', boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)' }} />
+            {/* Glowing circle behind logo, color changes with toggle */}
+            <span
+              className={`absolute inset-0 rounded-full z-[-1] blur-2xl opacity-70 animate-pulse-slow ${heroBg === 'beigeblack.jpg' ? 'bg-yellow-200' : 'bg-gray-200'}`}
+              style={{ boxShadow: heroBg === 'beigeblack.jpg' ? '0 0 60px 20px #f7e9b0' : '0 0 60px 20px #e5e7eb' }}
+              aria-hidden="true"
+            />
           </span>
-          Forge
+          <span className="text-white">Forge</span>
           <span
             className={`block bg-clip-text text-transparent animate-hero-slide-in-delay ${heroBg === 'beigeblack.jpg' ? 'bg-gradient-hero' : 'bg-gradient-to-r from-[hsl(45,33%,40%)] via-[hsl(45,33%,50%)] to-[hsl(45,33%,40%)]'}`}
           >
@@ -121,9 +127,9 @@ const Hero = () => {
           </span>
         </h1>
         {/* Tagline/subtitle for extra brand messaging with typewriter effect */}
-        <div className="text-lg md:text-2xl text-brand-light/80 font-serif italic mb-8 animate-hero-fade-in-delay2 min-h-[2.5em] mt-8">
+        <div className="text-lg md:text-2xl text-white font-serif italic mb-8 animate-hero-fade-in-delay2 min-h-[2.5em] mt-8">
           {tagline}
-          <span className="inline-block w-2 h-6 align-middle bg-brand-light/80 animate-typewriter-cursor ml-1" />
+          <span className="inline-block w-2 h-6 align-middle bg-white animate-typewriter-cursor ml-1" />
         </div>
 
         {/* On/Off Switch for Hero BG */}
