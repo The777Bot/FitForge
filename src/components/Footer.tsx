@@ -72,7 +72,7 @@ const Footer = () => {
           </div>
           <a
             href="mailto:ubadahme@gmail.com"
-            className="absolute right-4 bottom-4 md:static md:ml-auto text-xs md:text-sm text-[hsl(45,33%,90%)] bg-[hsl(0,0%,10%)] px-4 py-2 rounded-full shadow-lg hover:bg-[hsl(45,33%,90%)] hover:text-[hsl(0,0%,5%)] transition-all duration-300 font-semibold flex items-center group border border-[hsl(45,33%,90%)] hover:shadow-2xl hover:shadow-brand-purple/40"
+            className="relative md:static md:ml-auto text-xs md:text-sm text-[hsl(45,33%,90%)] bg-[hsl(0,0%,10%)] px-4 py-2 rounded-full shadow-lg hover:bg-[hsl(45,33%,90%)] hover:text-[hsl(0,0%,5%)] transition-all duration-300 font-semibold flex items-center group border border-[hsl(45,33%,90%)] hover:shadow-2xl hover:shadow-brand-purple/40 mt-4 md:mt-0 mx-auto md:mx-0"
             style={{ letterSpacing: '0.05em', boxShadow: '0 2px 12px 0 hsl(45,33%,80%,0.15)' }}
             title="Contact the developer"
           >
