@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { Button } from "@/components/ui/button";
 import { ShoppingBag, Menu, X, Search, User, Clock } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   Dialog,
   DialogContent,
@@ -34,6 +34,7 @@ const Header = () => {
   const { cartCount, cartItems, removeFromCart } = useContext(CartContext);
   const { heroBg, toggleHeroBg } = useHeroBg();
   const { cartOpen, setCartOpen } = useContext(CartUIContext);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -62,6 +63,10 @@ const Header = () => {
       )
     );
   }, [searchQuery]);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  }, [location]);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
