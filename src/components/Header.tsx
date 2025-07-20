@@ -19,6 +19,7 @@ import {
 import { CartContext, CartUIContext } from "@/components/CartContext";
 import { useHeroBg } from "@/components/HeroBgContext";
 import FFlogo from "@/assets/FFlogo.png";
+import { allProducts } from "@/assets/products";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -28,6 +29,8 @@ const Header = () => {
   const [loginOpen, setLoginOpen] = useState(false);
   const [loginEmail, setLoginEmail] = useState("");
   const [currentUser, setCurrentUser] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState<any[]>([]);
   const { cartCount, cartItems, removeFromCart } = useContext(CartContext);
   const { heroBg, toggleHeroBg } = useHeroBg();
   const { cartOpen, setCartOpen } = useContext(CartUIContext);
@@ -44,6 +47,21 @@ const Header = () => {
     const saved = localStorage.getItem("currentUserEmail");
     if (saved) setCurrentUser(saved);
   }, []);
+
+  useEffect(() => {
+    if (searchQuery.trim() === "") {
+      setSearchResults([]);
+      return;
+    }
+    const q = searchQuery.toLowerCase();
+    setSearchResults(
+      allProducts.filter(
+        (p) =>
+          p.name.toLowerCase().includes(q) ||
+          (p.category && p.category.toLowerCase().includes(q))
+      )
+    );
+  }, [searchQuery]);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -84,8 +102,35 @@ const Header = () => {
             type="text"
             placeholder="Search products..."
             className="w-full p-3 rounded-lg border border-border bg-muted/30 text-lg focus:outline-none focus:ring-2 focus:ring-brand-purple"
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value)}
           />
-          <div className="mt-4 text-muted-foreground text-sm">(Instant results and suggestions would appear here.)</div>
+          <div className="mt-4 text-muted-foreground text-sm">
+            {searchQuery && searchResults.length === 0 && (
+              <div>No products found.</div>
+            )}
+            {searchResults.length > 0 && (
+              <ul className="divide-y divide-border max-h-72 overflow-y-auto">
+                {searchResults.map((product) => (
+                  <li key={product.id}>
+                    <Link
+                      to={`/product/${product.id}`}
+                      className="flex items-center gap-4 px-2 py-3 hover:bg-muted/40 transition rounded-lg"
+                      onClick={() => setSearchOpen(false)}
+                    >
+                      <img src={product.image} alt={product.name} className="w-12 h-12 object-cover rounded-lg border border-border" />
+                      <div className="flex-1">
+                        <div className="font-semibold text-foreground">{product.name}</div>
+                        <div className="text-xs text-muted-foreground">{product.category}</div>
+                        <div className="text-sm font-bold text-brand-purple">${product.price}</div>
+                      </div>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {!searchQuery && <div>Type to search for products by name or category.</div>}
+          </div>
         </DialogContent>
       </Dialog>
       {/* User Modal */}
@@ -215,15 +260,11 @@ const Header = () => {
               Customized
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-purple via-[#e7dbc7] to-brand-purple group-hover:w-full transition-all duration-300 rounded-full"></span>
             </Link>
-            <Link to="/order-history" className="relative group text-foreground hover:text-brand-purple transition-all duration-300 font-semibold tracking-wide text-lg px-2">
-              Order History
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-purple via-[#e7dbc7] to-brand-purple group-hover:w-full transition-all duration-300 rounded-full"></span>
-            </Link>
           </nav>
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-3">
-            <Button variant="ghost" size="icon" className="hover:bg-brand-purple/20 hover:scale-110 transition-all duration-300 focus:ring-2 focus:ring-brand-purple">
+            <Button variant="ghost" size="icon" className="hover:bg-brand-purple/20 hover:scale-110 transition-all duration-300 focus:ring-2 focus:ring-brand-purple" onClick={() => setSearchOpen(true)}>
               <Search className="h-5 w-5" />
             </Button>
             <Button variant="ghost" size="icon" className="hover:bg-brand-purple/20 hover:scale-110 transition-all duration-300 focus:ring-2 focus:ring-brand-purple">
@@ -310,8 +351,11 @@ const Header = () => {
                 <Button variant="ghost" size="icon" onClick={() => setSearchOpen(true)}>
                   <Search className="h-5 w-5" />
                 </Button>
-                <Button variant="ghost" size="icon" onClick={() => setUserOpen(true)}>
+                <Button variant="ghost" size="icon" onClick={() => setLoginOpen(true)}>
                   <User className="h-5 w-5" />
+                </Button>
+                <Button variant="ghost" size="icon" onClick={() => window.location.href = '/order-history'}>
+                  <Clock className="h-5 w-5" />
                 </Button>
                 <Button variant="ghost" size="icon" className="relative" onClick={() => setCartOpen(true)}>
                   <ShoppingBag className="h-5 w-5" />
