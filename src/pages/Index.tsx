@@ -13,34 +13,32 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main>
-        <div className="flex flex-col">
+      <main className="flex flex-col">
         <Hero />
-          {/* Moving Red Headline Banner */}
-          <div className="w-full flex overflow-hidden py-2 bg-red-600">
-            <div className="flex whitespace-nowrap animate-marquee">
-              <span className="text-white font-bold text-lg tracking-wide py-2 px-12">
-                {bannerText}
-                <span className="mx-12">|</span>
-                {bannerText}
-                <span className="mx-12">|</span>
-                {bannerText}
-              </span>
-              <span className="text-white font-bold text-lg tracking-wide py-2 px-12">
-                {bannerText}
-                <span className="mx-12">|</span>
-                {bannerText}
-                <span className="mx-12">|</span>
-                {bannerText}
-              </span>
-            </div>
+        {/* Moving Red Headline Banner */}
+        <div className="w-full flex overflow-hidden py-2 bg-red-600">
+          <div className="flex whitespace-nowrap animate-marquee">
+            <span className="text-white font-bold text-lg tracking-wide py-2 px-12">
+              {bannerText}
+              <span className="mx-12">|</span>
+              {bannerText}
+              <span className="mx-12">|</span>
+              {bannerText}
+            </span>
+            <span className="text-white font-bold text-lg tracking-wide py-2 px-12">
+              {bannerText}
+              <span className="mx-12">|</span>
+              {bannerText}
+              <span className="mx-12">|</span>
+              {bannerText}
+            </span>
           </div>
-          <HeroSection2 />
         </div>
-        <div className="space-y-24">
-        <FeaturedSection onAddToCart={addToCart} />
-        <Categories />
-        <Newsletter />
+        <HeroSection2 />
+        <div className="bg-background">
+          <FeaturedSection onAddToCart={addToCart} />
+          <Categories />
+          <Newsletter />
         </div>
       </main>
     </div>
