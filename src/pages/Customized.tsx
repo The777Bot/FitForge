@@ -218,16 +218,16 @@ const Customized: React.FC = () => {
               variant="outline"
               size="icon"
               className="w-12 h-12"
-              onClick={() => fileInputRef.current?.click()}
-            >
+                onClick={() => fileInputRef.current?.click()}
+              >
               <Upload className="h-6 w-6" />
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                onChange={handleUpload}
-                className="hidden"
-              />
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={handleUpload}
+                  className="hidden"
+                />
             </Button>
             {/* Upload instructions below the button */}
             {!uploadedDesign && (
@@ -297,7 +297,7 @@ const Customized: React.FC = () => {
                     >
                       <svg width="14" height="14" viewBox="0 0 20 20"><path d="M3 17L17 3M17 17V3H3" stroke="#fff" strokeWidth="2" strokeLinecap="round"/></svg>
                     </div>
-                  </div>
+                </div>
                 ) : null}
               </div>
             </div>
@@ -307,39 +307,47 @@ const Customized: React.FC = () => {
             <div>
               <h3 className="font-semibold mb-3">Color</h3>
               <div className="flex gap-2">
-                {colorOptions.map(opt => (
-                  <button
-                    key={opt.name}
+                    {colorOptions.map(opt => (
+                      <button
+                        key={opt.name}
                     className={`w-10 h-10 rounded-full border-2 transition-all
                       ${color === opt.name ? 'ring-2 ring-primary border-primary scale-110' : 'border-muted'}
                       hover:scale-105`}
-                    style={{ background: opt.code }}
-                    onClick={() => setColor(opt.name)}
-                    title={opt.name}
+                        style={{ background: opt.code }}
+                        onClick={() => setColor(opt.name)}
+                        title={opt.name}
                   />
-                ))}
-              </div>
-            </div>
+                    ))}
+                  </div>
+                </div>
             <div>
               <h3 className="font-semibold mb-3">Size</h3>
               <div className="flex flex-wrap gap-2">
-                {sizeOptions.map(opt => (
-                  <button
-                    key={opt}
+                    {sizeOptions.map(opt => (
+                      <button
+                        key={opt}
                     className={`px-3 py-1 rounded-lg border-2 font-semibold 
                       ${size === opt ? 'bg-primary text-primary-foreground border-primary' : 'bg-background text-foreground border-muted'}
                       transition-colors`}
-                    onClick={() => setSize(opt)}
-                  >
-                    {opt}
-                  </button>
-                ))}
-              </div>
-            </div>
+                        onClick={() => setSize(opt)}
+                      >
+                        {opt}
+                      </button>
+                    ))}
+                  </div>
+                </div>
             <Button className="w-full" variant="default">
               Add to Cart
             </Button>
           </div>
+        </div>
+        </div>
+      {/* Anime & Gaming Explore Section */}
+      <div className="mt-20 flex flex-col items-center justify-center gap-8">
+        <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-2 text-center">Explore More Collections</h2>
+        <div className="flex flex-col md:flex-row gap-6">
+          <a href="/anime" className="px-8 py-4 rounded-xl bg-gradient-to-r from-pink-500 via-fuchsia-500 to-indigo-500 text-white font-bold text-lg shadow-lg hover:scale-105 transition-transform text-center">Anime Collection</a>
+          <a href="/gaming" className="px-8 py-4 rounded-xl bg-gradient-to-r from-blue-600 via-green-500 to-yellow-400 text-white font-bold text-lg shadow-lg hover:scale-105 transition-transform text-center">Gaming Collection</a>
         </div>
       </div>
     </div>

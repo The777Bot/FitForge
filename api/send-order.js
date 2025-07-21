@@ -1,13 +1,12 @@
-const nodemailer = require('nodemailer');
+import nodemailer from 'nodemailer';
 
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
   const { orderNumber, name, email, phone, address, items, total, date } = req.body;
 
-  // Configure your SMTP transporter (use environment variables for real deployment)
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -30,9 +29,9 @@ module.exports = async (req, res) => {
       <p><b>Address:</b> ${address}</p>
       <h3>Order Summary</h3>
       <ul>
-        ${items.map(item => `<li>${item.name} x${item.quantity} - $${item.price * item.quantity}</li>`).join('')}
+        ${items.map(item => `<li>${item.name} x${item.quantity} - Rs${item.price * item.quantity}</li>`).join('')}
       </ul>
-      <p><b>Total:</b> $${total}</p>
+      <p><b>Total:</b> Rs${total}</p>
     `,
   };
 
@@ -42,4 +41,4 @@ module.exports = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-}; 
+} 
