@@ -13,8 +13,8 @@ export default async function handler(req, res) {
 
   try {
     const data = await resend.emails.send({
-      from: 'FitForge <onboarding@resend.dev>', // Use your own domain if verified
-      to: ['fitforge.pk@gmail.com'],
+      from: 'FitForge <onboarding@resend.dev>',
+      to: ['fitforge.pk@gmail.com', email], // send to both business and customer
       subject: `New Order: ${orderNumber}`,
       html: `
         <h2>New Order Received</h2>
