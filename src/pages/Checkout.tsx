@@ -36,6 +36,20 @@ const Checkout = () => {
     localStorage.setItem(key, JSON.stringify(history));
   };
 
+  const sendOrderEmail = async (order: any) => {
+    try {
+      await fetch('/api/send-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(order),
+      });
+      // Optionally show a toast or notification here
+    } catch (err) {
+      // Optionally show a toast or notification here
+      console.error('Failed to send order email:', err);
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const validationErrors = validate();
@@ -53,7 +67,7 @@ const Checkout = () => {
     setOrderTotal(cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0));
     setSubmitted(true);
     // Save order to localStorage for this customer
-    saveOrderToHistory({
+    const orderObj = {
       orderNumber: orderNum,
       name: form.name,
       email: form.email,
@@ -62,7 +76,9 @@ const Checkout = () => {
       items: cartItems,
       total: cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0),
       date: now.toISOString(),
-    });
+    };
+    saveOrderToHistory(orderObj);
+    sendOrderEmail(orderObj);
     clearCart();
   };
 
@@ -86,13 +102,13 @@ const Checkout = () => {
               {orderCart.map((item) => (
                 <li key={item.id} className="flex justify-between text-sm mb-1">
                   <span>{item.name} x {item.quantity}</span>
-                  <span>${item.price * item.quantity}</span>
+                  <span>Rs {item.price * item.quantity}</span>
                 </li>
               ))}
             </ul>
             <div className="flex justify-between font-bold text-lg">
-              <span>Total:</span>
-              <span>${orderTotal}</span>
+                              <span>Total:</span>
+                <span>Rs {orderTotal}</span>
             </div>
           </div>
         </div>
@@ -178,13 +194,13 @@ const Checkout = () => {
             {cartItems.map((item) => (
               <li key={item.id} className="flex justify-between text-sm mb-1">
                 <span>{item.name} x {item.quantity}</span>
-                <span>${item.price * item.quantity}</span>
+                <span>PKR {item.price * item.quantity}</span>
               </li>
             ))}
           </ul>
           <div className="flex justify-between font-bold text-lg">
             <span>Total:</span>
-            <span>${total}</span>
+              <span>Rs {total}</span>
           </div>
         </div>
         <button

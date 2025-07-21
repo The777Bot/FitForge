@@ -54,13 +54,13 @@ const OrderHistory = () => {
                   {order.items.map((item: any) => (
                     <li key={item.id} className="flex justify-between text-sm mb-1">
                       <span>{item.name} x {item.quantity}</span>
-                      <span>${item.price * item.quantity}</span>
+                      <span>Rs {item.price * item.quantity}</span>
                     </li>
                   ))}
                 </ul>
                 <div className="flex justify-between font-bold text-lg">
-                  <span>Total:</span>
-                  <span>${order.total}</span>
+                                      <span>Total:</span>
+                    <span>Rs {order.total}</span>
                 </div>
               </div>
             </div>

@@ -234,6 +234,18 @@ All colors MUST be HSL.
     to { opacity: 1; transform: translateY(0); }
   }
 
+  .animate-marquee {
+    animation: marquee 20s linear infinite;
+  }
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
   /* Accessibility: prefers-reduced-motion */
   @media (prefers-reduced-motion: reduce) {
     .animate-hero-fade-in,

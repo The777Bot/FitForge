@@ -127,7 +127,7 @@ const Header = () => {
                       <div className="flex-1">
                         <div className="font-semibold text-foreground">{product.name}</div>
                         <div className="text-xs text-muted-foreground">{product.category}</div>
-                        <div className="text-sm font-bold text-brand-purple">${product.price}</div>
+                        <div className="text-sm font-bold text-brand-purple">Rs {product.price}</div>
                       </div>
                     </Link>
                   </li>
@@ -177,9 +177,9 @@ const Header = () => {
                     <img src={item.image} alt={item.name} className="w-16 h-16 rounded-lg object-cover bg-muted" />
                     <div className="flex-1">
                       <div className="font-semibold text-foreground">{item.name}</div>
-                      <div className="text-sm text-muted-foreground">${item.price} x {item.quantity}</div>
+                        <div className="text-sm text-muted-foreground">Rs {item.price} x {item.quantity}</div>
                     </div>
-                    <div className="font-bold text-brand-purple">${item.price * item.quantity}</div>
+                      <div className="font-bold text-brand-purple">Rs {item.price * item.quantity}</div>
                     <button
                       className="absolute top-1 right-0 p-1 text-muted-foreground hover:text-destructive"
                       onClick={() => removeFromCart(item.id)}
@@ -288,7 +288,7 @@ const Header = () => {
               </Button>
             )}
             <Link to="/order-history">
-              <Button variant="ghost" size="icon" className="relative hover:bg-brand-purple/20 hover:scale-110 transition-all duration-300 group focus:ring-2 focus:ring-brand-purple">
+            <Button variant="ghost" size="icon" className="relative hover:bg-brand-purple/20 hover:scale-110 transition-all duration-300 group focus:ring-2 focus:ring-brand-purple">
                 <Clock className="h-5 w-5" />
                 <span className="sr-only">Order History</span>
               </Button>
