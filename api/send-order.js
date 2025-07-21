@@ -1,4 +1,6 @@
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export default async function handler(req, res) {
   console.log('send-order function invoked');
@@ -8,20 +10,11 @@ export default async function handler(req, res) {
 
   const { orderNumber, name, email, phone, address, items, total, date } = req.body;
   console.log('Order data received:', { orderNumber, name, email, phone, address, items, total, date });
-  console.log('Env user:', process.env.FITFORGE_EMAIL);
-
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.FITFORGE_EMAIL || 'fitforge.pk@gmail.com',
-      pass: process.env.FITFORGE_EMAIL_PASS || 'YOUR_APP_PASSWORD',
-    },
-  });
 
   try {
-    await transporter.sendMail({
-      from: 'fitforge.pk@gmail.com',
-      to: 'fitforge.pk@gmail.com',
+    const data = await resend.emails.send({
+      from: 'FitForge <onboarding@resend.dev>', // Use your own domain if verified
+      to: ['fitforge.pk@gmail.com'],
       subject: `New Order: ${orderNumber}`,
       html: `
         <h2>New Order Received</h2>
@@ -38,10 +31,10 @@ export default async function handler(req, res) {
         <p><b>Total:</b> Rs${total}</p>
       `,
     });
-    console.log('Email sent successfully');
-    res.status(200).json({ success: true });
+    console.log('Resend email sent:', data);
+    res.status(200).json({ success: true, data });
   } catch (error) {
-    console.error('Email send error:', error);
+    console.error('Resend error:', error);
     res.status(500).json({ error: error.message });
   }
 } 
