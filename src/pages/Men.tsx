@@ -11,7 +11,7 @@ const Men = () => {
         <h1 className="text-5xl md:text-7xl font-black text-foreground mb-6" style={{ fontFamily: 'Ethnocentric Bold, Playfair Display, DM Serif Display, serif' }}>Men's Collection</h1>
           <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto mb-8">Explore our curated selection of men's streetwear, designed for comfort and style.</p>
         </section>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {menProducts.map((product) => (
             <ProductCard key={product.id} {...product} />
           ))}

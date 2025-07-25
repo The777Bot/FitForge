@@ -91,9 +91,9 @@ const ProductDetails = () => {
           <h1 className="text-3xl font-bold text-black mb-1">{product.name}</h1>
           <p className="text-base text-gray-900 font-semibold mb-1 uppercase tracking-widest">{product.category}</p>
           <div className="flex items-center gap-4 mb-2">
-            <span className="text-2xl font-black text-black">${product.price}</span>
+            <span className="text-2xl font-black text-black">Rs {product.price}</span>
             {product.originalPrice && (
-              <span className="line-through text-gray-500 font-semibold">${product.originalPrice}</span>
+              <span className="line-through text-gray-500 font-semibold">Rs {product.originalPrice}</span>
             )}
           </div>
           <div className="flex gap-2 mb-2">
