@@ -87,7 +87,7 @@ const ProductCard = ({
             {name}
           </h3>
           <div className="flex items-center gap-3">
-            <span className="text-2xl font-black text-brand-dark bg-gradient-accent bg-clip-text text-transparent">
+            <span className="text-2xl font-black text-black">
                 Rs {price}
             </span>
             {originalPrice && (
