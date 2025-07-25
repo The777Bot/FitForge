@@ -12,11 +12,11 @@ const Footer = () => {
               Forge your style with premium streetwear and contemporary fashion.
             </p>
             <a href="mailto:fitforge.pk@gmail.com" className="block text-[hsl(45,33%,95%)] font-semibold underline underline-offset-2 hover:text-brand-purple transition-colors">fitforge.pk@gmail.com</a>
-            <div className="flex space-x-4">
-              <Facebook className="h-5 w-5 text-[hsl(45,33%,90%)] hover:text-[hsl(45,33%,95%)] transition-colors cursor-pointer" />
-              <Instagram className="h-5 w-5 text-[hsl(45,33%,90%)] hover:text-[hsl(45,33%,95%)] transition-colors cursor-pointer" />
-              <Twitter className="h-5 w-5 text-[hsl(45,33%,90%)] hover:text-[hsl(45,33%,95%)] transition-colors cursor-pointer" />
-              <Youtube className="h-5 w-5 text-[hsl(45,33%,90%)] hover:text-[hsl(45,33%,95%)] transition-colors cursor-pointer" />
+            <div className="flex items-center justify-start mt-4">
+              <a href="https://instagram.com/fitforge.pk" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
+                className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-tr from-pink-500 via-yellow-400 to-purple-600 shadow-lg hover:scale-110 transition-transform">
+                <Instagram className="h-8 w-8 text-white" />
+              </a>
             </div>
           </div>
 

@@ -200,6 +200,124 @@ const Customized: React.FC = () => {
     };
   }, [rotating, onRotateMouseMove, onRotateMouseUp]);
 
+  // Add touch event handlers for mobile support
+  // Touch drag logic
+  const onTouchStart = (e: React.TouchEvent) => {
+    if (!uploadedDesign || resizing || rotating) return;
+    setDragging(true);
+    const touch = e.touches[0];
+    dragOffset.current = {
+      x: touch.clientX - designPos.x,
+      y: touch.clientY - designPos.y,
+    };
+  };
+  const onTouchMove = useCallback((e: TouchEvent) => {
+    if (!dragging) return;
+    const touch = e.touches[0];
+    let newX = touch.clientX - dragOffset.current.x;
+    let newY = touch.clientY - dragOffset.current.y;
+    newX = Math.max(0, Math.min(SHIRT_WIDTH - designSize.w, newX));
+    newY = Math.max(0, Math.min(SHIRT_HEIGHT - designSize.h, newY));
+    setDesignPos({ x: newX, y: newY });
+  }, [dragging, designSize.w, designSize.h]);
+  const onTouchEnd = useCallback(() => {
+    setDragging(false);
+  }, []);
+
+  // Touch resize logic
+  const onResizeTouchStart = (e: React.TouchEvent) => {
+    e.stopPropagation();
+    if (dragging || rotating) return;
+    setResizing(true);
+    const touch = e.touches[0];
+    resizeStart.current = {
+      w: designSize.w,
+      h: designSize.h,
+      x: touch.clientX,
+      y: touch.clientY,
+    };
+  };
+  const onResizeTouchMove = useCallback((e: TouchEvent) => {
+    if (!resizing) return;
+    const touch = e.touches[0];
+    let delta = Math.max(touch.clientX - resizeStart.current.x, touch.clientY - resizeStart.current.y);
+    let newW = Math.max(40, Math.min(SHIRT_WIDTH, resizeStart.current.w + delta));
+    let newH = Math.max(40, Math.min(SHIRT_HEIGHT, resizeStart.current.h + delta));
+    let newX = Math.min(designPos.x, SHIRT_WIDTH - newW);
+    let newY = Math.min(designPos.y, SHIRT_HEIGHT - newH);
+    setDesignSize({ w: newW, h: newH });
+    setDesignPos({ x: newX, y: newY });
+  }, [resizing, designPos.x, designPos.y]);
+  const onResizeTouchEnd = useCallback(() => {
+    setResizing(false);
+  }, []);
+
+  // Touch rotate logic
+  const onRotateTouchStart = (e: React.TouchEvent) => {
+    e.stopPropagation();
+    if (dragging || resizing) return;
+    setRotating(true);
+    const touch = e.touches[0];
+    const rect = (e.target as HTMLElement).closest('.design-draggable')?.getBoundingClientRect();
+    if (!rect) return;
+    const center = {
+      x: rect.left + rect.width / 2,
+      y: rect.top + rect.height / 2,
+    };
+    rotateStart.current = { angle: rotation, x: touch.clientX, y: touch.clientY, center };
+  };
+  const onRotateTouchMove = useCallback((e: TouchEvent) => {
+    if (!rotating) return;
+    const touch = e.touches[0];
+    const { center } = rotateStart.current;
+    const angle = Math.atan2(touch.clientY - center.y, touch.clientX - center.x) * 180 / Math.PI;
+    setRotation(angle);
+  }, [rotating]);
+  const onRotateTouchEnd = useCallback(() => {
+    setRotating(false);
+  }, []);
+
+  // Attach/detach touch event listeners for drag/resize/rotate
+  useEffect(() => {
+    if (dragging) {
+      window.addEventListener("touchmove", onTouchMove);
+      window.addEventListener("touchend", onTouchEnd);
+    } else {
+      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("touchend", onTouchEnd);
+    }
+    return () => {
+      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("touchend", onTouchEnd);
+    };
+  }, [dragging, onTouchMove, onTouchEnd]);
+  useEffect(() => {
+    if (resizing) {
+      window.addEventListener("touchmove", onResizeTouchMove);
+      window.addEventListener("touchend", onResizeTouchEnd);
+    } else {
+      window.removeEventListener("touchmove", onResizeTouchMove);
+      window.removeEventListener("touchend", onResizeTouchEnd);
+    }
+    return () => {
+      window.removeEventListener("touchmove", onResizeTouchMove);
+      window.removeEventListener("touchend", onResizeTouchEnd);
+    };
+  }, [resizing, onResizeTouchMove, onResizeTouchEnd]);
+  useEffect(() => {
+    if (rotating) {
+      window.addEventListener("touchmove", onRotateTouchMove);
+      window.addEventListener("touchend", onRotateTouchEnd);
+    } else {
+      window.removeEventListener("touchmove", onRotateTouchMove);
+      window.removeEventListener("touchend", onRotateTouchEnd);
+    }
+    return () => {
+      window.removeEventListener("touchmove", onRotateTouchMove);
+      window.removeEventListener("touchend", onRotateTouchEnd);
+    };
+  }, [rotating, onRotateTouchMove, onRotateTouchEnd]);
+
   // Deletion
   const handleDelete = () => {
     setUploadedDesign(null);
@@ -214,6 +332,8 @@ const Customized: React.FC = () => {
   const boardStyle = isBoardWhite ? "bg-white" : "bg-black";
   const shirtImg = isBoardWhite ? blackShirt : whiteShirt;
   const textStyle = isBoardWhite ? "text-black" : "text-white";
+
+  const FALLBACK_IMAGE = "https://via.placeholder.com/150?text=Custom+Design";
 
   return (
     <div className="min-h-screen bg-background">
@@ -275,27 +395,29 @@ const Customized: React.FC = () => {
                       transform: `rotate(${rotation}deg)`
                     }}
                     onMouseDown={isDesignSaved ? undefined : onMouseDown}
+                    onTouchStart={isDesignSaved ? undefined : onTouchStart}
                   >
                     {/* Rotation handle */}
                     {!isDesignSaved && (
-                      <div
-                        className="absolute left-1/2 -top-8 w-6 h-6 bg-primary rounded-full border-2 border-white cursor-alias flex items-center justify-center z-20 group-hover:opacity-100 opacity-80"
-                        style={{ transform: 'translate(-50%, 0)' }}
-                        onMouseDown={onRotateMouseDown}
-                      >
-                        <svg width="16" height="16" viewBox="0 0 20 20"><path d="M10 3V7M10 3L7 6M10 3l3 3" stroke="#fff" strokeWidth="2" strokeLinecap="round"/><circle cx="10" cy="12" r="5" stroke="#fff" strokeWidth="2" fill="none"/></svg>
-                      </div>
+                    <div
+                      className="absolute left-1/2 -top-8 w-6 h-6 bg-primary rounded-full border-2 border-white cursor-alias flex items-center justify-center z-20 group-hover:opacity-100 opacity-80"
+                      style={{ transform: 'translate(-50%, 0)' }}
+                      onMouseDown={onRotateMouseDown}
+                        onTouchStart={onRotateTouchStart}
+                    >
+                      <svg width="16" height="16" viewBox="0 0 20 20"><path d="M10 3V7M10 3L7 6M10 3l3 3" stroke="#fff" strokeWidth="2" strokeLinecap="round"/><circle cx="10" cy="12" r="5" stroke="#fff" strokeWidth="2" fill="none"/></svg>
+                    </div>
                     )}
                     {/* Delete button */}
                     {!isDesignSaved && (
-                      <button
-                        className="absolute -right-7 -top-7 w-7 h-7 bg-red-600 rounded-full border-2 border-white flex items-center justify-center z-20 shadow hover:bg-red-700 transition"
-                        style={{ transform: 'translate(50%, -50%)' }}
-                        onClick={e => { e.stopPropagation(); handleDelete(); }}
-                        tabIndex={-1}
-                      >
-                        <Trash2 className="w-4 h-4 text-white" />
-                      </button>
+                    <button
+                      className="absolute -right-7 -top-7 w-7 h-7 bg-red-600 rounded-full border-2 border-white flex items-center justify-center z-20 shadow hover:bg-red-700 transition"
+                      style={{ transform: 'translate(50%, -50%)' }}
+                      onClick={e => { e.stopPropagation(); handleDelete(); }}
+                      tabIndex={-1}
+                    >
+                      <Trash2 className="w-4 h-4 text-white" />
+                    </button>
                     )}
                     <img
                       src={uploadedDesign}
@@ -306,15 +428,16 @@ const Customized: React.FC = () => {
                     />
                     {/* Resize handle */}
                     {!isDesignSaved && (
-                      <div
-                        className="absolute right-0 bottom-0 w-5 h-5 bg-primary rounded-full border-2 border-white cursor-nwse-resize flex items-center justify-center z-20 group-hover:opacity-100 opacity-80"
-                        style={{ transform: 'translate(50%, 50%)' }}
-                        onMouseDown={onResizeMouseDown}
-                      >
-                        <svg width="14" height="14" viewBox="0 0 20 20"><path d="M3 17L17 3M17 17V3H3" stroke="#fff" strokeWidth="2" strokeLinecap="round"/></svg>
-                      </div>
+                    <div
+                      className="absolute right-0 bottom-0 w-5 h-5 bg-primary rounded-full border-2 border-white cursor-nwse-resize flex items-center justify-center z-20 group-hover:opacity-100 opacity-80"
+                      style={{ transform: 'translate(50%, 50%)' }}
+                      onMouseDown={onResizeMouseDown}
+                        onTouchStart={onResizeTouchStart}
+                    >
+                      <svg width="14" height="14" viewBox="0 0 20 20"><path d="M3 17L17 3M17 17V3H3" stroke="#fff" strokeWidth="2" strokeLinecap="round"/></svg>
+                    </div>
                     )}
-                  </div>
+                </div>
                 ) : null}
               </div>
             </div>
@@ -358,14 +481,7 @@ const Customized: React.FC = () => {
               variant="default"
               disabled={!isDesignSaved}
               onClick={() => {
-                if (!isDesignSaved || !uploadedDesign) return;
-                addToCart({
-                  id: `custom-${color}-${size}-${Date.now()}`,
-                  name: `Customized Shirt (${color}, ${size})`,
-                  price: 2499,
-                  image: uploadedDesign
-                });
-                setCartOpen(true);
+                alert('Coming soon');
               }}
             >
               Add to Cart
@@ -389,7 +505,7 @@ const Customized: React.FC = () => {
             ))}
           </div>
         </div>
-      </div>
+        </div>
       {/* Anime & Gaming Explore Section */}
       <div className="mt-20 flex flex-col items-center justify-center gap-8">
         <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-2 text-center">Explore More Collections</h2>

@@ -21,6 +21,8 @@ import { useHeroBg } from "@/components/HeroBgContext";
 import FFlogo from "@/assets/FFlogo.png";
 import { allProducts } from "@/assets/products";
 
+const FALLBACK_IMAGE = "https://via.placeholder.com/150?text=Custom+Design";
+
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -174,7 +176,7 @@ const Header = () => {
               <div className="space-y-4">
                 {cartItems.map((item) => (
                   <div key={item.id} className="flex items-center gap-4 border-b pb-2 relative">
-                    <img src={item.image} alt={item.name} className="w-16 h-16 rounded-lg object-cover bg-muted" />
+                    <img src={item.image && item.image.startsWith('data:image') ? item.image : FALLBACK_IMAGE} alt={item.name} className="w-16 h-16 rounded-lg object-cover bg-muted" onError={e => { e.currentTarget.src = FALLBACK_IMAGE; }} />
                     <div className="flex-1">
                       <div className="font-semibold text-foreground">{item.name}</div>
                         <div className="text-sm text-muted-foreground">Rs {item.price} x {item.quantity}</div>
