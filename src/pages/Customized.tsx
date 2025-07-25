@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Upload, Trash2 } from "lucide-react";
 import blackShirt from "@/assets/blackshirts1.png";
 import whiteShirt from "@/assets/whiteshirts1.png";
+import { featuredProducts } from "@/assets/products";
+import ProductCard from "@/components/ProductCard";
 
 // Only black and white color options
 const colorOptions = [
@@ -341,13 +343,22 @@ const Customized: React.FC = () => {
             </Button>
           </div>
         </div>
+        {/* Customized Product Cards */}
+        <div className="mt-16 max-w-5xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 text-foreground">Popular Customized Products</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6">
+            {featuredProducts.slice(0, 4).map((product) => (
+              <ProductCard key={product.id} {...product} />
+            ))}
+          </div>
         </div>
+      </div>
       {/* Anime & Gaming Explore Section */}
       <div className="mt-20 flex flex-col items-center justify-center gap-8">
         <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-2 text-center">Explore More Collections</h2>
         <div className="flex flex-col md:flex-row gap-6">
-          <a href="/anime" className="px-8 py-4 rounded-xl bg-gradient-to-r from-pink-500 via-fuchsia-500 to-indigo-500 text-white font-bold text-lg shadow-lg hover:scale-105 transition-transform text-center">Anime Collection</a>
-          <a href="/gaming" className="px-8 py-4 rounded-xl bg-gradient-to-r from-blue-600 via-green-500 to-yellow-400 text-white font-bold text-lg shadow-lg hover:scale-105 transition-transform text-center">Gaming Collection</a>
+          <a href="/anime" className="px-8 py-4 rounded-xl bg-gradient-to-r from-purple-900 via-fuchsia-700 to-pink-600 text-white font-extrabold text-lg shadow-2xl hover:scale-105 transition-transform text-center border-2 border-fuchsia-400 animate-pulse">Anime Collection</a>
+          <a href="/gaming" className="px-8 py-4 rounded-xl bg-gradient-to-r from-blue-900 via-cyan-500 to-green-400 text-white font-extrabold text-lg shadow-2xl hover:scale-105 transition-transform text-center border-2 border-cyan-400 animate-pulse">Gaming Collection</a>
         </div>
       </div>
     </div>
