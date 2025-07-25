@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback, useEffect } from "react";
+import React, { useState, useRef, useCallback, useEffect, useContext } from "react";
 import { useLoader } from "@/components/LoaderContext";
 import { Button } from "@/components/ui/button";
 import { Upload, Trash2 } from "lucide-react";
@@ -6,6 +6,8 @@ import blackShirt from "@/assets/blackshirts1.png";
 import whiteShirt from "@/assets/whiteshirts1.png";
 import { featuredProducts } from "@/assets/products";
 import ProductCard from "@/components/ProductCard";
+import { CartContext } from "@/components/CartContext";
+import { CartUIContext } from "@/components/CartContext";
 
 // Only black and white color options
 const colorOptions = [
@@ -19,11 +21,14 @@ const SHIRT_WIDTH = 520;
 const SHIRT_HEIGHT = 650;
 
 const Customized: React.FC = () => {
+  const { addToCart } = useContext(CartContext);
+  const { setCartOpen } = useContext(CartUIContext);
   const [uploadedDesign, setUploadedDesign] = useState<string | null>(null);
   const [color, setColor] = useState("Black"); // Default to black shirt
   const [size, setSize] = useState(sizeOptions[0]);
   const { setLoading } = useLoader();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [isDesignSaved, setIsDesignSaved] = useState(false);
 
   // Draggable/resizable/rotatable state
   const [designPos, setDesignPos] = useState({ x: SHIRT_WIDTH / 2 - 80, y: SHIRT_HEIGHT / 2 - 80 });
@@ -198,6 +203,10 @@ const Customized: React.FC = () => {
   // Deletion
   const handleDelete = () => {
     setUploadedDesign(null);
+    setIsDesignSaved(false);
+  };
+  const handleSaveDesign = () => {
+    setIsDesignSaved(true);
   };
 
   // Determine board and shirt colors based on selection
@@ -262,28 +271,32 @@ const Customized: React.FC = () => {
                       top: designPos.y,
                       width: designSize.w,
                       height: designSize.h,
-                      cursor: dragging ? 'grabbing' : 'grab',
+                      cursor: isDesignSaved ? 'default' : (dragging ? 'grabbing' : 'grab'),
                       transform: `rotate(${rotation}deg)`
                     }}
-                    onMouseDown={onMouseDown}
+                    onMouseDown={isDesignSaved ? undefined : onMouseDown}
                   >
                     {/* Rotation handle */}
-                    <div
-                      className="absolute left-1/2 -top-8 w-6 h-6 bg-primary rounded-full border-2 border-white cursor-alias flex items-center justify-center z-20 group-hover:opacity-100 opacity-80"
-                      style={{ transform: 'translate(-50%, 0)' }}
-                      onMouseDown={onRotateMouseDown}
-                    >
-                      <svg width="16" height="16" viewBox="0 0 20 20"><path d="M10 3V7M10 3L7 6M10 3l3 3" stroke="#fff" strokeWidth="2" strokeLinecap="round"/><circle cx="10" cy="12" r="5" stroke="#fff" strokeWidth="2" fill="none"/></svg>
-                    </div>
+                    {!isDesignSaved && (
+                      <div
+                        className="absolute left-1/2 -top-8 w-6 h-6 bg-primary rounded-full border-2 border-white cursor-alias flex items-center justify-center z-20 group-hover:opacity-100 opacity-80"
+                        style={{ transform: 'translate(-50%, 0)' }}
+                        onMouseDown={onRotateMouseDown}
+                      >
+                        <svg width="16" height="16" viewBox="0 0 20 20"><path d="M10 3V7M10 3L7 6M10 3l3 3" stroke="#fff" strokeWidth="2" strokeLinecap="round"/><circle cx="10" cy="12" r="5" stroke="#fff" strokeWidth="2" fill="none"/></svg>
+                      </div>
+                    )}
                     {/* Delete button */}
-                    <button
-                      className="absolute -right-7 -top-7 w-7 h-7 bg-red-600 rounded-full border-2 border-white flex items-center justify-center z-20 shadow hover:bg-red-700 transition"
-                      style={{ transform: 'translate(50%, -50%)' }}
-                      onClick={e => { e.stopPropagation(); handleDelete(); }}
-                      tabIndex={-1}
-                    >
-                      <Trash2 className="w-4 h-4 text-white" />
-                    </button>
+                    {!isDesignSaved && (
+                      <button
+                        className="absolute -right-7 -top-7 w-7 h-7 bg-red-600 rounded-full border-2 border-white flex items-center justify-center z-20 shadow hover:bg-red-700 transition"
+                        style={{ transform: 'translate(50%, -50%)' }}
+                        onClick={e => { e.stopPropagation(); handleDelete(); }}
+                        tabIndex={-1}
+                      >
+                        <Trash2 className="w-4 h-4 text-white" />
+                      </button>
+                    )}
                     <img
                       src={uploadedDesign}
                       alt="Design"
@@ -292,14 +305,16 @@ const Customized: React.FC = () => {
                       style={{ userSelect: 'none' }}
                     />
                     {/* Resize handle */}
-                    <div
-                      className="absolute right-0 bottom-0 w-5 h-5 bg-primary rounded-full border-2 border-white cursor-nwse-resize flex items-center justify-center z-20 group-hover:opacity-100 opacity-80"
-                      style={{ transform: 'translate(50%, 50%)' }}
-                      onMouseDown={onResizeMouseDown}
-                    >
-                      <svg width="14" height="14" viewBox="0 0 20 20"><path d="M3 17L17 3M17 17V3H3" stroke="#fff" strokeWidth="2" strokeLinecap="round"/></svg>
-                    </div>
-                </div>
+                    {!isDesignSaved && (
+                      <div
+                        className="absolute right-0 bottom-0 w-5 h-5 bg-primary rounded-full border-2 border-white cursor-nwse-resize flex items-center justify-center z-20 group-hover:opacity-100 opacity-80"
+                        style={{ transform: 'translate(50%, 50%)' }}
+                        onMouseDown={onResizeMouseDown}
+                      >
+                        <svg width="14" height="14" viewBox="0 0 20 20"><path d="M3 17L17 3M17 17V3H3" stroke="#fff" strokeWidth="2" strokeLinecap="round"/></svg>
+                      </div>
+                    )}
+                  </div>
                 ) : null}
               </div>
             </div>
@@ -338,10 +353,32 @@ const Customized: React.FC = () => {
                     ))}
                   </div>
                 </div>
-            <Button className="w-full" variant="default">
+            <Button
+              className="w-full"
+              variant="default"
+              disabled={!isDesignSaved}
+              onClick={() => {
+                if (!isDesignSaved || !uploadedDesign) return;
+                addToCart({
+                  id: `custom-${color}-${size}-${Date.now()}`,
+                  name: `Customized Shirt (${color}, ${size})`,
+                  price: 2499,
+                  image: uploadedDesign
+                });
+                setCartOpen(true);
+              }}
+            >
               Add to Cart
             </Button>
           </div>
+          {/* Save button below the shirt design area */}
+          {uploadedDesign && !isDesignSaved && (
+            <div className="flex justify-center mt-4">
+              <Button className="px-8 py-2 text-lg font-bold" variant="brand" onClick={handleSaveDesign}>
+                Save Design
+              </Button>
+            </div>
+          )}
         </div>
         {/* Customized Product Cards */}
         <div className="mt-16 max-w-5xl mx-auto">
