@@ -41,7 +41,10 @@ const ProductCard = ({
     >
       <div className="relative overflow-hidden rounded-t-3xl">
         {/* Product Image (front and back on hover) */}
-        <div className="aspect-square overflow-hidden rounded-t-3xl relative">
+        <div
+          className="aspect-square overflow-hidden rounded-t-3xl relative"
+          style={{ background: 'linear-gradient(145deg, hsl(0 0% 12%), hsl(45 33% 80%))' }}
+        >
           <img
             src={image}
             alt={name}

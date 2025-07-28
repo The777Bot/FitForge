@@ -102,10 +102,10 @@ async function processImage(srcPath, destPath) {
 
 async function processCollection({ src, dest }) {
   if (!fs.existsSync(dest)) fs.mkdirSync(dest);
-  const files = fs.readdirSync(src).filter(f => f.match(/\.jpe?g$/i));
+  const files = fs.readdirSync(src).filter(f => f.match(/\.(jpe?g|png)$/i));
   for (const file of files) {
     const srcPath = path.join(src, file);
-    const destPath = path.join(dest, file);
+    const destPath = path.join(dest, file.replace(/\.(jpe?g)$/i, '.png'));
     await processImage(srcPath, destPath);
   }
 }
