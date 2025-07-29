@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import heroImage from "@/assets/h1.jpg";
 import heroVideo from "@/assets/h2.mp4";
+import { motion } from "framer-motion";
 
 const HeroSection2 = () => {
   return (
@@ -32,24 +33,40 @@ const HeroSection2 = () => {
         {/* Video Content Overlay */}
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center space-y-6 px-8">
-            <h2 className="text-4xl md:text-6xl font-bold text-white leading-tight">
+            <motion.h2
+              className="text-4xl md:text-6xl font-bold text-white leading-tight"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
               Elevate Your
               <span className="block bg-gradient-to-r from-[#e7dbc7] to-[#a67c52] bg-clip-text text-transparent">
                 Fitness Journey
               </span>
-            </h2>
-            <p className="text-lg md:text-xl text-gray-300 max-w-xl mx-auto">
+            </motion.h2>
+            <motion.p
+              className="text-lg md:text-xl text-gray-300 max-w-xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            >
               Discover our premium collection of fitness apparel designed to enhance your performance and style.
-            </p>
+            </motion.p>
             <div className="flex justify-center">
-              <Button
-                variant="default"
-                size="lg"
-                className="bg-[#e7dbc7] text-[#1a1a1a] hover:bg-[#a67c52] transition-all duration-300"
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.7 }}
               >
-                Shop Collection
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
+                <Button
+                  variant="default"
+                  size="lg"
+                  className="bg-[#e7dbc7] text-[#1a1a1a] hover:bg-[#a67c52] transition-all duration-300"
+                >
+                  Shop Collection
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </motion.div>
             </div>
           </div>
         </div>
