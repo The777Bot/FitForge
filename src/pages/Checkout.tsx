@@ -28,12 +28,23 @@ const Checkout = () => {
     return newErrors;
   };
 
-  const saveOrderToHistory = (order: any) => {
-    const key = `order-history-${form.email || form.phone}`;
-    const prev = localStorage.getItem(key);
-    const history = prev ? JSON.parse(prev) : [];
-    history.push(order);
-    localStorage.setItem(key, JSON.stringify(history));
+  const saveOrderToDatabase = async (order: any) => {
+    try {
+      const response = await fetch('http://localhost:5000/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(order),
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to save order');
+      }
+      
+      return await response.json();
+    } catch (error) {
+      console.error('Failed to save order to database:', error);
+      throw error;
+    }
   };
 
   const sendOrderEmail = async (order: any) => {
@@ -57,16 +68,19 @@ const Checkout = () => {
       setErrors(validationErrors);
       return;
     }
+    
     // Generate a unique order number (e.g., YYMMDD + random 4 digits)
     const now = new Date();
     const datePart = `${now.getFullYear().toString().slice(2)}${(now.getMonth()+1).toString().padStart(2,'0')}${now.getDate().toString().padStart(2,'0')}`;
     const randomPart = Math.floor(1000 + Math.random() * 9000);
     const orderNum = `FF-${datePart}-${randomPart}`;
+    
     setOrderNumber(orderNum);
     setOrderCart(cartItems);
     setOrderTotal(cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0));
     setSubmitted(true);
-    // Save order to localStorage for this customer
+    
+    // Save order to database
     const orderObj = {
       orderNumber: orderNum,
       name: form.name,
@@ -77,7 +91,8 @@ const Checkout = () => {
       total: cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0),
       date: now.toISOString(),
     };
-    saveOrderToHistory(orderObj);
+    
+    saveOrderToDatabase(orderObj);
     sendOrderEmail(orderObj);
     clearCart();
   };

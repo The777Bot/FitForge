@@ -4,13 +4,32 @@ const OrderHistory = () => {
   const [identifier, setIdentifier] = useState("");
   const [orders, setOrders] = useState<any[]>([]);
   const [touched, setTouched] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleFetch = () => {
+  const handleFetch = async () => {
     if (!identifier) return;
-    const key = `order-history-${identifier}`;
-    const history = localStorage.getItem(key);
-    setOrders(history ? JSON.parse(history) : []);
-    setTouched(true);
+    
+    setLoading(true);
+    setError("");
+    
+    try {
+      const response = await fetch(`http://localhost:5000/api/orders?identifier=${encodeURIComponent(identifier)}`);
+      const data = await response.json();
+      
+      if (data.success) {
+        setOrders(data.data);
+      } else {
+        setError(data.error || 'Failed to fetch orders');
+        setOrders([]);
+      }
+    } catch (err) {
+      setError('Failed to connect to server');
+      setOrders([]);
+    } finally {
+      setLoading(false);
+      setTouched(true);
+    }
   };
 
   return (
@@ -29,21 +48,40 @@ const OrderHistory = () => {
           placeholder="Email or phone number"
         />
         <button
-          className="w-full py-3 rounded-lg bg-[hsl(0,0%,10%)] text-[hsl(45,33%,90%)] font-bold text-lg hover:bg-[hsl(0,0%,0%)] hover:text-[hsl(45,33%,100%)] transition shadow-lg border border-[hsl(45,33%,90%)]"
+          className="w-full py-3 rounded-lg bg-[hsl(0,0%,10%)] text-[hsl(45,33%,90%)] font-bold text-lg hover:bg-[hsl(0,0%,0%)] hover:text-[hsl(45,33%,100%)] transition shadow-lg border border-[hsl(45,33%,90%)] disabled:opacity-50"
           onClick={handleFetch}
+          disabled={loading}
         >
-          View Order History
+          {loading ? 'Loading...' : 'View Order History'}
         </button>
       </div>
-      {touched && orders.length === 0 && (
+      
+      {error && (
+        <div className="text-lg text-red-500 mb-8">{error}</div>
+      )}
+      
+      {touched && !loading && orders.length === 0 && !error && (
         <div className="text-lg text-red-500 mb-8">No orders found for this identifier.</div>
       )}
+      
       {orders.length > 0 && (
         <div className="w-full max-w-2xl space-y-8">
           {orders.map((order, idx) => (
             <div key={order.orderNumber + idx} className="bg-card p-6 rounded-2xl shadow space-y-2 border border-border">
               <div className="font-bold text-lg mb-1">Order #{order.orderNumber}</div>
               <div className="text-sm text-muted-foreground mb-2">Placed on {new Date(order.date).toLocaleString()}</div>
+              <div className="flex items-center gap-2 mb-2">
+                <span className="font-semibold">Status:</span>
+                <span className={`px-2 py-1 rounded-full text-xs font-bold ${
+                  order.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+                  order.status === 'confirmed' ? 'bg-blue-100 text-blue-800' :
+                  order.status === 'shipped' ? 'bg-purple-100 text-purple-800' :
+                  order.status === 'delivered' ? 'bg-green-100 text-green-800' :
+                  'bg-red-100 text-red-800'
+                }`}>
+                  {order.status.toUpperCase()}
+                </span>
+              </div>
               <div><span className="font-semibold">Name:</span> {order.name}</div>
               <div><span className="font-semibold">Email:</span> {order.email}</div>
               <div><span className="font-semibold">Phone:</span> {order.phone}</div>
@@ -59,8 +97,8 @@ const OrderHistory = () => {
                   ))}
                 </ul>
                 <div className="flex justify-between font-bold text-lg">
-                                      <span>Total:</span>
-                    <span>Rs {order.total}</span>
+                  <span>Total:</span>
+                  <span>Rs {order.total}</span>
                 </div>
               </div>
             </div>

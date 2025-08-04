@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { Button } from "@/components/ui/button";
-import { ShoppingBag, Menu, X, Search, User, Clock } from "lucide-react";
+import { ShoppingBag, Menu, X, Search, Clock } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import {
   Dialog,
@@ -20,6 +20,7 @@ import { CartContext, CartUIContext } from "@/components/CartContext";
 import { useHeroBg } from "@/components/HeroBgContext";
 import FFlogo from "@/assets/FFlogo.png";
 import { allProducts } from "@/assets/products";
+import { getImageUrl } from "@/lib/imageUtils";
 
 const FALLBACK_IMAGE = "https://via.placeholder.com/150?text=Custom+Design";
 
@@ -27,10 +28,6 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [userOpen, setUserOpen] = useState(false);
-  const [loginOpen, setLoginOpen] = useState(false);
-  const [loginEmail, setLoginEmail] = useState("");
-  const [currentUser, setCurrentUser] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const { cartCount, cartItems, removeFromCart } = useContext(CartContext);
@@ -44,11 +41,6 @@ const Header = () => {
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const saved = localStorage.getItem("currentUserEmail");
-    if (saved) setCurrentUser(saved);
   }, []);
 
   useEffect(() => {
@@ -69,20 +61,6 @@ const Header = () => {
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   }, [location]);
-
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (loginEmail) {
-      localStorage.setItem("currentUserEmail", loginEmail);
-      setCurrentUser(loginEmail);
-      setLoginOpen(false);
-    }
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem("currentUserEmail");
-    setCurrentUser(null);
-  };
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -140,29 +118,6 @@ const Header = () => {
           </div>
         </DialogContent>
       </Dialog>
-      {/* User Modal */}
-      <Dialog open={userOpen} onOpenChange={setUserOpen}>
-        <DialogContent className="max-w-md">
-          <DialogHeader>
-            <DialogTitle>Sign In / Register</DialogTitle>
-          </DialogHeader>
-          <form className="space-y-4">
-            <input
-              type="email"
-              placeholder="Email"
-              className="w-full p-3 rounded-lg border border-border bg-muted/30 text-lg focus:outline-none focus:ring-2 focus:ring-brand-purple"
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              className="w-full p-3 rounded-lg border border-border bg-muted/30 text-lg focus:outline-none focus:ring-2 focus:ring-brand-purple"
-            />
-            <Button type="submit" className="w-full" variant="hero">Sign In</Button>
-            <div className="text-center text-sm text-muted-foreground">or</div>
-            <Button type="button" className="w-full" variant="modern">Register</Button>
-          </form>
-        </DialogContent>
-      </Dialog>
       {/* Cart Drawer */}
       <Drawer open={cartOpen} onOpenChange={setCartOpen}>
         <DrawerContent className="max-w-md ml-auto">
@@ -176,7 +131,7 @@ const Header = () => {
               <div className="space-y-4">
                 {cartItems.map((item) => (
                   <div key={item.id} className="flex items-center gap-4 border-b pb-2 relative">
-                    <img src={item.image && item.image.startsWith('data:image') ? item.image : FALLBACK_IMAGE} alt={item.name} className="w-16 h-16 rounded-lg object-cover bg-muted" onError={e => { e.currentTarget.src = FALLBACK_IMAGE; }} />
+                    <img src={getImageUrl(item.image)} alt={item.name} className="w-16 h-16 rounded-lg object-cover bg-muted" onError={e => { e.currentTarget.src = FALLBACK_IMAGE; }} />
                     <div className="flex-1">
                       <div className="font-semibold text-foreground">{item.name}</div>
                         <div className="text-sm text-muted-foreground">Rs {item.price} x {item.quantity}</div>
@@ -210,25 +165,6 @@ const Header = () => {
           </DrawerClose>
         </DrawerContent>
       </Drawer>
-      {/* Login Modal */}
-      <Dialog open={loginOpen} onOpenChange={setLoginOpen}>
-        <DialogContent className="max-w-md">
-          <DialogHeader>
-            <DialogTitle>Login</DialogTitle>
-          </DialogHeader>
-          <form onSubmit={handleLogin} className="space-y-4">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="w-full p-3 rounded-lg border border-border bg-muted/30 text-lg focus:outline-none focus:ring-2 focus:ring-brand-purple"
-              value={loginEmail}
-              onChange={e => setLoginEmail(e.target.value)}
-              required
-            />
-            <Button type="submit" className="w-full" variant="brand">Login</Button>
-          </form>
-        </DialogContent>
-      </Dialog>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`flex items-center justify-between transition-all duration-300 ${
           isScrolled ? 'h-14' : 'h-20'
@@ -274,23 +210,8 @@ const Header = () => {
             <Button variant="ghost" size="icon" className="hover:bg-brand-purple/20 hover:scale-110 transition-all duration-300 focus:ring-2 focus:ring-brand-purple" onClick={() => setSearchOpen(true)}>
               <Search className="h-5 w-5" />
             </Button>
-            <Button variant="ghost" size="icon" className="hover:bg-brand-purple/20 hover:scale-110 transition-all duration-300 focus:ring-2 focus:ring-brand-purple">
-              <User className="h-5 w-5" />
-            </Button>
-            {currentUser ? (
-              <span className="text-sm font-semibold text-brand-light bg-brand-dark/80 px-3 py-1 rounded-full mr-2">{currentUser}</span>
-            ) : (
-              <Button variant="ghost" size="sm" className="text-xs px-3 py-1 border border-brand-purple" onClick={() => setLoginOpen(true)}>
-                Login
-              </Button>
-            )}
-            {currentUser && (
-              <Button variant="ghost" size="sm" className="text-xs px-3 py-1 border border-brand-purple" onClick={handleLogout}>
-                Logout
-              </Button>
-            )}
             <Link to="/order-history">
-            <Button variant="ghost" size="icon" className="relative hover:bg-brand-purple/20 hover:scale-110 transition-all duration-300 group focus:ring-2 focus:ring-brand-purple">
+              <Button variant="ghost" size="icon" className="hover:bg-brand-purple/20 hover:scale-110 transition-all duration-300 focus:ring-2 focus:ring-brand-purple">
                 <Clock className="h-5 w-5" />
                 <span className="sr-only">Order History</span>
               </Button>
@@ -357,9 +278,6 @@ const Header = () => {
               <div className="flex items-center space-x-4 px-3 py-2">
                 <Button variant="ghost" size="icon" onClick={() => setSearchOpen(true)}>
                   <Search className="h-5 w-5" />
-                </Button>
-                <Button variant="ghost" size="icon" onClick={() => setLoginOpen(true)}>
-                  <User className="h-5 w-5" />
                 </Button>
                 <Button variant="ghost" size="icon" onClick={() => window.location.href = '/order-history'}>
                   <Clock className="h-5 w-5" />

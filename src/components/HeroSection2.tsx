@@ -58,14 +58,14 @@ const HeroSection2 = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.7 }}
               >
-                <Button
-                  variant="default"
-                  size="lg"
-                  className="bg-[#e7dbc7] text-[#1a1a1a] hover:bg-[#a67c52] transition-all duration-300"
-                >
-                  Shop Collection
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
+              <Button
+                variant="default"
+                size="lg"
+                className="bg-[#e7dbc7] text-[#1a1a1a] hover:bg-[#a67c52] transition-all duration-300"
+              >
+                Shop Collection
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
               </motion.div>
             </div>
           </div>

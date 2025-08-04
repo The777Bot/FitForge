@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Heart, ShoppingCart } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
@@ -67,24 +67,10 @@ const ProductCard = ({
 
           {/* Modern Badges */}
           <div className="absolute top-4 left-4 flex flex-col gap-2">
-            {isNew && (
-              <span className="bg-foreground text-background px-4 py-2 text-xs font-bold rounded-full shadow-sm backdrop-blur-sm animate-fade-in">NEW</span>
-            )}
             {isSale && (
               <span className="bg-background text-foreground px-4 py-2 text-xs font-bold rounded-full border border-foreground shadow-sm animate-fade-in">SALE</span>
             )}
           </div>
-
-          {/* Modern Wishlist Button */}
-          <Button
-            variant="modern"
-            size="icon"
-            aria-label="Add to wishlist"
-            className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-all duration-300 backdrop-blur-md bg-background border border-foreground text-foreground hover:bg-brand-purple/10 focus:bg-brand-purple/10"
-              tabIndex={-1}
-            >
-              <Heart className="h-4 w-4" />
-            </Button>
         </div>
 
         <CardContent className="p-6 bg-gradient-to-b from-card to-brand-surface/30">
