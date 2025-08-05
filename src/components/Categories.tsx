@@ -18,8 +18,8 @@ const Categories = () => {
       color: "from-brand-purple to-accent"
     },
     {
-      id: "accessories",
-      title: "Accessories",
+      id: "anime-gaming",
+      title: "Anime & Gaming",
       description: "Complete your look",
       image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600",
       color: "from-brand-dark to-brand-blue"

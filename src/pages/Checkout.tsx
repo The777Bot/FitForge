@@ -49,15 +49,57 @@ const Checkout = () => {
 
   const sendOrderEmail = async (order: any) => {
     try {
-      await fetch('/api/send-order', {
+      console.log('📧 Attempting to send order email:', order);
+      
+      const response = await fetch('/api/send-order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(order),
       });
-      // Optionally show a toast or notification here
+      
+      const result = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to send email');
+      }
+      
+      console.log('✅ Email result:', result);
+      
+      // Check if customer email was successful
+      if (result.customerSuccess) {
+        console.log('✅ Customer email sent successfully');
+      } else {
+        console.warn('⚠️ Customer email failed, but order was processed');
+      }
+      
+      // You can add a toast notification here
+      // if (result.customerSuccess) {
+      //   toast.success('Order confirmation email sent!');
+      // } else {
+      //   toast.warning('Order processed, but email delivery may be delayed');
+      // }
+      
     } catch (err) {
-      // Optionally show a toast or notification here
-      console.error('Failed to send order email:', err);
+      console.error('❌ Failed to send order email:', err);
+      
+      // Try backup email service
+      try {
+        console.log('🔄 Trying backup email service...');
+        const backupResponse = await fetch('/api/send-order-backup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(order),
+        });
+        
+        const backupResult = await backupResponse.json();
+        console.log('✅ Backup email service result:', backupResult);
+        
+      } catch (backupErr) {
+        console.error('❌ Backup email service also failed:', backupErr);
+      }
+      
+      // You can add a toast notification here
+      // toast.error('Email service temporarily unavailable. Your order is still processed.');
     }
   };
 

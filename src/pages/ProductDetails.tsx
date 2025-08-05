@@ -8,7 +8,6 @@ import { X } from "lucide-react";
 import { CartContext, CartUIContext } from "@/components/CartContext";
 
 const SIZES = ["XS", "S", "M", "L", "XL"];
-const COLORS = ["Black", "White", "Beige", "Purple"];
 
 const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -17,7 +16,6 @@ const ProductDetails = () => {
   const { setCartOpen } = useContext(CartUIContext);
   const product = allProducts.find((p) => p.id === id);
   const [size, setSize] = useState<string>("");
-  const [color, setColor] = useState<string>("");
   const [quantity, setQuantity] = useState<number>(1);
   const [added, setAdded] = useState(false);
   const [showBack, setShowBack] = useState(false);
@@ -34,8 +32,8 @@ const ProductDetails = () => {
   const handleAddToCart = () => {
     for (let i = 0; i < quantity; i++) {
       addToCart({
-        id: product.id + (size ? `-${size}` : "") + (color ? `-${color}` : ""),
-        name: `${product.name}${size ? ` (${size}` : ""}${color ? `, ${color}` : ""}${size ? ")" : ""}`,
+        id: product.id + (size ? `-${size}` : ""),
+        name: `${product.name}${size ? ` (${size})` : ""}`,
         price: product.price,
         image: product.image,
       });
@@ -116,19 +114,6 @@ const ProductDetails = () => {
                   </SelectContent>
                 </Select>
               </div>
-              <div className="w-32">
-                <label className="block text-sm font-semibold mb-1 text-black">Color</label>
-                <Select value={color} onValueChange={setColor}>
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Select color" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {COLORS.map((c) => (
-                      <SelectItem key={c} value={c}>{c}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
               <div className="w-24">
                 <label className="block text-sm font-semibold mb-1 text-black">Quantity</label>
                 <Input
@@ -144,7 +129,7 @@ const ProductDetails = () => {
               variant="brand"
               size="lg"
               className="mt-2 w-full md:w-auto"
-              disabled={!size || !color}
+              disabled={!size}
               onClick={handleAddToCart}
             >
               {added ? "Added!" : "Add to Cart"}
