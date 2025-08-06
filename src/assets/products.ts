@@ -20,6 +20,38 @@ export interface Product {
 }
 
 export const featuredProducts: Product[] = [
+  // Real products first (with actual images)
+  {
+    id: "m3",
+    name: "Visionary + Beige Boy T-shirt",
+    price: 1899,
+    image: beigeboyfront,
+    imageBack: beigeboyback,
+    category: "T-shirts",
+    isNew: true,
+    isSale: false
+  },
+  {
+    id: "m4",
+    name: "Charcoal Boy T-shirt",
+    price: 1799,
+    image: charcoalboyfront,
+    imageBack: charcoalboyback,
+    category: "T-shirts",
+    isNew: true,
+    isSale: false
+  },
+  {
+    id: "w3",
+    name: "White girl T-shirt",
+    price: 1799,
+    image: whitegirlfront,
+    imageBack: whitegirlback,
+    category: "T-shirts",
+    isNew: true,
+    isSale: false
+  },
+  // Coming soon products last (with placeholder images)
   {
     id: "1",
     name: "Urban Bomber Jacket",
@@ -57,8 +89,11 @@ export const featuredProducts: Product[] = [
     category: "Tees",
     isNew: false,
     isSale: true
-  },
-  // Add the three new t-shirts to featured
+  }
+];
+
+export const menProducts: Product[] = [
+  // Real products first
   {
     id: "m3",
     name: "Visionary + Beige Boy T-shirt",
@@ -79,19 +114,7 @@ export const featuredProducts: Product[] = [
     isNew: true,
     isSale: false
   },
-  {
-    id: "w3",
-    name: "White girl T-shirt",
-    price: 1799,
-    image: whitegirlfront,
-    imageBack: whitegirlback,
-    category: "T-shirts",
-    isNew: true,
-    isSale: false
-  }
-];
-
-export const menProducts: Product[] = [
+  // Coming soon products last
   {
     id: "m1",
     name: "Men's Urban Jacket",
@@ -110,30 +133,22 @@ export const menProducts: Product[] = [
     category: "Hoodies",
     isNew: false,
     isSale: true
-  },
-  {
-    id: "m3",
-    name: "Visionary + Beige Boy T-shirt",
-    price: 1899,
-    image: beigeboyfront,
-    imageBack: beigeboyback,
-    category: "T-shirts",
-    isNew: true,
-    isSale: false
-  },
-  {
-    id: "m4",
-    name: "Charcoal Boy T-shirt",
-    price: 1799,
-    image: charcoalboyfront,
-    imageBack: charcoalboyback,
-    category: "T-shirts",
-    isNew: true,
-    isSale: false
   }
 ];
 
 export const womenProducts: Product[] = [
+  // Real products first
+  {
+    id: "w3",
+    name: "White girl T-shirt",
+    price: 1799,
+    image: whitegirlfront,
+    imageBack: whitegirlback,
+    category: "T-shirts",
+    isNew: true,
+    isSale: false
+  },
+  // Coming soon products last
   {
     id: "w1",
     name: "Women's Urban Jacket",
@@ -152,20 +167,11 @@ export const womenProducts: Product[] = [
     category: "Hoodies",
     isNew: false,
     isSale: true
-  },
-  {
-    id: "w3",
-    name: "White girl T-shirt",
-    price: 1799,
-    image: whitegirlfront,
-    imageBack: whitegirlback,
-    category: "T-shirts",
-    isNew: true,
-    isSale: false
   }
 ];
 
 export const gamingProducts: Product[] = [
+  // All coming soon products (no real products yet)
   {
     id: "g1",
     name: "Retro Console Tee",
