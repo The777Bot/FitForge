@@ -54,15 +54,13 @@ const ProductCard = ({
         <img
           src={image}
           alt={name}
-          className={`w-full h-full ${
-            isZoomedOutShirt ? "object-contain" : "object-cover"
-          } transition-transform duration-700 group-hover:scale-110`}
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
         {imageBack && (
           <img
             src={imageBack}
             alt={`${name} back view`}
-            className="w-full h-full object-cover absolute inset-0 z-10 opacity-100 group-hover:opacity-0 transition-opacity duration-500"
+            className="w-full h-full object-cover absolute inset-0 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
           />
         )}
       </div>

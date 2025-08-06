@@ -1,10 +1,10 @@
 import featuredImage from "@/assets/featured-collection.png";
-import beigeboyfront from "@/assets/mens-collection-framed/beigeboyfront.jpg";
-import beigeboyback from "@/assets/mens-collection-framed/beigeboyback.jpg";
-import charcoalboyfront from "@/assets/mens-collection-framed/charcoalboyfront.jpg";
-import charcoalboyback from "@/assets/mens-collection-framed/charcoalboyback.jpg";
-import whitegirlfront from "@/assets/womens-collection-framed/whitegirlfront.jpg";
-import whitegirlback from "@/assets/womens-collection-framed/whitegirlback.jpg";
+import beigeboyfront from "@/assets/mens-collection-framed/beigeboyfront.png";
+import beigeboyback from "@/assets/mens-collection-framed/beigeboyback.png";
+import charcoalboyfront from "@/assets/mens-collection-framed/charcoalboyfront.png";
+import charcoalboyback from "@/assets/mens-collection-framed/charcoalboyback.png";
+import whitegirlfront from "@/assets/womens-collection-framed/whitegirlfront.png";
+import whitegirlback from "@/assets/womens-collection-framed/whitegirlback.png";
 
 // Add a type for products that includes optional imageBack
 export interface Product {
