@@ -6,6 +6,20 @@ import charcoalboyback from "@/assets/mens-collection-framed/charcoalboyback.png
 import whitegirlfront from "@/assets/womens-collection-framed/whitegirlfront.png";
 import whitegirlback from "@/assets/womens-collection-framed/whitegirlback.png";
 
+// New product imports
+import blackwarriorfront from "@/assets/mens-collection-framed/black-warrior.png";
+import blackwarriorback from "@/assets/mens-collection-framed/black-warrior(back).png";
+import gracefront from "@/assets/mens-collection-framed/gracefront.jpg";
+import graceback from "@/assets/mens-collection-framed/graceback.jpg";
+import eightysfront from "@/assets/mens-collection-framed/eightysfront.jpg";
+import eightysback from "@/assets/mens-collection-framed/eightysback.jpg";
+
+// Unisex collection imports
+import unisexgracefront from "@/assets/unisex-collection-framed/gracefront.png";
+import unisexgraceback from "@/assets/unisex-collection-framed/graceback.png";
+import unisexeightysfront from "@/assets/unisex-collection-framed/eightysfront.png";
+import unisexeightysback from "@/assets/unisex-collection-framed/eightysback.png";
+
 // Add a type for products that includes optional imageBack
 export interface Product {
   id: string;
@@ -33,7 +47,7 @@ export const featuredProducts: Product[] = [
   },
   {
     id: "m4",
-    name: "Charcoal Boy T-shirt",
+    name: "The Blacksmith T-shirt",
     price: 1799,
     image: charcoalboyfront,
     imageBack: charcoalboyback,
@@ -42,8 +56,38 @@ export const featuredProducts: Product[] = [
     isSale: false
   },
   {
+    id: "m5",
+    name: "Black Warrior T-shirt",
+    price: 1899,
+    image: blackwarriorback,
+    imageBack: blackwarriorfront,
+    category: "T-shirts",
+    isNew: true,
+    isSale: false
+  },
+  {
+    id: "u1",
+    name: "Grace Unisex T-shirt",
+    price: 1799,
+    image: unisexgracefront,
+    imageBack: unisexgraceback,
+    category: "T-shirts",
+    isNew: true,
+    isSale: false
+  },
+  {
+    id: "u2",
+    name: "Eightys Unisex T-shirt",
+    price: 1799,
+    image: unisexeightysfront,
+    imageBack: unisexeightysback,
+    category: "T-shirts",
+    isNew: true,
+    isSale: false
+  },
+  {
     id: "w3",
-    name: "White girl T-shirt",
+    name: "Afterlight T-shirt",
     price: 1799,
     image: whitegirlfront,
     imageBack: whitegirlback,
@@ -106,10 +150,40 @@ export const menProducts: Product[] = [
   },
   {
     id: "m4",
-    name: "Charcoal Boy T-shirt",
+    name: "The Blacksmith T-shirt",
     price: 1799,
     image: charcoalboyfront,
     imageBack: charcoalboyback,
+    category: "T-shirts",
+    isNew: true,
+    isSale: false
+  },
+  {
+    id: "m5",
+    name: "Black Warrior T-shirt",
+    price: 1899,
+    image: blackwarriorback,
+    imageBack: blackwarriorfront,
+    category: "T-shirts",
+    isNew: true,
+    isSale: false
+  },
+  {
+    id: "m6",
+    name: "Grace T-shirt",
+    price: 1799,
+    image: gracefront,
+    imageBack: graceback,
+    category: "T-shirts",
+    isNew: true,
+    isSale: false
+  },
+  {
+    id: "m7",
+    name: "Eightys T-shirt",
+    price: 1799,
+    image: eightysfront,
+    imageBack: eightysback,
     category: "T-shirts",
     isNew: true,
     isSale: false
@@ -140,7 +214,7 @@ export const womenProducts: Product[] = [
   // Real products first
   {
     id: "w3",
-    name: "White girl T-shirt",
+    name: "Afterlight T-shirt",
     price: 1799,
     image: whitegirlfront,
     imageBack: whitegirlback,
@@ -167,6 +241,30 @@ export const womenProducts: Product[] = [
     category: "Hoodies",
     isNew: false,
     isSale: true
+  }
+];
+
+export const unisexProducts: Product[] = [
+  // Real unisex products
+  {
+    id: "u1",
+    name: "Grace Unisex T-shirt",
+    price: 1799,
+    image: unisexgracefront,
+    imageBack: unisexgraceback,
+    category: "T-shirts",
+    isNew: true,
+    isSale: false
+  },
+  {
+    id: "u2",
+    name: "Eightys Unisex T-shirt",
+    price: 1799,
+    image: unisexeightysfront,
+    imageBack: unisexeightysback,
+    category: "T-shirts",
+    isNew: true,
+    isSale: false
   }
 ];
 
@@ -198,5 +296,6 @@ export const allProducts: Product[] = [
   ...featuredProducts,
   ...menProducts,
   ...womenProducts,
+  ...unisexProducts,
   ...gamingProducts
-]; 
+];
