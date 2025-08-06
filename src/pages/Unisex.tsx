@@ -1,6 +1,6 @@
 import Header from "@/components/Header";
 import ProductCard from "@/components/ProductCard";
-import featuredImage from "@/assets/featured-collection.jpg";
+import featuredImage from "@/assets/featured-collection.png";
 
 const Unisex = () => {
   // Mock unisex products

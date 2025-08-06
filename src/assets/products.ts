@@ -1,4 +1,4 @@
-import featuredImage from "@/assets/featured-collection.jpg";
+import featuredImage from "@/assets/featured-collection.png";
 import beigeboyfront from "@/assets/mens-collection-framed/beigeboyfront.jpg";
 import beigeboyback from "@/assets/mens-collection-framed/beigeboyback.jpg";
 import charcoalboyfront from "@/assets/mens-collection-framed/charcoalboyfront.jpg";

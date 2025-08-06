@@ -1,7 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
-import featuredImage from "@/assets/featured-collection.jpg";
+import featuredImage from "@/assets/featured-collection.png";
 
 const Anime = () => {
   // Mock anime products
