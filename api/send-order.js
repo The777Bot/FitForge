@@ -48,7 +48,7 @@ export default async function handler(req, res) {
     // ✅ Use verified sender email address - try multiple options
     let verifiedSender;
     if (process.env.NODE_ENV === 'production') {
-      verifiedSender = 'FitForge <orders@fitforge.pk>';
+      verifiedSender = 'FitForge <orders@fitforgepk.com>'; // Use verified domain
     } else {
       // For development/testing, use Resend's default domain
       verifiedSender = 'onboarding@resend.dev';
