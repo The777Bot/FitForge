@@ -20,6 +20,14 @@ import unisexgraceback from "@/assets/unisex-collection-framed/graceback.png";
 import unisexeightysfront from "@/assets/unisex-collection-framed/eightysfront.png";
 import unisexeightysback from "@/assets/unisex-collection-framed/eightysback.png";
 
+// Anime collection imports
+import soloLevelingFront from "@/assets/Anime/Solo-Leveling_front.png";
+import soloLevelingBack from "@/assets/Anime/Solo-Leveling_back.png";
+import zoroStyleFront from "@/assets/Anime/Zoro-Style_front.png";
+import zoroStyleBack from "@/assets/Anime/Zoro-Style_back.png";
+import zenitsuFront from "@/assets/Anime/Zenitsu_front.png";
+import zenitsuBack from "@/assets/Anime/Zenitsu_back.png";
+
 // Add a type for products that includes optional imageBack
 export interface Product {
   id: string;
@@ -34,68 +42,99 @@ export interface Product {
 }
 
 export const featuredProducts: Product[] = [
-  // Real products first (with actual images)
+  // Real T-shirt products (with actual images)
   {
     id: "m3",
-    name: "Visionary + Beige Boy T-shirt",
+    name: "Visionary + Beige Boy ",
     price: 1899,
     image: beigeboyfront,
     imageBack: beigeboyback,
-    category: "T-shirts",
+    category: "MensT-shirts",
     isNew: true,
     isSale: false
   },
   {
     id: "m4",
-    name: "The Blacksmith T-shirt",
+    name: "The Blacksmith ",
     price: 1799,
     image: charcoalboyfront,
     imageBack: charcoalboyback,
-    category: "T-shirts",
+    category: "MensT-shirts",
     isNew: true,
     isSale: false
   },
   {
     id: "m5",
-    name: "Black Warrior T-shirt",
+    name: "Black Warrior ",
     price: 1899,
     image: blackwarriorback,
     imageBack: blackwarriorfront,
-    category: "T-shirts",
+    category: "MensT-shirts",
     isNew: true,
     isSale: false
   },
   {
     id: "u1",
-    name: "Grace Unisex T-shirt",
+    name: "Grace Unisex ",
     price: 1799,
     image: unisexgracefront,
     imageBack: unisexgraceback,
-    category: "T-shirts",
+    category: "Unisex T-shirts",
     isNew: true,
     isSale: false
   },
   {
     id: "u2",
-    name: "Eightys Unisex T-shirt",
+    name: "Eightys Unisex ",
     price: 1799,
     image: unisexeightysfront,
     imageBack: unisexeightysback,
-    category: "T-shirts",
+    category: "Unisex T-shirts",
     isNew: true,
     isSale: false
   },
   {
     id: "w3",
-    name: "Afterlight T-shirt",
+    name: "Afterlight ",
     price: 1799,
     image: whitegirlfront,
     imageBack: whitegirlback,
-    category: "T-shirts",
+    category: "Womens T-shirts",
     isNew: true,
     isSale: false
   },
-  // Coming soon products last (with placeholder images)
+  // Anime Collection (Premium products)
+  {
+    id: "a1",
+    name: "Solo Leveling T-shirt",
+    price: 2499,
+    image: soloLevelingFront,
+    imageBack: soloLevelingBack,
+    category: "Anime",
+    isNew: true,
+    isSale: false
+  },
+  {
+    id: "a2",
+    name: "Zoro Style T-shirt",
+    price: 2799,
+    image: zoroStyleFront,
+    imageBack: zoroStyleBack,
+    category: "Anime",
+    isNew: true,
+    isSale: false
+  },
+  {
+    id: "a3",
+    name: "Zenitsu T-shirt",
+    price: 2499,
+    image: zenitsuFront,
+    imageBack: zenitsuBack,
+    category: "Anime",
+    isNew: true,
+    isSale: false
+  },
+  // Coming soon products (with placeholder images)
   {
     id: "1",
     name: "Urban Bomber Jacket",
@@ -140,7 +179,7 @@ export const menProducts: Product[] = [
   // Real products first
   {
     id: "m3",
-    name: "Visionary + Beige Boy T-shirt",
+    name: "Visionary + Beige Boy ",
     price: 1899,
     image: beigeboyfront,
     imageBack: beigeboyback,
@@ -150,7 +189,7 @@ export const menProducts: Product[] = [
   },
   {
     id: "m4",
-    name: "The Blacksmith T-shirt",
+    name: "The Blacksmith ",
     price: 1799,
     image: charcoalboyfront,
     imageBack: charcoalboyback,
@@ -160,7 +199,7 @@ export const menProducts: Product[] = [
   },
   {
     id: "m5",
-    name: "Black Warrior T-shirt",
+    name: "Black Warrior ",
     price: 1899,
     image: blackwarriorback,
     imageBack: blackwarriorfront,
@@ -170,7 +209,7 @@ export const menProducts: Product[] = [
   },
   {
     id: "m6",
-    name: "Grace T-shirt",
+    name: "Grace ",
     price: 1799,
     image: gracefront,
     imageBack: graceback,
@@ -180,7 +219,7 @@ export const menProducts: Product[] = [
   },
   {
     id: "m7",
-    name: "Eightys T-shirt",
+    name: "Eightys ",
     price: 1799,
     image: eightysfront,
     imageBack: eightysback,
@@ -214,7 +253,7 @@ export const womenProducts: Product[] = [
   // Real products first
   {
     id: "w3",
-    name: "Afterlight T-shirt",
+    name: "Afterlight ",
     price: 1799,
     image: whitegirlfront,
     imageBack: whitegirlback,
@@ -248,7 +287,7 @@ export const unisexProducts: Product[] = [
   // Real unisex products
   {
     id: "u1",
-    name: "Grace Unisex T-shirt",
+    name: "Grace Unisex ",
     price: 1799,
     image: unisexgracefront,
     imageBack: unisexgraceback,
@@ -291,11 +330,46 @@ export const gamingProducts: Product[] = [
   }
 ];
 
+export const animeProducts: Product[] = [
+  // Real anime products
+  {
+    id: "a1",
+    name: "Solo Leveling T-shirt",
+    price: 2799,
+    image: soloLevelingFront,
+    imageBack: soloLevelingBack,
+    category: "T-shirts",
+    isNew: true,
+    isSale: false
+  },
+  {
+    id: "a2",
+    name: "Zoro Style T-shirt",
+    price: 2799,
+    image: zoroStyleFront,
+    imageBack: zoroStyleBack,
+    category: "T-shirts",
+    isNew: true,
+    isSale: false
+  },
+  {
+    id: "a3",
+    name: "Zenitsu T-shirt",
+    price: 2499,
+    image: zenitsuFront,
+    imageBack: zenitsuBack,
+    category: "T-shirts",
+    isNew: true,
+    isSale: false
+  }
+];
+
 // Combine all products for easy lookup
 export const allProducts: Product[] = [
   ...featuredProducts,
   ...menProducts,
   ...womenProducts,
   ...unisexProducts,
-  ...gamingProducts
+  ...gamingProducts,
+  ...animeProducts
 ];

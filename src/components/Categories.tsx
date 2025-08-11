@@ -1,30 +1,40 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { useNavigate } from "react-router-dom";
 
 const Categories = () => {
+  const navigate = useNavigate();
+
   const categories = [
     {
       id: "mens",
       title: "Men's Collection",
       description: "Bold styles for the modern man",
       image: "https://images.unsplash.com/photo-1516257984-b1b4d707412e?w=600",
-      color: "from-brand-blue to-brand-purple"
+      color: "from-brand-blue to-brand-purple",
+      route: "/men"
     },
     {
       id: "womens",
       title: "Women's Collection",
       description: "Elegance meets street style",
       image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600",
-      color: "from-brand-purple to-accent"
+      color: "from-brand-purple to-accent",
+      route: "/women"
     },
     {
       id: "anime-gaming",
       title: "Anime & Gaming",
       description: "Complete your look",
       image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600",
-      color: "from-brand-dark to-brand-blue"
+      color: "from-brand-dark to-brand-blue",
+      route: "/anime"
     }
   ];
+
+  const handleCategoryClick = (route: string) => {
+    navigate(route);
+  };
 
   return (
     <section id="categories" className="py-20 bg-muted/30">
@@ -47,7 +57,8 @@ const Categories = () => {
           {categories.map((category, index) => (
             <Card
               key={category.id}
-              className="group relative overflow-hidden border-none shadow-brand-md hover:shadow-brand-lg transition-all duration-300 hover:scale-105"
+              className="group relative overflow-hidden border-none shadow-brand-md hover:shadow-brand-lg transition-all duration-300 hover:scale-105 cursor-pointer"
+              onClick={() => handleCategoryClick(category.route)}
             >
               <div className="relative h-80 overflow-hidden">
                 {/* Background Image */}
@@ -71,6 +82,10 @@ const Categories = () => {
                   <Button 
                     variant="outline" 
                     className="bg-brand-light/10 border-brand-light/30 text-brand-light hover:bg-brand-light hover:text-brand-dark transition-all duration-300"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleCategoryClick(category.route);
+                    }}
                   >
                     Shop Now
                   </Button>

@@ -1,50 +1,9 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
-import featuredImage from "@/assets/featured-collection.png";
+import { animeProducts } from "@/assets/products";
 
 const Anime = () => {
-  // Mock anime products
-  const animeProducts = [
-    {
-      id: "a1",
-      name: "Dragon Spirit Tee",
-      price: 55,
-      originalPrice: 70,
-      image: featuredImage,
-      category: "Anime",
-      isNew: true,
-      isSale: false
-    },
-    {
-      id: "a2",
-      name: "Pixel Hero Hoodie",
-      price: 80,
-      image: featuredImage,
-      category: "Anime",
-      isNew: false,
-      isSale: true
-    },
-    {
-      id: "a3",
-      name: "Sakura Wave Jacket",
-      price: 120,
-      image: featuredImage,
-      category: "Anime",
-      isNew: true,
-      isSale: false
-    },
-    {
-      id: "a4",
-      name: "Retro Console Cap",
-      price: 35,
-      image: featuredImage,
-      category: "Anime",
-      isNew: false,
-      isSale: false
-    }
-  ];
-
   return (
     <div className="min-h-screen bg-background">
       <Header />

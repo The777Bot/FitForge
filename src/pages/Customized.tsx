@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Upload, Trash2 } from "lucide-react";
 import blackShirt from "@/assets/blackshirts1.png";
 import whiteShirt from "@/assets/whiteshirts1.png";
-import { featuredProducts } from "@/assets/products";
+import { animeProducts, gamingProducts } from "@/assets/products";
 import ProductCard from "@/components/ProductCard";
 import { CartContext } from "@/components/CartContext";
 import { CartUIContext } from "@/components/CartContext";
@@ -338,11 +338,47 @@ const Customized: React.FC = () => {
   return (
     <div className="min-h-screen bg-background">
       <div className="pt-32 pb-8 px-4">
-        <h1 className="text-4xl md:text-6xl font-black text-foreground mb-8 text-center relative z-20" style={{ fontFamily: 'Ethnocentric Bold, Playfair Display, DM Serif Display, serif' }}>
-          Design Your Style
-        </h1>
-        {/* Main Design Board */}
-        <div className="flex flex-col lg:flex-row gap-6 max-w-[1200px] mx-auto">
+        {/* Anime Collection Section - First */}
+        <section className="max-w-7xl mx-auto mb-24">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Anime Collection</h2>
+            <p className="text-xl text-muted-foreground">Exclusive anime-inspired designs</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {animeProducts.map((product) => (
+              <ProductCard 
+                key={product.id} 
+                {...product} 
+                onAddToCart={addToCart}
+              />
+            ))}
+          </div>
+        </section>
+
+        {/* Gaming Collection Section - Second */}
+        <section className="max-w-7xl mx-auto mb-24">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Gaming Collection</h2>
+            <p className="text-xl text-muted-foreground">Level up your wardrobe with gaming-inspired apparel</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {gamingProducts.map((product) => (
+              <ProductCard 
+                key={product.id} 
+                {...product} 
+                onAddToCart={addToCart}
+              />
+            ))}
+          </div>
+        </section>
+
+        {/* Design Your Style Section - Third */}
+        <section className="max-w-7xl mx-auto mb-24">
+          <h1 className="text-4xl md:text-6xl font-black text-foreground mb-8 text-center relative z-20" style={{ fontFamily: 'Ethnocentric Bold, Playfair Display, DM Serif Display, serif' }}>
+            Design Your Style
+          </h1>
+          {/* Main Design Board */}
+          <div className="flex flex-col lg:flex-row gap-6 max-w-[1200px] mx-auto">
           {/* Left Toolbar */}
           <div className="lg:w-16 flex flex-col gap-4 justify-center items-center mb-4 lg:mb-0">
             <Button
@@ -496,23 +532,7 @@ const Customized: React.FC = () => {
             </div>
           )}
         </div>
-        {/* Customized Product Cards */}
-        <div className="mt-16 max-w-5xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 text-foreground">Popular Customized Products</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6">
-            {featuredProducts.slice(0, 4).map((product) => (
-              <ProductCard key={product.id} {...product} />
-            ))}
-          </div>
-        </div>
-        </div>
-      {/* Anime & Gaming Explore Section */}
-      <div className="mt-20 flex flex-col items-center justify-center gap-8">
-        <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-2 text-center">Explore More Collections</h2>
-        <div className="flex flex-col md:flex-row gap-6">
-          <a href="/anime" className="px-8 py-4 rounded-xl bg-gradient-to-r from-purple-900 via-fuchsia-700 to-pink-600 text-white font-extrabold text-lg shadow-2xl hover:scale-105 transition-transform text-center border-2 border-fuchsia-400 animate-pulse">Anime Collection</a>
-          <a href="/gaming" className="px-8 py-4 rounded-xl bg-gradient-to-r from-blue-900 via-cyan-500 to-green-400 text-white font-extrabold text-lg shadow-2xl hover:scale-105 transition-transform text-center border-2 border-cyan-400 animate-pulse">Gaming Collection</a>
-        </div>
+        </section>
       </div>
     </div>
   );
