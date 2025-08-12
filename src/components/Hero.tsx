@@ -6,7 +6,6 @@ import heroImage1 from "@/assets/beigeblack.jpg";
 import heroImage2 from "@/assets/beigeblack2.png";
 import heroVideo from "@/assets/hero-back.mp4";
 import FFlogo from "@/assets/FFlogo.png";
-import { Switch } from "@/components/ui/switch";
 
 // Typewriter effect hook
 function useTypewriter(text: string, speed = 60) {
@@ -30,6 +29,15 @@ const Hero = () => {
   const [contentVisible, setContentVisible] = useState(false);
   const { heroBg, toggleHeroBg } = useHeroBg();
   const tagline = useTypewriter("Luxury streetwear, crafted for royalty.", 40);
+
+  // Auto-toggle hero background every 1 second
+  useEffect(() => {
+    const interval = setInterval(() => {
+      toggleHeroBg();
+    }, 1000);
+    
+    return () => clearInterval(interval);
+  }, [toggleHeroBg]);
 
   // Parallax effect
   useEffect(() => {
@@ -132,19 +140,7 @@ const Hero = () => {
           <span className="inline-block w-2 h-6 align-middle bg-white animate-typewriter-cursor ml-1" />
         </div>
 
-        {/* On/Off Switch for Hero BG */}
-        <div className="flex flex-col items-center mb-6">
-          <div className="flex items-center gap-3">
-            <span className="text-sm font-semibold text-black select-none">Beige</span>
-            <Switch
-              checked={heroBg === 'beigeblack2.png'}
-              onCheckedChange={toggleHeroBg}
-              className="data-[state=checked]:bg-gradient-to-r data-[state=checked]:from-[hsl(45,33%,40%)] data-[state=checked]:to-[hsl(45,33%,60%)] data-[state=unchecked]:bg-gradient-to-r data-[state=unchecked]:from-brand-purple data-[state=unchecked]:to-brand-blue border-2 border-brand-dark shadow focus:ring-2 focus:ring-brand-purple transition-all duration-300"
-              aria-label="Toggle hero background"
-            />
-            <span className="text-sm font-semibold text-black select-none">Black</span>
-          </div>
-        </div>
+
 
         <Button
           onClick={scrollToFeatured}

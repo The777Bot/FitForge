@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 const Checkout = () => {
   const { cartItems, clearCart } = useContext(CartContext);
   const [form, setForm] = useState({ name: "", email: "", address: "", phone: "" });
+  const [paymentMethod, setPaymentMethod] = useState<string>("");
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [submitted, setSubmitted] = useState(false);
   const [orderNumber, setOrderNumber] = useState<string>("");
@@ -32,6 +33,7 @@ const Checkout = () => {
     if (!form.email) newErrors.email = "Email is required.";
     if (!form.phone) newErrors.phone = "Phone number is required.";
     if (!form.address) newErrors.address = "Address is required.";
+    if (!paymentMethod) newErrors.paymentMethod = "Payment method is required.";
     return newErrors;
   };
 
@@ -128,6 +130,7 @@ const Checkout = () => {
       email: form.email,
       phone: form.phone,
       address: form.address,
+      paymentMethod: paymentMethod,
       items: filteredCartItems,
       subtotal: subtotal,
       deliveryFee: deliveryFee,
@@ -179,6 +182,7 @@ const Checkout = () => {
               <div><span className="font-semibold text-brand-purple">Email:</span> {form.email}</div>
               <div><span className="font-semibold text-brand-purple">Phone:</span> {form.phone}</div>
               <div><span className="font-semibold text-brand-purple">Address:</span> {form.address}</div>
+              <div><span className="font-semibold text-brand-purple">Payment:</span> {paymentMethod}</div>
             </div>
 
             <div className="border-t border-border pt-4 mt-4">
@@ -339,6 +343,62 @@ const Checkout = () => {
             />
             {errors.address && <p className="text-red-500 text-sm mt-1">{errors.address}</p>}
           </div>
+
+         {/* Payment Method Selection */}
+<div>
+  <label className="block mb-2 font-semibold">Payment Method</label>
+  <div className="space-y-3">
+    <label className="flex items-center space-x-3 cursor-pointer">
+      <input
+        type="radio"
+        name="paymentMethod"
+        value="COD"
+        checked={paymentMethod === "COD"}
+        onChange={(e) => setPaymentMethod(e.target.value)}
+        className="w-4 h-4 text-brand-purple border-border focus:ring-brand-purple"
+      />
+      <span className="text-lg">Cash on Delivery (COD)</span>
+    </label>
+    
+    <label className="flex items-center space-x-3 cursor-pointer">
+      <input
+        type="radio"
+        name="paymentMethod"
+        value="Jazzcash"
+        checked={paymentMethod === "Jazzcash"}
+        onChange={(e) => setPaymentMethod(e.target.value)}
+        className="w-4 h-4 text-brand-purple border-border focus:ring-brand-purple"
+      />
+      <span className="text-lg">JazzCash</span>
+    </label>
+    {paymentMethod === "Jazzcash" && (
+      <p className="ml-7 text-sm text-green-600 font-semibold">
+        Send payment to: <span className="font-bold">03218819657</span>
+      </p>
+    )}
+    
+    <label className="flex items-center space-x-3 cursor-pointer">
+      <input
+        type="radio"
+        name="paymentMethod"
+        value="Easypaisa"
+        checked={paymentMethod === "Easypaisa"}
+        onChange={(e) => setPaymentMethod(e.target.value)}
+        className="w-4 h-4 text-brand-purple border-border focus:ring-brand-purple"
+      />
+      <span className="text-lg">EasyPaisa</span>
+    </label>
+    {paymentMethod === "Easypaisa" && (
+      <p className="ml-7 text-sm text-green-600 font-semibold">
+        Send payment to: <span className="font-bold">03302255220</span>
+      </p>
+    )}
+  </div>
+  {errors.paymentMethod && (
+    <p className="text-red-500 text-sm mt-1">{errors.paymentMethod}</p>
+  )}
+</div>
+
 
           <button
             type="submit"

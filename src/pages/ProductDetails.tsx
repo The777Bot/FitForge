@@ -143,7 +143,7 @@ const ProductDetails = () => {
           </div>
           {/* Description or more details can go here */}
           <div className="mt-6 text-black text-base font-medium">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. This is a placeholder for the product description. You can add more details here.</p>
+            <p>FitForge's premium quality shirt combines ultra-soft, breathable fabric with a tailored fit for all-day comfort. Designed for durability and style, it's perfect for both casual wear and active lifestyles.</p>
           </div>
         </div>
       </div>
