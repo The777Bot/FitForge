@@ -21,6 +21,7 @@ interface ProductCardProps {
   category: string;
   isNew?: boolean;
   isSale?: boolean;
+  tag?: string; 
   onAddToCart?: (product: { id: string; name: string; price: number; image: string; size: string }) => void;
 }
 
@@ -34,6 +35,7 @@ const ProductCard = ({
   category, 
   isNew, 
   isSale, 
+  tag,
   onAddToCart
 }: ProductCardProps) => {
   const [showSizeDialog, setShowSizeDialog] = useState(false);
@@ -64,6 +66,20 @@ const ProductCard = ({
       <Card
         className="group relative overflow-hidden border border-foreground bg-gradient-card glass-effect shadow-lg hover:shadow-2xl hover:scale-[1.03] transition-all duration-300 hover-lift rounded-3xl focus-within:ring-2 focus-within:ring-brand-purple h-full flex flex-col"
       >
+         {/* Tag Badge - Add this back */}
+         {tag && (
+          <div className="absolute top-3 left-3 z-20">
+            <span className={`px-2 py-1 text-xs font-bold rounded-full ${
+              tag === "NEW" 
+                ? "bg-green-500 text-white" 
+                : tag === "COMING SOON"
+                ? "bg-orange-500 text-white"
+                : "bg-brand-purple text-white"
+            }`}>
+              {tag}
+            </span>
+          </div>
+        )}
         <Link
           to={`/product/${id}`}
           className="block focus:outline-none flex flex-col h-full"

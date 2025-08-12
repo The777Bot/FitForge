@@ -39,6 +39,7 @@ export interface Product {
   category: string;
   isNew?: boolean;
   isSale?: boolean;
+  tag?: string; // Add tag property
 }
 
 export const featuredProducts: Product[] = [
@@ -51,8 +52,8 @@ export const featuredProducts: Product[] = [
     imageBack: beigeboyback,
     category: "Unisex T-shirts",
     isNew: true,
-    isSale: false
-    
+    isSale: false,
+    tag: "NEW" 
   },
   {
     id: "m4",
@@ -62,7 +63,8 @@ export const featuredProducts: Product[] = [
     imageBack: charcoalboyback,
     category: "MensT-shirts",
     isNew: true,
-    isSale: false
+    isSale: false,
+    tag: "NEW" 
   },
   {
     id: "m5",
@@ -72,7 +74,8 @@ export const featuredProducts: Product[] = [
     imageBack: blackwarriorfront,
     category: "MensT-shirts",
     isNew: true,
-    isSale: false
+    isSale: false,
+    tag: "Premium" 
   },
   {
     id: "w1",
@@ -186,7 +189,8 @@ export const menProducts: Product[] = [
     imageBack: beigeboyback,
     category: "T-shirts",
     isNew: true,
-    isSale: false
+    isSale: false,
+    tag: "NEW" 
   },
   {
     id: "m4",
@@ -196,7 +200,8 @@ export const menProducts: Product[] = [
     imageBack: charcoalboyback,
     category: "T-shirts",
     isNew: true,
-    isSale: false
+    isSale: false,
+    tag: "NEW" 
   },
   {
     id: "m5",
@@ -206,7 +211,8 @@ export const menProducts: Product[] = [
     imageBack: blackwarriorfront,
     category: "T-shirts",
     isNew: true,
-    isSale: false
+    isSale: false,
+    tag: "Premium" 
   },
  
  
@@ -373,7 +379,8 @@ export const animeProducts: Product[] = [
     imageBack: soloLevelingBack,
     category: "T-shirts",
     isNew: true,
-    isSale: false
+    isSale: false,
+    tag: "COMING SOON" 
   },
   {
     id: "a2",
@@ -383,7 +390,8 @@ export const animeProducts: Product[] = [
     imageBack: zoroStyleBack,
     category: "T-shirts",
     isNew: true,
-    isSale: false
+    isSale: false,
+    tag: "COMING SOON" 
   },
   {
     id: "a3",
@@ -393,7 +401,8 @@ export const animeProducts: Product[] = [
     imageBack: zenitsuBack,
     category: "T-shirts",
     isNew: true,
-    isSale: false
+    isSale: false,
+    tag: "COMING SOON" 
   }
 ];
 
