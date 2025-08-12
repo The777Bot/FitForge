@@ -44,7 +44,7 @@ const ProductCard = ({
   // Determine if this is one of the shirts that should be zoomed out
   const isZoomedOutShirt = name === "Visionary + Beige Boy T-shirt" || name === "Charcoal Boy T-shirt" || name === "White girl T-shirt";
   
-  const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
+  const sizes = ["S", "M", "L"];
   
   const handleAddToCart = (e: React.MouseEvent) => {
     e.stopPropagation();

@@ -7,7 +7,7 @@ import { useState, useContext } from "react";
 import { X } from "lucide-react";
 import { CartContext, CartUIContext } from "@/components/CartContext";
 
-const SIZES = ["XS", "S", "M", "L", "XL"];
+const SIZES = [ "S", "M", "L"];
 
 const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -30,12 +30,18 @@ const ProductDetails = () => {
   }
 
   const handleAddToCart = () => {
+    if (!size) {
+      // Show error or alert that size is required
+      return;
+    }
+    
     for (let i = 0; i < quantity; i++) {
       addToCart({
         id: product.id + (size ? `-${size}` : ""),
         name: `${product.name}${size ? ` (${size})` : ""}`,
         price: product.price,
         image: product.image,
+        size: size,
       });
     }
     setAdded(true);

@@ -20,7 +20,7 @@ const Checkout = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [submitted]);
-  
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
     setErrors({ ...errors, [e.target.name]: "" });
@@ -42,11 +42,11 @@ const Checkout = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(order),
       });
-      
+
       if (!response.ok) {
         throw new Error('Failed to save order');
       }
-      
+
       return await response.json();
     } catch (error) {
       console.error('Failed to save order to database:', error);
@@ -56,31 +56,31 @@ const Checkout = () => {
 
   const sendOrderEmail = async (order: any) => {
     try {
-      console.log('�� Attempting to send order email:', order);
-      
+      console.log('📧 Attempting to send order email:', order);
+
       const response = await fetch('/api/send-order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(order),
       });
-      
+
       const result = await response.json();
-      
+
       if (!response.ok) {
         throw new Error(result.error || 'Failed to send email');
       }
-      
+
       console.log('✅ Email result:', result);
-      
+
       if (result.customerSuccess) {
         console.log('✅ Customer email sent successfully');
       } else {
         console.warn('⚠️ Customer email failed, but order was processed');
       }
-      
+
     } catch (err) {
       console.error('❌ Failed to send order email:', err);
-      
+
       try {
         console.log('🔄 Trying backup email service...');
         const backupResponse = await fetch('/api/send-order-backup', {
@@ -88,10 +88,10 @@ const Checkout = () => {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(order),
         });
-        
+
         const backupResult = await backupResponse.json();
         console.log('✅ Backup email service result:', backupResult);
-        
+
       } catch (backupErr) {
         console.error('❌ Backup email service also failed:', backupErr);
       }
@@ -105,30 +105,36 @@ const Checkout = () => {
       setErrors(validationErrors);
       return;
     }
-    
+
+    // ✅ Ensure sizes are only S, M, L
+    const filteredCartItems = cartItems.map(item => ({
+      ...item,
+      size: ["S", "M", "L"].includes(item.size) ? item.size : "S"
+    }));
+
     const now = new Date();
-    const datePart = `${now.getFullYear().toString().slice(2)}${(now.getMonth()+1).toString().padStart(2,'0')}${now.getDate().toString().padStart(2,'0')}`;
+    const datePart = `${now.getFullYear().toString().slice(2)}${(now.getMonth() + 1).toString().padStart(2, '0')}${now.getDate().toString().padStart(2, '0')}`;
     const randomPart = Math.floor(1000 + Math.random() * 9000);
     const orderNum = `FF-${datePart}-${randomPart}`;
-    
+
     setOrderNumber(orderNum);
-    setOrderCart(cartItems);
+    setOrderCart(filteredCartItems);
     setOrderTotal(total);
     setSubmitted(true);
-    
+
     const orderObj = {
       orderNumber: orderNum,
       name: form.name,
       email: form.email,
       phone: form.phone,
       address: form.address,
-      items: cartItems,
+      items: filteredCartItems,
       subtotal: subtotal,
       deliveryFee: deliveryFee,
       total: total,
       date: now.toISOString(),
     };
-    
+
     saveOrderToDatabase(orderObj);
     sendOrderEmail(orderObj);
     clearCart();
@@ -142,7 +148,7 @@ const Checkout = () => {
           <div className="absolute bottom-20 right-20 w-24 h-24 bg-[#e7dbc7]/20 rounded-full animate-bounce"></div>
           <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-brand-purple/5 rounded-full animate-spin"></div>
         </div>
-        
+
         <div className="relative z-10 text-center space-y-6">
           <div className="relative">
             <div className="w-24 h-24 bg-gradient-to-r from-green-400 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6 animate-bounce">
@@ -152,20 +158,20 @@ const Checkout = () => {
             </div>
             <div className="absolute inset-0 w-24 h-24 bg-green-400/30 rounded-full animate-ping"></div>
           </div>
-          
+
           <h1 className="text-4xl md:text-5xl font-black bg-gradient-to-r from-brand-purple via-green-500 to-brand-purple bg-clip-text text-transparent animate-pulse">
             Order Confirmed! 🎉
           </h1>
-          
+
           <p className="text-lg text-muted-foreground">
             A confirmation email will be sent to you soon.
           </p>
-          
+
           <div className="bg-gradient-to-r from-brand-purple/10 to-green-500/10 p-4 rounded-2xl border border-brand-purple/20">
             <p className="text-sm text-muted-foreground mb-1">Your Order Number:</p>
             <p className="text-2xl font-bold text-brand-purple tracking-wider">{orderNumber}</p>
           </div>
-          
+
           <div className="w-full max-w-lg bg-card/80 backdrop-blur-sm p-6 rounded-2xl shadow-xl border border-border/50 space-y-4">
             <h2 className="font-bold text-xl mb-4 text-center">Order Details</h2>
             <div className="grid grid-cols-2 gap-4 text-left">
@@ -174,24 +180,32 @@ const Checkout = () => {
               <div><span className="font-semibold text-brand-purple">Phone:</span> {form.phone}</div>
               <div><span className="font-semibold text-brand-purple">Address:</span> {form.address}</div>
             </div>
-            
+
             <div className="border-t border-border pt-4 mt-4">
               <h3 className="font-bold mb-3 text-center">Order Summary</h3>
               <div className="space-y-2">
-                {orderCart.map((item, index) => (
+                {orderCart.map((item) => (
                   <div key={item.id} className="flex justify-between text-sm">
-                    <span>{item.name} x {item.quantity}</span>
+                    <span>{item.name} ({item.size}) x {item.quantity}</span>
                     <span className="font-semibold">Rs {item.price * item.quantity}</span>
                   </div>
                 ))}
               </div>
+
+              {deliveryFee > 0 && (
+                <div className="flex justify-between text-sm text-red-600 mt-2">
+                  <span>Delivery Fee:</span>
+                  <span>Rs {deliveryFee}</span>
+                </div>
+              )}
+
               <div className="flex justify-between font-bold text-xl mt-4 pt-3 border-t border-border">
                 <span>Total:</span>
                 <span className="text-brand-purple">Rs {orderTotal}</span>
               </div>
             </div>
           </div>
-          
+
           <div className="flex flex-col sm:flex-row gap-4">
             <button
               className="px-8 py-3 rounded-xl bg-gradient-to-r from-brand-purple to-purple-600 text-white font-bold hover:from-purple-600 hover:to-brand-purple transition-all duration-300 transform hover:scale-105 shadow-lg"
@@ -225,22 +239,24 @@ const Checkout = () => {
       <div className="w-full py-4 bg-red-600 shadow-lg mt-20">
         <div className="text-center">
           <span className="text-white font-bold text-xl tracking-wide">
-            �� Free shipping over 2000-Rs (for Lahore only) ��
+            🚚 Free shipping over 2000-Rs (for Lahore only) 🚚
           </span>
         </div>
       </div>
-      
+
       {/* Main content */}
       <div className="w-full max-w-lg mx-auto mt-8">
         <h1 className="text-4xl font-black mb-8 text-center">Checkout</h1>
-        
+
         {/* Order Summary */}
         <div className="w-full bg-card p-6 rounded-2xl shadow-lg mb-8">
           <h2 className="text-2xl font-bold mb-4">Order Summary</h2>
           <div className="space-y-3">
             {cartItems.map((item) => (
               <div key={item.id} className="flex justify-between">
-                <span>{item.name} x {item.quantity}</span>
+                <span>
+                  {item.name} ({["S", "M", "L"].includes(item.size) ? item.size : "S"}) x {item.quantity}
+                </span>
                 <span>Rs {item.price * item.quantity}</span>
               </div>
             ))}

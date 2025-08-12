@@ -46,7 +46,7 @@ export const featuredProducts: Product[] = [
   // Real T-shirt products (with actual images)
   {
     id: "u1",
-    name: "The Vision Void ",
+    name: "Breath of SEA ",
     price: 1899,
     image: beigeboyfront,
     imageBack: beigeboyback,
@@ -68,7 +68,7 @@ export const featuredProducts: Product[] = [
   },
   {
     id: "m5",
-    name: "Black Warrior ",
+    name: "Vision Void",
     price: 1899,
     image: blackwarriorback,
     imageBack: blackwarriorfront,
@@ -85,7 +85,8 @@ export const featuredProducts: Product[] = [
     imageBack: unisexgraceback,
     category: "Womens T-shirts",
     isNew: true,
-    isSale: false
+    isSale: false,
+    tag: "NEW"
   },
   {
     id: "u2",
@@ -95,7 +96,8 @@ export const featuredProducts: Product[] = [
     imageBack: unisexeightysback,
     category: "Unisex T-shirts",
     isNew: true,
-    isSale: false
+    isSale: false,
+    tag: "NEW"
   },
   {
     id: "w3",
@@ -181,17 +183,7 @@ export const featuredProducts: Product[] = [
 
 export const menProducts: Product[] = [
   // Real products first
-  {
-    id: "m3",
-    name: "The Vision Void",
-    price: 1899,
-    image: beigeboyfront,
-    imageBack: beigeboyback,
-    category: "T-shirts",
-    isNew: true,
-    isSale: false,
-    tag: "NEW" 
-  },
+  
   {
     id: "m4",
     name: "The Blacksmith ",
@@ -205,7 +197,7 @@ export const menProducts: Product[] = [
   },
   {
     id: "m5",
-    name: "Black Warrior ",
+    name: "Vision Void ",
     price: 1899,
     image: blackwarriorback,
     imageBack: blackwarriorfront,
@@ -218,13 +210,14 @@ export const menProducts: Product[] = [
  
   {
     id: "u1",
-    name: "The Vision Void",
+    name: "Breath of SEA",
     price: 1899,
     image: beigeboyfront,
     imageBack: beigeboyback,
     category: "T-shirts",
     isNew: true,
-    isSale: false
+    isSale: false,
+    tag: "Premium" 
   },
   {
     id: "u2",
@@ -234,7 +227,8 @@ export const menProducts: Product[] = [
     imageBack: unisexeightysback,
     category: "T-shirts",
     isNew: true,
-    isSale: false
+    isSale: false,
+    tag: "NEW"
   },
   // Coming soon products last
   {
@@ -268,7 +262,8 @@ export const womenProducts: Product[] = [
     imageBack: unisexgraceback,
     category: "T-shirts",
     isNew: true,
-    isSale: false
+    isSale: false,
+    tag: "NEW"
   },
   {
     id: "w3",
@@ -278,17 +273,19 @@ export const womenProducts: Product[] = [
     imageBack: whitegirlback,
     category: "T-shirts",
     isNew: true,
-    isSale: false
+    isSale: false,
+    tag: "NEW"
   },
   {
     id: "u1",
-    name: "The Vision Void",
+    name: "Breath of SEA",
     price: 1899,
     image: beigeboyfront,
     imageBack: beigeboyback,
     category: "T-shirts",
     isNew: true,
-    isSale: false
+    isSale: false,
+    tag: "Premium" 
   },
   {
     id: "u2",
@@ -298,7 +295,8 @@ export const womenProducts: Product[] = [
     imageBack: unisexeightysback,
     category: "T-shirts",
     isNew: true,
-    isSale: false
+    isSale: false,
+    tag: "NEW"
   },
   // Coming soon products last
   {
@@ -326,13 +324,14 @@ export const unisexProducts: Product[] = [
   // Real unisex products
   {
     id: "u1",
-    name: "The Vision Void", // Vision Void is unisex
+    name: "Breath of SEA", // Vision Void is unisex
     price: 1899,
     image: beigeboyfront,
     imageBack: beigeboyback,
     category: "T-shirts",
     isNew: true,
-    isSale: false
+    isSale: false,
+    tag: "Premium" 
   },
   {
     id: "u2",
@@ -342,7 +341,8 @@ export const unisexProducts: Product[] = [
     imageBack: unisexeightysback,
     category: "T-shirts",
     isNew: true,
-    isSale: false
+    isSale: false,
+    tag: "NEW"
   }
 ];
 

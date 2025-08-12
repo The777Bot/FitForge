@@ -124,28 +124,40 @@ const Header = () => {
           <DrawerHeader>
             <DrawerTitle>Your Cart</DrawerTitle>
           </DrawerHeader>
+          {/* Static Red Banner */}
+    <div className="w-full py-2 bg-red-600 text-center">
+      <span className="text-white font-bold text-sm tracking-wide">
+        Free shipping over 2000-Rs (for Lahore only)
+      </span>
+    </div>
           <div className="p-4 space-y-4">
             {cartItems.length === 0 ? (
               <div className="text-muted-foreground">Your cart is empty.</div>
             ) : (
               <div className="space-y-4">
-                {cartItems.map((item) => (
-                  <div key={item.id} className="flex items-center gap-4 border-b pb-2 relative">
-                    <img src={getImageUrl(item.image)} alt={item.name} className="w-16 h-16 rounded-lg object-cover bg-muted" onError={e => { e.currentTarget.src = FALLBACK_IMAGE; }} />
-                    <div className="flex-1">
-                      <div className="font-semibold text-foreground">{item.name}</div>
-                        <div className="text-sm text-muted-foreground">Rs {item.price} x {item.quantity}</div>
-                    </div>
-                    <div className="font-bold text-[#e7dbc7]">Rs {item.price * item.quantity}</div>
-                    <button
-                      className="absolute top-1 right-0 p-1 text-muted-foreground hover:text-destructive"
-                      onClick={() => removeFromCart(item.id)}
-                      aria-label={`Remove ${item.name} from cart`}
-                    >
-                      <X className="w-4 h-4" />
-                    </button>
-                  </div>
-                ))}
+                
+
+{cartItems.map((item) => (
+  <div key={`${item.id}-${item.size}`} className="flex items-center gap-4 border-b pb-2 relative">
+    <img src={getImageUrl(item.image)} alt={item.name} className="w-16 h-16 rounded-lg object-cover bg-muted" onError={e => { e.currentTarget.src = FALLBACK_IMAGE; }} />
+    <div className="flex-1">
+      <div className="font-semibold text-foreground">{item.name}</div>
+      <div className="text-sm text-muted-foreground">
+        Size: {item.size} | Rs {item.price} x {item.quantity}
+      </div>
+    </div>
+    <div className="font-bold text-[#e7dbc7]">Rs {item.price * item.quantity}</div>
+    <button
+      className="absolute top-1 right-0 p-1 text-muted-foreground hover:text-destructive"
+      onClick={() => removeFromCart(item.id)}
+      aria-label={`Remove ${item.name} from cart`}
+    >
+      <X className="w-4 h-4" />
+    </button>
+  </div>
+))}
+
+
               </div>
             )}
             <Button
