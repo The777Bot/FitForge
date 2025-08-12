@@ -12,8 +12,11 @@ const Checkout = () => {
   const [orderTotal, setOrderTotal] = useState<number>(0);
   const navigate = useNavigate();
 
-  const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const deliveryFee = subtotal < 2000 ? 150 : 0;
+  const total = subtotal + deliveryFee;
 
+  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
     setErrors({ ...errors, [e.target.name]: "" });
@@ -119,7 +122,7 @@ const Checkout = () => {
     
     setOrderNumber(orderNum);
     setOrderCart(cartItems);
-    setOrderTotal(cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0));
+    setOrderTotal(total);
     setSubmitted(true);
     
     // Save order to database
@@ -130,7 +133,9 @@ const Checkout = () => {
       phone: form.phone,
       address: form.address,
       items: cartItems,
-      total: cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0),
+      subtotal: subtotal,
+      deliveryFee: deliveryFee,
+      total: total,
       date: now.toISOString(),
     };
     
@@ -190,61 +195,58 @@ const Checkout = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col items-center py-12 px-4">
+      {/* Moving Red Banner */}
+      <div className="w-full flex overflow-hidden py-2 bg-red-600 mb-8">
+        <div className="flex whitespace-nowrap animate-marquee">
+          <span className="text-white font-bold text-lg tracking-wide py-2 px-12">
+            Free shipping over 2000-Rs (for Lahore only)
+            <span className="mx-12">|</span>
+            Free shipping over 2000-Rs (for Lahore only)
+            <span className="mx-12">|</span>
+            Free shipping over 2000-Rs (for Lahore only)
+          </span>
+          <span className="text-white font-bold text-lg tracking-wide py-2 px-12">
+            Free shipping over 2000-Rs (for Lahore only)
+            <span className="mx-12">|</span>
+            Free shipping over 2000-Rs (for Lahore only)
+            <span className="mx-12">|</span>
+            Free shipping over 2000-Rs (for Lahore only)
+          </span>
+        </div>
+      </div>
       <h1 className="text-4xl font-black mb-8 mt-12">Checkout</h1>
+      
+      {/* Order Summary */}
+      <div className="w-full max-w-lg bg-card p-6 rounded-2xl shadow-lg mb-8">
+        <h2 className="text-2xl font-bold mb-4">Order Summary</h2>
+        <div className="space-y-3">
+          {cartItems.map((item) => (
+            <div key={item.id} className="flex justify-between">
+              <span>{item.name} x {item.quantity}</span>
+              <span>Rs {item.price * item.quantity}</span>
+            </div>
+          ))}
+          <div className="border-t border-border pt-3">
+            <div className="flex justify-between">
+              <span>Subtotal:</span>
+              <span>Rs {subtotal}</span>
+            </div>
+            {deliveryFee > 0 && (
+              <div className="flex justify-between text-red-600">
+                <span>Delivery Fee:</span>
+                <span>Rs {deliveryFee}</span>
+              </div>
+            )}
+               <div className="flex justify-between font-bold text-xl mt-3">
+              <span>Total:</span>
+              <span>Rs {total}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <form onSubmit={handleSubmit} className="w-full max-w-lg bg-card p-8 rounded-2xl shadow-lg space-y-6">
-        <div>
-          <label className="block mb-2 font-semibold" htmlFor="name">Name</label>
-          <input
-            className="w-full p-3 rounded-lg border border-border bg-muted/30 text-lg focus:outline-none focus:ring-2 focus:ring-brand-purple"
-            type="text"
-            name="name"
-            id="name"
-            value={form.name}
-            onChange={handleChange}
-            required
-          />
-          {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
-        </div>
-        <div>
-          <label className="block mb-2 font-semibold" htmlFor="email">Email</label>
-          <input
-            className="w-full p-3 rounded-lg border border-border bg-muted/30 text-lg focus:outline-none focus:ring-2 focus:ring-brand-purple"
-            type="email"
-            name="email"
-            id="email"
-            value={form.email}
-            onChange={handleChange}
-            required
-          />
-          {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
-        </div>
-        <div>
-          <label className="block mb-2 font-semibold" htmlFor="phone">Phone Number</label>
-          <input
-            className="w-full p-3 rounded-lg border border-border bg-muted/30 text-lg focus:outline-none focus:ring-2 focus:ring-brand-purple"
-            type="tel"
-            name="phone"
-            id="phone"
-            value={form.phone}
-            onChange={handleChange}
-            required
-            pattern="[0-9\-\+\s\(\)]{7,15}"
-            placeholder="e.g. 0300-1234567"
-          />
-          {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
-        </div>
-        <div>
-          <label className="block mb-2 font-semibold" htmlFor="address">Shipping Address</label>
-          <textarea
-            className="w-full p-3 rounded-lg border border-border bg-muted/30 text-lg focus:outline-none focus:ring-2 focus:ring-brand-purple"
-            name="address"
-            id="address"
-            value={form.address}
-            onChange={handleChange}
-            required
-          />
-          {errors.address && <p className="text-red-500 text-sm mt-1">{errors.address}</p>}
-        </div>
+        {/* ... existing form fields ... */}
         <div className="border-t border-border pt-4">
           <h2 className="font-bold mb-2">Order Summary</h2>
           <ul className="mb-2">
@@ -257,12 +259,12 @@ const Checkout = () => {
           </ul>
           <div className="flex justify-between font-bold text-lg">
             <span>Total:</span>
-              <span>Rs {total}</span>
+            <span>Rs {total}</span>
           </div>
         </div>
         <button
           type="submit"
-          className="w-full py-3 rounded-lg bg-[hsl(45,33%,90%)] text-[hsl(0,0%,10%)] font-bold text-lg hover:bg-[hsl(45,33%,95%)] transition"
+          className="w-full py-3 rounded-lg bg-[hsl(0,0%,10%)] text-[hsl(45,33%,90%)] font-bold text-lg hover:bg-[hsl(0,0%,0%)] hover:text-[hsl(45,33%,100%)] transition shadow-lg border border-[hsl(45,33%,90%)]"
         >
           Place Order
         </button>

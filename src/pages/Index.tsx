@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { CartContext } from "@/components/CartContext";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
@@ -9,29 +9,54 @@ import Newsletter from "@/components/Newsletter";
 
 const Index = () => {
   const { addToCart } = useContext(CartContext);
-  const bannerText = "free shipping over 2000-Rs (for Lahore only)";
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0
+  });
+
+  useEffect(() => {
+    // Set end date to 7 days from now
+    const endDate = new Date();
+    endDate.setDate(endDate.getDate() + 7);
+
+    const timer = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = endDate.getTime() - now;
+
+      if (distance > 0) {
+        setTimeLeft({
+          days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+          seconds: Math.floor((distance % (1000 * 60)) / 1000)
+        });
+      } else {
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+      }
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
       <main className="flex flex-col">
         <Hero />
-        {/* Moving Red Headline Banner */}
-        <div className="w-full flex overflow-hidden py-2 bg-red-600">
-          <div className="flex whitespace-nowrap animate-marquee">
-            <span className="text-white font-bold text-lg tracking-wide py-2 px-12">
-              {bannerText}
-              <span className="mx-12">|</span>
-              {bannerText}
-              <span className="mx-12">|</span>
-              {bannerText}
-            </span>
-            <span className="text-white font-bold text-lg tracking-wide py-2 px-12">
-              {bannerText}
-              <span className="mx-12">|</span>
-              {bannerText}
-              <span className="mx-12">|</span>
-              {bannerText}
-            </span>
+        {/* 7 Days Sale Timer */}
+        <div className="w-full py-4 bg-gradient-to-r from-brand-purple to-purple-600">
+          <div className="text-center">
+            <div className="text-white font-bold text-xl mb-2">
+              🎉 FLASH SALE: 20% OFF ALL PRODUCTS! 🎉
+            </div>
+            <div className="text-white text-lg">
+              Ends in: 
+              <span className="font-bold mx-2 bg-white text-brand-purple px-3 py-1 rounded-lg">
+                {timeLeft.days}d {timeLeft.hours}h {timeLeft.minutes}m {timeLeft.seconds}s
+              </span>
+            </div>
           </div>
         </div>
         <HeroSection2 />
