@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { CartContext } from "@/components/CartContext";
 import { useNavigate } from "react-router-dom";
 
@@ -16,6 +16,10 @@ const Checkout = () => {
   const deliveryFee = subtotal < 2000 ? 150 : 0;
   const total = subtotal + deliveryFee;
 
+  // Scroll to top when component mounts or when submitted changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [submitted]);
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -230,7 +234,7 @@ if (submitted) {
   );
 }
 
-// ... existing code ...
+
 
   if (cartItems.length === 0) {
     return (
@@ -284,7 +288,64 @@ if (submitted) {
       </div>
 
       <form onSubmit={handleSubmit} className="w-full max-w-lg bg-card p-8 rounded-2xl shadow-lg space-y-6">
-        {/* ... existing form fields ... */}
+      <div>
+  <label className="block mb-2 font-semibold" htmlFor="name">Name</label>
+  <input
+    className="w-full p-3 rounded-lg border border-border bg-muted/30 text-lg focus:outline-none focus:ring-2 focus:ring-brand-purple"
+    type="text"
+    name="name"
+    id="name"
+    value={form.name}
+    onChange={handleChange}
+    required
+  />
+  {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+</div>
+
+<div>
+  <label className="block mb-2 font-semibold" htmlFor="email">Email</label>
+  <input
+    className="w-full p-3 rounded-lg border border-border bg-muted/30 text-lg focus:outline-none focus:ring-2 focus:ring-brand-purple"
+    type="email"
+    name="email"
+    id="email"
+    value={form.email}
+    onChange={handleChange}
+    required
+  />
+  {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+</div>
+
+<div>
+  <label className="block mb-2 font-semibold" htmlFor="phone">Phone Number</label>
+  <input
+    className="w-full p-3 rounded-lg border border-border bg-muted/30 text-lg focus:outline-none focus:ring-2 focus:ring-brand-purple"
+    type="tel"
+    name="phone"
+    id="phone"
+    value={form.phone}
+    onChange={handleChange}
+    required
+    pattern="[0-9\-\+\s\(\)]{7,15}"
+    placeholder="e.g. 0300-1234567"
+  />
+  {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
+</div>
+
+<div>
+  <label className="block mb-2 font-semibold" htmlFor="address">Shipping Address</label>
+  <textarea
+    className="w-full p-3 rounded-lg border border-border bg-muted/30 text-lg focus:outline-none focus:ring-2 focus:ring-brand-purple"
+    name="address"
+    id="address"
+    value={form.address}
+    onChange={handleChange}
+    required
+    rows={3}
+    placeholder="Enter your complete shipping address"
+  />
+  {errors.address && <p className="text-red-500 text-sm mt-1">{errors.address}</p>}
+</div>
         <div className="border-t border-border pt-4">
           <h2 className="font-bold mb-2">Order Summary</h2>
           <ul className="mb-2">

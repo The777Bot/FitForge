@@ -44,12 +44,12 @@ export interface Product {
 export const featuredProducts: Product[] = [
   // Real T-shirt products (with actual images)
   {
-    id: "m3",
+    id: "u1",
     name: "The Vision Void ",
     price: 1899,
     image: beigeboyfront,
     imageBack: beigeboyback,
-    category: "MensT-shirts",
+    category: "Unisex T-shirts",
     isNew: true,
     isSale: false
     
@@ -75,12 +75,12 @@ export const featuredProducts: Product[] = [
     isSale: false
   },
   {
-    id: "u1",
+    id: "w1",
     name: "Varsity Grace ",
     price: 1799,
     image: unisexgracefront,
     imageBack: unisexgraceback,
-    category: "Unisex T-shirts",
+    category: "Womens T-shirts",
     isNew: true,
     isSale: false
   },
@@ -208,22 +208,24 @@ export const menProducts: Product[] = [
     isNew: true,
     isSale: false
   },
+ 
+ 
   {
-    id: "m6",
-    name: "Varsity Grace ",
-    price: 1799,
-    image: gracefront,
-    imageBack: graceback,
+    id: "u1",
+    name: "The Vision Void",
+    price: 1899,
+    image: beigeboyfront,
+    imageBack: beigeboyback,
     category: "T-shirts",
     isNew: true,
     isSale: false
   },
   {
-    id: "m7",
-    name: "City Eighty ",
+    id: "u2",
+    name: "City Eighty",
     price: 1799,
-    image: eightysfront,
-    imageBack: eightysback,
+    image: unisexeightysfront,
+    imageBack: unisexeightysback,
     category: "T-shirts",
     isNew: true,
     isSale: false
@@ -253,11 +255,41 @@ export const menProducts: Product[] = [
 export const womenProducts: Product[] = [
   // Real products first
   {
+    id: "w1", // Varsity Grace is women's only
+    name: "Varsity Grace",
+    price: 1799,
+    image: unisexgracefront,
+    imageBack: unisexgraceback,
+    category: "T-shirts",
+    isNew: true,
+    isSale: false
+  },
+  {
     id: "w3",
     name: "Afterlight ",
     price: 1799,
     image: whitegirlfront,
     imageBack: whitegirlback,
+    category: "T-shirts",
+    isNew: true,
+    isSale: false
+  },
+  {
+    id: "u1",
+    name: "The Vision Void",
+    price: 1899,
+    image: beigeboyfront,
+    imageBack: beigeboyback,
+    category: "T-shirts",
+    isNew: true,
+    isSale: false
+  },
+  {
+    id: "u2",
+    name: "City Eighty",
+    price: 1799,
+    image: unisexeightysfront,
+    imageBack: unisexeightysback,
     category: "T-shirts",
     isNew: true,
     isSale: false
@@ -288,10 +320,10 @@ export const unisexProducts: Product[] = [
   // Real unisex products
   {
     id: "u1",
-    name: "Varsity Grace",
-    price: 1799,
-    image: unisexgracefront,
-    imageBack: unisexgraceback,
+    name: "The Vision Void", // Vision Void is unisex
+    price: 1899,
+    image: beigeboyfront,
+    imageBack: beigeboyback,
     category: "T-shirts",
     isNew: true,
     isSale: false
