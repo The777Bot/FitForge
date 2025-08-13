@@ -13,6 +13,8 @@ import gracefront from "@/assets/mens-collection-framed/gracefront.jpg";
 import graceback from "@/assets/mens-collection-framed/graceback.jpg";
 import eightysfront from "@/assets/mens-collection-framed/eightysfront.jpg";
 import eightysback from "@/assets/mens-collection-framed/eightysback.jpg";
+import visionVoidWhiteBack from "@/assets/mens-collection-framed/Vision Void (White Version).png";
+import visionVoidWhiteFront from "@/assets/mens-collection-framed/Vision Void (White Version)f.png";
 
 // Unisex collection imports
 import unisexgracefront from "@/assets/unisex-collection-framed/gracefront.png";
@@ -80,7 +82,7 @@ export const featuredProducts: Product[] = [
   {
     id: "w1",
     name: "Varsity Grace ",
-    price: 1799,
+    price: 1999,
     image: unisexgracefront,
     imageBack: unisexgraceback,
     category: "Womens T-shirts",
@@ -91,7 +93,7 @@ export const featuredProducts: Product[] = [
   {
     id: "u2",
     name: "City Eighty ",
-    price: 1799,
+    price: 1999,
     image: unisexeightysfront,
     imageBack: unisexeightysback,
     category: "Unisex T-shirts",
@@ -123,7 +125,7 @@ export const featuredProducts: Product[] = [
   {
     id: "a2",
     name: "Zoro Style T-shirt",
-    price: 2799,
+    price: 2499,
     image: zoroStyleFront,
     imageBack: zoroStyleBack,
     category: "Anime",
@@ -206,6 +208,17 @@ export const menProducts: Product[] = [
     isSale: false,
     tag: "Premium" 
   },
+  {
+    id: "m6",
+    name: "Vision Void (White Version)",
+    price: 1899,
+    image: visionVoidWhiteBack,
+    imageBack: visionVoidWhiteFront,
+    category: "T-shirts",
+    isNew: true,
+    isSale: false,
+    tag: "Premium" 
+  },
  
  
   {
@@ -222,7 +235,7 @@ export const menProducts: Product[] = [
   {
     id: "u2",
     name: "City Eighty",
-    price: 1799,
+    price: 1999,
     image: unisexeightysfront,
     imageBack: unisexeightysback,
     category: "T-shirts",
@@ -257,7 +270,7 @@ export const womenProducts: Product[] = [
   {
     id: "w1", // Varsity Grace is women's only
     name: "Varsity Grace",
-    price: 1799,
+    price: 1999,
     image: unisexgracefront,
     imageBack: unisexgraceback,
     category: "T-shirts",
@@ -276,21 +289,11 @@ export const womenProducts: Product[] = [
     isSale: false,
     tag: "NEW"
   },
-  {
-    id: "u1",
-    name: "Breath of SEA",
-    price: 1899,
-    image: beigeboyfront,
-    imageBack: beigeboyback,
-    category: "T-shirts",
-    isNew: true,
-    isSale: false,
-    tag: "Premium" 
-  },
+  
   {
     id: "u2",
     name: "City Eighty",
-    price: 1799,
+    price: 1999,
     image: unisexeightysfront,
     imageBack: unisexeightysback,
     category: "T-shirts",
@@ -322,21 +325,11 @@ export const womenProducts: Product[] = [
 
 export const unisexProducts: Product[] = [
   // Real unisex products
-  {
-    id: "u1",
-    name: "Breath of SEA", // Vision Void is unisex
-    price: 1899,
-    image: beigeboyfront,
-    imageBack: beigeboyback,
-    category: "T-shirts",
-    isNew: true,
-    isSale: false,
-    tag: "Premium" 
-  },
+  
   {
     id: "u2",
     name: "City Eighty",
-    price: 1799,
+    price: 1999,
     image: unisexeightysfront,
     imageBack: unisexeightysback,
     category: "T-shirts",
@@ -374,7 +367,7 @@ export const animeProducts: Product[] = [
   {
     id: "a1",
     name: "Solo Leveling T-shirt",
-    price: 2799,
+    price: 2499,
     image: soloLevelingFront,
     imageBack: soloLevelingBack,
     category: "T-shirts",
@@ -385,7 +378,7 @@ export const animeProducts: Product[] = [
   {
     id: "a2",
     name: "Zoro Style T-shirt",
-    price: 2799,
+    price: 2499,
     image: zoroStyleFront,
     imageBack: zoroStyleBack,
     category: "T-shirts",
