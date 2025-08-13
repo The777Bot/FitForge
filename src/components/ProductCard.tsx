@@ -45,6 +45,9 @@ const ProductCard = ({
   const isZoomedOutShirt = name === "Visionary + Beige Boy T-shirt" || name === "Charcoal Boy T-shirt" || name === "White girl T-shirt";
   
   const sizes = ["S", "M", "L"];
+  const discountPercent = originalPrice && originalPrice > price
+    ? Math.round(((originalPrice - price) / originalPrice) * 100)
+    : 0;
   
   const isComingSoon = tag === "COMING SOON";
 
@@ -82,6 +85,13 @@ const ProductCard = ({
             </span>
           </div>
         )}
+          {discountPercent > 0 && (
+            <div className="absolute top-3 right-3 z-20">
+              <span className="px-2 py-1 text-[10px] font-extrabold rounded-full bg-rose-500 text-white shadow">
+                {discountPercent}% OFF
+              </span>
+            </div>
+          )}
         <Link
           to={`/product/${id}`}
           className={`block focus:outline-none flex flex-col h-full ${isComingSoon ? 'pointer-events-none cursor-not-allowed opacity-95' : ''}`}
