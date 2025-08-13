@@ -64,7 +64,12 @@ const Hero = () => {
     }
   }, []);
 
-  const scrollToFeatured = () => {
+  const handleDiscover = () => {
+    const isMobile = window.matchMedia('(max-width: 767px)').matches;
+    if (isMobile) {
+      window.dispatchEvent(new Event('open-mobile-menu'));
+      return;
+    }
     const element = document.getElementById('featured');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -143,7 +148,7 @@ const Hero = () => {
 
 
         <Button
-          onClick={scrollToFeatured}
+          onClick={handleDiscover}
           className="relative inline-flex items-center px-6 py-3 text-lg font-semibold text-brand-dark bg-brand-light rounded-full shadow-md hover:bg-brand-light/90 transition-all duration-300 group focus:ring-2 focus:ring-brand-purple focus:outline-none before:absolute before:inset-0 before:rounded-full before:opacity-0 before:transition-opacity before:duration-300 before:bg-gradient-to-r before:from-brand-purple/30 before:to-brand-light/30 hover:before:opacity-100"
           aria-label="Scroll to featured collection"
         >

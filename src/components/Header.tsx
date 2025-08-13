@@ -43,6 +43,13 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Listen for global event to open mobile menu (triggered from Hero "Discover More" on mobile)
+  useEffect(() => {
+    const openMobileMenu = () => setIsMenuOpen(true);
+    window.addEventListener('open-mobile-menu', openMobileMenu as EventListener);
+    return () => window.removeEventListener('open-mobile-menu', openMobileMenu as EventListener);
+  }, []);
+
   useEffect(() => {
     if (searchQuery.trim() === "") {
       setSearchResults([]);

@@ -46,14 +46,14 @@ const Index = () => {
       <main className="flex flex-col">
         <Hero />
         {/* 7 Days Sale Timer */}
-        <div className="w-full py-4 bg-gradient-to-r from-brand-purple to-purple-600">
+        <div className="w-full py-4 bg-gradient-to-r from-fuchsia-600 via-rose-500 to-amber-400">
           <div className="text-center">
-            <div className="text-white font-bold text-xl mb-2">
+            <div className="text-white drop-shadow-lg font-extrabold text-xl mb-2 tracking-wide">
               🎉 FLASH SALE: 20% OFF ALL PRODUCTS! 🎉
             </div>
             <div className="text-white text-lg">
               Ends in: 
-              <span className="font-bold mx-2 bg-white text-brand-purple px-3 py-1 rounded-lg">
+              <span className="font-bold mx-2 bg-white text-rose-600 px-3 py-1 rounded-lg">
                 {timeLeft.days}d {timeLeft.hours}h {timeLeft.minutes}m {timeLeft.seconds}s
               </span>
             </div>

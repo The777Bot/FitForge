@@ -64,7 +64,7 @@ const ProductCard = ({
       transition={{ duration: 0.5 }}
     >
       <Card
-        className="group relative overflow-hidden border border-foreground bg-gradient-card glass-effect shadow-lg hover:shadow-2xl hover:scale-[1.03] transition-all duration-300 hover-lift rounded-3xl focus-within:ring-2 focus-within:ring-brand-purple h-full flex flex-col"
+        className="group relative overflow-hidden border border-foreground bg-gradient-card glass-effect shadow-lg hover:shadow-2xl hover:scale-[1.03] transition-all duration-300 hover-lift rounded-2xl sm:rounded-3xl focus-within:ring-2 focus-within:ring-brand-purple h-full flex flex-col mx-3 sm:mx-0"
       >
          {/* Tag Badge - Add this back */}
          {tag && (
@@ -85,10 +85,10 @@ const ProductCard = ({
           className="block focus:outline-none flex flex-col h-full"
           style={{ textDecoration: "none", color: "inherit" }}
         >
-          <div className="relative overflow-hidden rounded-t-3xl">
+          <div className="relative overflow-hidden rounded-t-2xl sm:rounded-t-3xl">
             {/* Image Container */}
             <div
-              className="aspect-square overflow-hidden rounded-t-3xl relative"
+              className="aspect-square overflow-hidden rounded-t-2xl sm:rounded-t-3xl relative"
               style={{ background: "linear-gradient(145deg, hsl(0 0% 12%), hsl(45 33% 80%))" }}
             >
               <img
@@ -107,7 +107,7 @@ const ProductCard = ({
           </div>
 
           {/* Details Section */}
-          <CardContent className="p-6 bg-gradient-to-b from-card to-brand-surface/30 flex flex-col justify-between flex-grow">
+          <CardContent className="p-4 sm:p-6 bg-gradient-to-b from-card to-brand-surface/30 flex flex-col justify-between flex-grow">
             <div className="space-y-3 flex-grow">
               <p className="text-xs text-brand-purple uppercase tracking-widest font-bold">
                 {category}
@@ -130,7 +130,7 @@ const ProductCard = ({
         </Link>
 
         {/* Add to Cart Button */}
-        <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0 z-10">
+        <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0 z-10">
           <Button
             className="w-full backdrop-blur-md rounded-2xl font-bold bg-[hsl(45,33%,90%)] text-[hsl(0,0%,10%)] border border-[hsl(45,33%,90%)] hover:bg-[hsl(45,33%,95%)] hover:text-[hsl(0,0%,0%)]"
             onClick={handleAddToCart}
