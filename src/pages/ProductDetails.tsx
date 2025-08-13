@@ -95,9 +95,15 @@ const ProductDetails = () => {
           <h1 className="text-3xl font-bold text-black mb-1">{product.name}</h1>
           <p className="text-base text-gray-900 font-semibold mb-1 uppercase tracking-widest">{product.category}</p>
           <div className="flex items-center gap-4 mb-2">
-            <span className="text-2xl font-black text-black">Rs {product.price}</span>
-            {product.originalPrice && (
-              <span className="line-through text-gray-500 font-semibold">Rs {product.originalPrice}</span>
+            {!product.tag || product.tag !== 'COMING SOON' ? (
+              <>
+                <span className="text-2xl font-black text-black">Rs {product.price}</span>
+                {product.originalPrice && (
+                  <span className="line-through text-gray-500 font-semibold">Rs {product.originalPrice}</span>
+                )}
+              </>
+            ) : (
+              <span className="text-base font-semibold text-muted-foreground">Coming Soon</span>
             )}
           </div>
           <div className="flex gap-2 mb-2">
@@ -135,10 +141,10 @@ const ProductDetails = () => {
               variant="brand"
               size="lg"
               className="mt-2 w-full md:w-auto"
-              disabled={!size}
+              disabled={product.tag === 'COMING SOON' || !size}
               onClick={handleAddToCart}
             >
-              {added ? "Added!" : "Add to Cart"}
+              {product.tag === 'COMING SOON' ? 'Coming Soon' : (added ? 'Added!' : 'Add to Cart')}
             </Button>
           </div>
           {/* Description or more details can go here */}

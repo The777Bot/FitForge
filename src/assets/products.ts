@@ -50,6 +50,7 @@ export const featuredProducts: Product[] = [
     id: "u1",
     name: "Breath of SEA ",
     price: 1899,
+    originalPrice: 2375,
     image: beigeboyfront,
     imageBack: beigeboyback,
     category: "Unisex T-shirts",
@@ -61,6 +62,7 @@ export const featuredProducts: Product[] = [
     id: "m4",
     name: "The Blacksmith ",
     price: 1799,
+    originalPrice: 2249,
     image: charcoalboyfront,
     imageBack: charcoalboyback,
     category: "MensT-shirts",
@@ -72,12 +74,13 @@ export const featuredProducts: Product[] = [
     id: "m5",
     name: "Vision Void",
     price: 1899,
+    originalPrice: 2375,
     image: blackwarriorback,
     imageBack: blackwarriorfront,
     category: "MensT-shirts",
     isNew: true,
     isSale: false,
-    tag: "Premium" 
+    tag: "NEW" 
   },
   {
     id: "w1",
@@ -89,7 +92,7 @@ export const featuredProducts: Product[] = [
     category: "Womens T-shirts",
     isNew: true,
     isSale: false,
-    tag: "NEW"
+    tag: "PREMIUM"
   },
   {
     id: "u2",
@@ -101,17 +104,19 @@ export const featuredProducts: Product[] = [
     category: "Unisex T-shirts",
     isNew: true,
     isSale: false,
-    tag: "NEW"
+    tag: "PREMIUM"
   },
   {
     id: "w3",
     name: "Afterlight ",
     price: 1799,
+    originalPrice: 2249,
     image: whitegirlfront,
     imageBack: whitegirlback,
     category: "Womens T-shirts",
     isNew: true,
-    isSale: false
+    isSale: false,
+    tag: "NEW"
   },
   // Anime Collection (Premium products)
   {
@@ -192,6 +197,7 @@ export const menProducts: Product[] = [
     id: "m4",
     name: "The Blacksmith ",
     price: 1799,
+    originalPrice: 2249,
     image: charcoalboyfront,
     imageBack: charcoalboyback,
     category: "T-shirts",
@@ -203,23 +209,25 @@ export const menProducts: Product[] = [
     id: "m5",
     name: "Vision Void ",
     price: 1899,
+    originalPrice: 2375,
     image: blackwarriorback,
     imageBack: blackwarriorfront,
     category: "T-shirts",
     isNew: true,
     isSale: false,
-    tag: "Premium" 
+    tag: "NEW" 
   },
   {
     id: "m6",
     name: "Vision Void (White Version)",
     price: 1899,
+    originalPrice: 2375,
     image: visionVoidWhiteBack,
     imageBack: visionVoidWhiteFront,
     category: "T-shirts",
     isNew: true,
     isSale: false,
-    tag: "Premium" 
+    tag: "NEW" 
   },
  
  
@@ -227,12 +235,13 @@ export const menProducts: Product[] = [
     id: "u1",
     name: "Breath of SEA",
     price: 1899,
+    originalPrice: 2375,
     image: beigeboyfront,
     imageBack: beigeboyback,
     category: "T-shirts",
     isNew: true,
     isSale: false,
-    tag: "Premium" 
+    tag: "NEW" 
   },
   {
     id: "u2",
@@ -244,7 +253,7 @@ export const menProducts: Product[] = [
     category: "T-shirts",
     isNew: true,
     isSale: false,
-    tag: "NEW"
+    tag: "PREMIUM"
   },
   // Coming soon products last
   {
@@ -280,12 +289,13 @@ export const womenProducts: Product[] = [
     category: "T-shirts",
     isNew: true,
     isSale: false,
-    tag: "NEW"
+    tag: "PREMIUM"
   },
   {
     id: "w3",
     name: "Afterlight ",
     price: 1799,
+    originalPrice: 2249,
     image: whitegirlfront,
     imageBack: whitegirlback,
     category: "T-shirts",
@@ -304,29 +314,31 @@ export const womenProducts: Product[] = [
     category: "T-shirts",
     isNew: true,
     isSale: false,
-    tag: "NEW"
+    tag: "PREMIUM"
   },
   {
     id: "m5",
     name: "Vision Void ",
     price: 1899,
+    originalPrice: 2375,
     image: blackwarriorback,
     imageBack: blackwarriorfront,
     category: "T-shirts",
     isNew: true,
     isSale: false,
-    tag: "Premium" 
+    tag: "NEW" 
   },
   {
     id: "m6",
     name: "Vision Void (White Version)",
     price: 1899,
+    originalPrice: 2375,
     image: visionVoidWhiteBack,
     imageBack: visionVoidWhiteFront,
     category: "T-shirts",
     isNew: true,
     isSale: false,
-    tag: "Premium" 
+    tag: "NEW" 
   },
  
   // Coming soon products last
@@ -358,34 +370,37 @@ export const unisexProducts: Product[] = [
     id: "u2",
     name: "City Eighty",
     price: 1999,
+    originalPrice: 2499,
     image: unisexeightysfront,
     imageBack: unisexeightysback,
     category: "T-shirts",
     isNew: true,
     isSale: false,
-    tag: "NEW"
+    tag: "PREMIUM"
   },
   {
     id: "m5",
     name: "Vision Void ",
     price: 1899,
+    originalPrice: 2375,
     image: blackwarriorback,
     imageBack: blackwarriorfront,
     category: "T-shirts",
     isNew: true,
     isSale: false,
-    tag: "Premium" 
+    tag: "NEW" 
   },
   {
     id: "m6",
     name: "Vision Void (White Version)",
-    price: 1899,
+    price: 1899,  
+    originalPrice: 2375,
     image: visionVoidWhiteBack,
     imageBack: visionVoidWhiteFront,
     category: "T-shirts",
     isNew: true,
     isSale: false,
-    tag: "Premium" 
+    tag: "NEW" 
   }
  
 ];

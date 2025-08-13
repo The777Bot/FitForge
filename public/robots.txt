@@ -12,3 +12,7 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+# Hints: common icon paths
+# Not all crawlers read these, but it can help ensure your icon is indexed
+Host: /

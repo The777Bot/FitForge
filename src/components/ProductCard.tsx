@@ -139,7 +139,9 @@ const ProductCard = ({
 
             {/* Price Section pinned at bottom */}
             <div className="flex items-center gap-3 mt-4">
-              <span className={`text-2xl font-black ${isComingSoon ? 'text-muted-foreground' : 'text-black'}`}>Rs {price}</span>
+              {!isComingSoon && (
+                <span className={`text-2xl font-black ${isComingSoon ? 'text-muted-foreground' : 'text-black'}`}>Rs {price}</span>
+              )}
               {originalPrice && (
                 <span className="line-through text-muted-foreground font-semibold">
                   Rs {originalPrice}
