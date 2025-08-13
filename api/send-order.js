@@ -15,7 +15,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { orderNumber, name, email, phone, address, items, total, date } = req.body;
+  const { orderNumber, name, email, phone, address, items, total, date, bankProof } = req.body;
 
   console.log('📦 Order data received:', { 
     orderNumber, 
@@ -25,7 +25,8 @@ export default async function handler(req, res) {
     address, 
     itemsCount: items?.length,
     total, 
-    date 
+    date,
+    bankProof
   });
 
   // ✅ Enhanced validation
@@ -73,6 +74,7 @@ export default async function handler(req, res) {
         <h3>Order Summary</h3>
         <ul>${itemListHtml}</ul>
         <p><b>Total:</b> Rs${total}</p>
+        ${bankProof ? `<p><b>Payment Reference:</b> ${bankProof}</p>` : ''}
       `,
     });
 
@@ -94,6 +96,7 @@ export default async function handler(req, res) {
           <h3>Order Summary</h3>
           <ul>${itemListHtml}</ul>
           <p><b>Total:</b> Rs${total}</p>
+          ${bankProof ? `<p><b>Payment Reference:</b> ${bankProof}</p>` : ''}
           <p>We will contact you soon for confirmation and shipping details.</p>
           <p>If you have any questions, reply to this email or contact us at fitforge.pk@gmail.com.</p>
         `,

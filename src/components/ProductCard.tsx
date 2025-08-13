@@ -46,6 +46,8 @@ const ProductCard = ({
   
   const sizes = ["S", "M", "L"];
   
+  const isComingSoon = tag === "COMING SOON";
+
   const handleAddToCart = (e: React.MouseEvent) => {
     e.stopPropagation();
     setShowSizeDialog(true);
@@ -82,7 +84,8 @@ const ProductCard = ({
         )}
         <Link
           to={`/product/${id}`}
-          className="block focus:outline-none flex flex-col h-full"
+          className={`block focus:outline-none flex flex-col h-full ${isComingSoon ? 'pointer-events-none cursor-not-allowed opacity-95' : ''}`}
+          aria-disabled={isComingSoon}
           style={{ textDecoration: "none", color: "inherit" }}
         >
           <div className="relative overflow-hidden rounded-t-2xl sm:rounded-t-3xl">
@@ -103,6 +106,13 @@ const ProductCard = ({
                   className="w-full h-full object-cover absolute inset-0 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                 />
               )}
+              {isComingSoon && (
+                <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px] flex items-center justify-center z-20">
+                  <span className="px-3 py-1 rounded-full text-xs font-bold bg-orange-500 text-white shadow">
+                    Coming Soon
+                  </span>
+                </div>
+              )}
             </div>
           </div>
 
@@ -119,7 +129,7 @@ const ProductCard = ({
 
             {/* Price Section pinned at bottom */}
             <div className="flex items-center gap-3 mt-4">
-              <span className="text-2xl font-black text-black">Rs {price}</span>
+              <span className={`text-2xl font-black ${isComingSoon ? 'text-muted-foreground' : 'text-black'}`}>Rs {price}</span>
               {originalPrice && (
                 <span className="line-through text-muted-foreground font-semibold">
                   Rs {originalPrice}
@@ -130,15 +140,17 @@ const ProductCard = ({
         </Link>
 
         {/* Add to Cart Button */}
-        <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0 z-10">
-          <Button
-            className="w-full backdrop-blur-md rounded-2xl font-bold bg-[hsl(45,33%,90%)] text-[hsl(0,0%,10%)] border border-[hsl(45,33%,90%)] hover:bg-[hsl(45,33%,95%)] hover:text-[hsl(0,0%,0%)]"
-            onClick={handleAddToCart}
-          >
-            <ShoppingCart className="h-4 w-4 mr-2" />
-            Add to Cart
-          </Button>
-        </div>
+        {!isComingSoon && onAddToCart && (
+          <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0 z-10">
+            <Button
+              className="w-full backdrop-blur-md rounded-2xl font-bold bg-[hsl(45,33%,90%)] text-[hsl(0,0%,10%)] border border-[hsl(45,33%,90%)] hover:bg-[hsl(45,33%,95%)] hover:text-[hsl(0,0%,0%)]"
+              onClick={handleAddToCart}
+            >
+              <ShoppingCart className="h-4 w-4 mr-2" />
+              Add to Cart
+            </Button>
+          </div>
+        )}
       </Card>
 
       {/* Size Selection Dialog */}

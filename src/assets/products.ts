@@ -301,6 +301,29 @@ export const womenProducts: Product[] = [
     isSale: false,
     tag: "NEW"
   },
+  {
+    id: "m5",
+    name: "Vision Void ",
+    price: 1899,
+    image: blackwarriorback,
+    imageBack: blackwarriorfront,
+    category: "T-shirts",
+    isNew: true,
+    isSale: false,
+    tag: "Premium" 
+  },
+  {
+    id: "m6",
+    name: "Vision Void (White Version)",
+    price: 1899,
+    image: visionVoidWhiteBack,
+    imageBack: visionVoidWhiteFront,
+    category: "T-shirts",
+    isNew: true,
+    isSale: false,
+    tag: "Premium" 
+  },
+ 
   // Coming soon products last
   {
     id: "w1",
@@ -336,7 +359,30 @@ export const unisexProducts: Product[] = [
     isNew: true,
     isSale: false,
     tag: "NEW"
+  },
+  {
+    id: "m5",
+    name: "Vision Void ",
+    price: 1899,
+    image: blackwarriorback,
+    imageBack: blackwarriorfront,
+    category: "T-shirts",
+    isNew: true,
+    isSale: false,
+    tag: "Premium" 
+  },
+  {
+    id: "m6",
+    name: "Vision Void (White Version)",
+    price: 1899,
+    image: visionVoidWhiteBack,
+    imageBack: visionVoidWhiteFront,
+    category: "T-shirts",
+    isNew: true,
+    isSale: false,
+    tag: "Premium" 
   }
+ 
 ];
 
 export const gamingProducts: Product[] = [

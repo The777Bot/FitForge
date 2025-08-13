@@ -1,4 +1,5 @@
 import { useContext, useState, useEffect } from "react";
+import { bankAccounts } from "@/config/payments";
 import { CartContext } from "@/components/CartContext";
 import { useNavigate } from "react-router-dom";
 
@@ -6,6 +7,7 @@ const Checkout = () => {
   const { cartItems, clearCart } = useContext(CartContext);
   const [form, setForm] = useState({ name: "", email: "", address: "", phone: "" });
   const [paymentMethod, setPaymentMethod] = useState<string>("");
+  const [bankProof, setBankProof] = useState<string>("");
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [submitted, setSubmitted] = useState(false);
   const [orderNumber, setOrderNumber] = useState<string>("");
@@ -34,6 +36,9 @@ const Checkout = () => {
     if (!form.phone) newErrors.phone = "Phone number is required.";
     if (!form.address) newErrors.address = "Address is required.";
     if (!paymentMethod) newErrors.paymentMethod = "Payment method is required.";
+    if ((paymentMethod === "Bank Transfer" || paymentMethod === "Jazzcash") && !bankProof) {
+      newErrors.bankProof = "Please paste transaction reference or last 6 digits.";
+    }
     return newErrors;
   };
 
@@ -131,6 +136,7 @@ const Checkout = () => {
       phone: form.phone,
       address: form.address,
       paymentMethod: paymentMethod,
+      bankProof: bankProof,
       items: filteredCartItems,
       subtotal: subtotal,
       deliveryFee: deliveryFee,
@@ -170,7 +176,7 @@ const Checkout = () => {
             A confirmation email will be sent to you soon.
           </p>
 
-          <div className="bg-gradient-to-r from-brand-purple/10 to-green-500/10 p-4 rounded-2xl border border-brand-purple/20">
+              <div className="bg-gradient-to-r from-brand-purple/10 to-green-500/10 p-4 rounded-2xl border border-brand-purple/20">
             <p className="text-sm text-muted-foreground mb-1">Your Order Number:</p>
             <p className="text-2xl font-bold text-brand-purple tracking-wider">{orderNumber}</p>
           </div>
@@ -183,6 +189,9 @@ const Checkout = () => {
               <div><span className="font-semibold text-brand-purple">Phone:</span> {form.phone}</div>
               <div><span className="font-semibold text-brand-purple">Address:</span> {form.address}</div>
               <div><span className="font-semibold text-brand-purple">Payment:</span> {paymentMethod}</div>
+                  {bankProof && (
+                    <div className="col-span-2"><span className="font-semibold text-brand-purple">Payment Reference:</span> {bankProof}</div>
+                  )}
             </div>
 
             <div className="border-t border-border pt-4 mt-4">
@@ -344,7 +353,7 @@ const Checkout = () => {
             {errors.address && <p className="text-red-500 text-sm mt-1">{errors.address}</p>}
           </div>
 
-         {/* Payment Method Selection */}
+          {/* Payment Method Selection */}
 <div>
   <label className="block mb-2 font-semibold">Payment Method</label>
   <div className="space-y-3">
@@ -372,27 +381,81 @@ const Checkout = () => {
       <span className="text-lg">JazzCash</span>
     </label>
     {paymentMethod === "Jazzcash" && (
-      <p className="ml-7 text-sm text-green-600 font-semibold">
-        Send payment to: <span className="font-bold">03218819657</span>
-      </p>
+      <div className="ml-7 space-y-3">
+        <div className="rounded-lg border border-border p-3 bg-muted/20">
+          <p className="text-sm font-semibold mb-2">JazzCash Number</p>
+          <div className="flex items-center justify-between gap-4">
+            <code className="px-2 py-0.5 rounded bg-card border border-border text-foreground">03218819657</code>
+            <button
+              type="button"
+              className="text-xs px-2 py-1 rounded border border-border hover:bg-muted/30"
+              onClick={() => navigator.clipboard.writeText("03218819657")}
+            >
+              Copy
+            </button>
+          </div>
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-1">Transaction Reference</label>
+          <input
+            className="w-full p-3 rounded-lg border border-border bg-muted/30 text-base focus:outline-none focus:ring-2 focus:ring-brand-purple"
+            placeholder="Paste reference ID or last 6 digits"
+            value={bankProof}
+            onChange={(e) => setBankProof(e.target.value)}
+          />
+          {errors.bankProof && <p className="text-red-500 text-sm mt-1">{errors.bankProof}</p>}
+        </div>
+      </div>
     )}
     
-    <label className="flex items-center space-x-3 cursor-pointer">
-      <input
-        type="radio"
-        name="paymentMethod"
-        value="Easypaisa"
-        checked={paymentMethod === "Easypaisa"}
-        onChange={(e) => setPaymentMethod(e.target.value)}
-        className="w-4 h-4 text-brand-purple border-border focus:ring-brand-purple"
-      />
-      <span className="text-lg">EasyPaisa</span>
-    </label>
-    {paymentMethod === "Easypaisa" && (
-      <p className="ml-7 text-sm text-green-600 font-semibold">
-        Send payment to: <span className="font-bold">03302255220</span>
-      </p>
-    )}
+    
+
+            {/* Bank Transfer */}
+            <label className="flex items-center space-x-3 cursor-pointer">
+              <input
+                type="radio"
+                name="paymentMethod"
+                value="Bank Transfer"
+                checked={paymentMethod === "Bank Transfer"}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+                className="w-4 h-4 text-brand-purple border-border focus:ring-brand-purple"
+              />
+              <span className="text-lg">Bank Transfer</span>
+            </label>
+            {paymentMethod === "Bank Transfer" && (
+              <div className="ml-7 space-y-3">
+                <div className="rounded-lg border border-border p-3 bg-muted/20">
+                  <p className="text-sm font-semibold mb-2">Bank Accounts</p>
+                  <ul className="text-sm space-y-1">
+                    {bankAccounts.map((acc, idx) => (
+                      <li key={idx} className="flex items-center justify-between gap-4">
+                        <span>{acc.bankName} — {acc.accountTitle}</span>
+                        <div className="flex items-center gap-2">
+                          <code className="px-2 py-0.5 rounded bg-card border border-border text-foreground">{acc.accountNumber}</code>
+                          <button
+                            type="button"
+                            className="text-xs px-2 py-1 rounded border border-border hover:bg-muted/30"
+                            onClick={() => navigator.clipboard.writeText(acc.accountNumber)}
+                          >
+                            Copy
+                          </button>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1">Transaction Reference</label>
+                  <input
+                    className="w-full p-3 rounded-lg border border-border bg-muted/30 text-base focus:outline-none focus:ring-2 focus:ring-brand-purple"
+                    placeholder="Paste reference ID or last 6 digits"
+                    value={bankProof}
+                    onChange={(e) => setBankProof(e.target.value)}
+                  />
+                  {errors.bankProof && <p className="text-red-500 text-sm mt-1">{errors.bankProof}</p>}
+                </div>
+              </div>
+            )}
   </div>
   {errors.paymentMethod && (
     <p className="text-red-500 text-sm mt-1">{errors.paymentMethod}</p>
