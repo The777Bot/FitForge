@@ -40,6 +40,7 @@ const ProductCard = ({
 }: ProductCardProps) => {
   const [showSizeDialog, setShowSizeDialog] = useState(false);
   const [selectedSize, setSelectedSize] = useState("");
+  const [showSizeChart, setShowSizeChart] = useState(false);
   
   // Determine if this is one of the shirts that should be zoomed out
   const isZoomedOutShirt = name === "Visionary + Beige Boy T-shirt" || name === "Charcoal Boy T-shirt" || name === "White girl T-shirt";
@@ -189,9 +190,34 @@ const ProductCard = ({
                 </Button>
               ))}
             </div>
+              <div className="pt-2">
+                <button
+                  type="button"
+                  className="text-sm font-semibold underline text-foreground hover:text-brand-purple"
+                  onClick={() => setShowSizeChart(true)}
+                >
+                  View Size Chart
+                </button>
+              </div>
           </div>
         </DialogContent>
       </Dialog>
+
+       {/* Size Chart Dialog */}
+       <Dialog open={showSizeChart} onOpenChange={setShowSizeChart}>
+         <DialogContent className="bg-card border border-border rounded-2xl max-w-3xl">
+           <DialogHeader>
+             <DialogTitle className="text-xl font-bold text-foreground">Size Chart</DialogTitle>
+           </DialogHeader>
+           <div className="w-full">
+             <img
+               src="/assets/size_chart.jpg"
+               alt="Size chart"
+               className="w-full h-auto max-h-[80vh] object-contain rounded-lg"
+             />
+           </div>
+         </DialogContent>
+       </Dialog>
     </motion.div>
   );
 };

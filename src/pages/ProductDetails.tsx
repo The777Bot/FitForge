@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { useState, useContext } from "react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { X } from "lucide-react";
 import { CartContext, CartUIContext } from "@/components/CartContext";
 
@@ -19,6 +20,7 @@ const ProductDetails = () => {
   const [quantity, setQuantity] = useState<number>(1);
   const [added, setAdded] = useState(false);
   const [showBack, setShowBack] = useState(false);
+  const [showSizeChart, setShowSizeChart] = useState(false);
 
   if (!product) {
     return (
@@ -137,6 +139,15 @@ const ProductDetails = () => {
                 />
               </div>
             </div>
+            <div>
+              <button
+                type="button"
+                className="text-sm font-semibold underline text-black hover:text-gray-700"
+                onClick={() => setShowSizeChart(true)}
+              >
+                View Size Chart
+              </button>
+            </div>
             <Button
               variant="brand"
               size="lg"
@@ -153,6 +164,21 @@ const ProductDetails = () => {
           </div>
         </div>
       </div>
+      {/* Size Chart Dialog */}
+      <Dialog open={showSizeChart} onOpenChange={setShowSizeChart}>
+        <DialogContent className="bg-white border border-gray-200 rounded-2xl max-w-3xl">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-bold text-black">Size Chart</DialogTitle>
+          </DialogHeader>
+          <div className="w-full">
+            <img
+              src="/assets/size_chart.jpg"
+              alt="Size chart"
+              className="w-full h-auto max-h-[80vh] object-contain rounded-lg"
+            />
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
