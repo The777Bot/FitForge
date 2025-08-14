@@ -40,7 +40,7 @@ const ProductDetails = () => {
     for (let i = 0; i < quantity; i++) {
       addToCart({
         id: product.id + (size ? `-${size}` : ""),
-        name: `${product.name}${size ? ` (${size})` : ""}`,
+        name: product.name,
         price: product.price,
         image: product.image,
         size: size,

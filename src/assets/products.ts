@@ -92,7 +92,7 @@ export const featuredProducts: Product[] = [
     category: "Womens T-shirts",
     isNew: true,
     isSale: false,
-    tag: "PREMIUM"
+    tag: "COMING SOON"
   },
   {
     id: "u2",
@@ -104,7 +104,7 @@ export const featuredProducts: Product[] = [
     category: "Unisex T-shirts",
     isNew: true,
     isSale: false,
-    tag: "PREMIUM"
+    tag: "COMING SOON"
   },
   {
     id: "w3",
@@ -206,7 +206,7 @@ export const menProducts: Product[] = [
     category: "T-shirts",
     isNew: true,
     isSale: false,
-    tag: "PREMIUM"
+    tag: "COMING SOON"
   }
   
 ];
@@ -223,7 +223,7 @@ export const womenProducts: Product[] = [
     category: "T-shirts",
     isNew: true,
     isSale: false,
-    tag: "PREMIUM"
+    tag: "COMING SOON"
   },
   {
     id: "w3",
@@ -248,7 +248,7 @@ export const womenProducts: Product[] = [
     category: "T-shirts",
     isNew: true,
     isSale: false,
-    tag: "PREMIUM"
+    tag: "COMING SOON"
   },
   {
     id: "m5",
@@ -293,7 +293,7 @@ export const unisexProducts: Product[] = [
     category: "T-shirts",
     isNew: true,
     isSale: false,
-    tag: "PREMIUM"
+    tag: "COMING SOON"
   },
   {
     id: "m5",

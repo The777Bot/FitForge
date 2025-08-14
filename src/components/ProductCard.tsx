@@ -52,6 +52,27 @@ const ProductCard = ({
   
   const isComingSoon = tag === "COMING SOON";
 
+  // Map specific product names to display garment type labels
+  const normalizedName = name.trim().toLowerCase();
+  let displayCategory = category;
+  if (
+    normalizedName === "breath of sea" ||
+    normalizedName === "the blacksmith" ||
+    normalizedName === "blacksmith"
+  ) {
+    displayCategory = "Regular-Fit Tee";
+  } else if (normalizedName === "afterlight") {
+    displayCategory = "Crop-Top Tee";
+  } else if (normalizedName === "varsity grace") {
+    displayCategory = "Drop-Shoulder Tee";
+  } else if (
+    normalizedName === "city eighty" ||
+    normalizedName === "vision void" ||
+    normalizedName === "vision void (white version)"
+  ) {
+    displayCategory = "OverSized Tee";
+  }
+
   const handleAddToCart = (e: React.MouseEvent) => {
     e.stopPropagation();
     setShowSizeDialog(true);
@@ -131,7 +152,7 @@ const ProductCard = ({
           <CardContent className="p-4 sm:p-6 bg-gradient-to-b from-card to-brand-surface/30 flex flex-col justify-between flex-grow">
             <div className="space-y-3 flex-grow">
               <p className="text-xs text-brand-purple uppercase tracking-widest font-bold">
-                {category}
+                {displayCategory}
               </p>
               <h3 className="font-bold text-lg text-foreground group-hover:text-brand-purple transition-colors duration-300 line-clamp-2">
                 {name}
