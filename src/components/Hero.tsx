@@ -10,16 +10,43 @@ import FFlogo from "@/assets/FFlogo.png";
 // Typewriter effect hook
 function useTypewriter(text: string, speed = 60) {
   const [displayed, setDisplayed] = useState("");
+  const intervalRef = useRef<number | null>(null);
+  const hasStartedRef = useRef(false);
+
   useEffect(() => {
+    // Prevent duplicate intervals under React 18 Strict Mode (dev only)
+    if (hasStartedRef.current) return;
+    hasStartedRef.current = true;
+
     setDisplayed("");
     let i = 0;
-    const interval = setInterval(() => {
-      setDisplayed((prev) => prev + text[i]);
-      i++;
-      if (i >= text.length) clearInterval(interval);
-    }, speed);
-    return () => clearInterval(interval);
+
+    const tick = () => {
+      setDisplayed((prev) => {
+        if (i < text.length) {
+          const next = prev + text[i];
+          i += 1;
+          return next;
+        }
+        // Finished typing; stop interval safely
+        if (intervalRef.current !== null) {
+          clearInterval(intervalRef.current);
+          intervalRef.current = null;
+        }
+        return prev;
+      });
+    };
+
+    intervalRef.current = window.setInterval(tick, speed);
+
+    return () => {
+      if (intervalRef.current !== null) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    };
   }, [text, speed]);
+
   return displayed;
 }
 
