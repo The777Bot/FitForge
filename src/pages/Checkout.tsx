@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import { CartContext } from "@/components/CartContext";
 import { useNavigate } from "react-router-dom";
 import { getFitLabelByName } from "@/lib/utils";
-
+import { ShoppingCart, Truck, Shield, CheckCircle, ArrowLeft, CreditCard, MapPin, User, Mail, Phone } from "lucide-react";
 
 const Checkout = () => {
   const { cartItems, clearCart } = useContext(CartContext);
@@ -147,86 +147,107 @@ const Checkout = () => {
 
   if (submitted) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-background via-brand-surface/20 to-background text-foreground relative overflow-hidden">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-[#e7dbc7]/20 via-background to-[#a67c52]/10 text-foreground relative overflow-hidden py-20">
+        {/* Decorative Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-20 left-20 w-32 h-32 bg-brand-purple/10 rounded-full animate-pulse"></div>
-          <div className="absolute bottom-20 right-20 w-24 h-24 bg-[#e7dbc7]/20 rounded-full animate-bounce"></div>
-          <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-brand-purple/5 rounded-full animate-spin"></div>
+          <div className="absolute top-20 left-20 w-32 h-32 bg-[#a67c52]/20 rounded-full animate-pulse"></div>
+          <div className="absolute bottom-20 right-20 w-24 h-24 bg-[#e7dbc7]/30 rounded-full animate-bounce"></div>
+          <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-[#a67c52]/15 rounded-full animate-spin"></div>
         </div>
 
-        <div className="relative z-10 text-center space-y-6">
+        <div className="relative z-10 text-center space-y-8 max-w-2xl mx-auto px-4">
+          {/* Success Icon */}
           <div className="relative">
-            <div className="w-24 h-24 bg-gradient-to-r from-green-400 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6 animate-bounce">
-              <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7"></path>
-              </svg>
+            <div className="w-24 h-24 bg-gradient-to-r from-[#a67c52] to-[#805206] rounded-full flex items-center justify-center mx-auto mb-6 animate-bounce shadow-2xl">
+              <CheckCircle className="w-12 h-12 text-white" />
             </div>
-            <div className="absolute inset-0 w-24 h-24 bg-green-400/30 rounded-full animate-ping"></div>
+            <div className="absolute inset-0 w-24 h-24 bg-[#a67c52]/30 rounded-full animate-ping"></div>
           </div>
 
-          <h1 className="text-4xl md:text-5xl font-black bg-gradient-to-r from-brand-purple via-green-500 to-brand-purple bg-clip-text text-transparent animate-pulse">
-            Order Confirmed! 🎉
-          </h1>
-
-          <p className="text-lg text-muted-foreground">
-            A confirmation email will be sent to you soon.
-          </p>
-
-              <div className="bg-gradient-to-r from-brand-purple/10 to-green-500/10 p-4 rounded-2xl border border-brand-purple/20">
-            <p className="text-sm text-muted-foreground mb-1">Your Order Number:</p>
-            <p className="text-2xl font-bold text-brand-purple tracking-wider">{orderNumber}</p>
+          {/* Success Message */}
+          <div className="space-y-4">
+            <h1 className="text-4xl md:text-5xl font-black bg-gradient-to-r from-[#1a1a1a] via-[#a67c52] to-[#1a1a1a] bg-clip-text text-transparent">
+              Order Confirmed! 🎉
+            </h1>
+            <p className="text-xl text-[#805206] font-medium">
+              Thank you for your purchase! A confirmation email will be sent to you soon.
+            </p>
           </div>
 
-          <div className="w-full max-w-lg bg-card/80 backdrop-blur-sm p-6 rounded-2xl shadow-xl border border-border/50 space-y-4">
-            <h2 className="font-bold text-xl mb-4 text-center">Order Details</h2>
-            <div className="grid grid-cols-2 gap-4 text-left">
-              <div><span className="font-semibold text-brand-purple">Name:</span> {form.name}</div>
-              <div><span className="font-semibold text-brand-purple">Email:</span> {form.email}</div>
-              <div><span className="font-semibold text-brand-purple">Phone:</span> {form.phone}</div>
-              <div><span className="font-semibold text-brand-purple">Address:</span> {form.address}</div>
-              <div><span className="font-semibold text-brand-purple">Payment:</span> {paymentMethod}</div>
+          {/* Order Number */}
+          <div className="bg-gradient-to-r from-[#e7dbc7]/50 to-[#a67c52]/20 p-6 rounded-2xl border border-[#a67c52]/30 shadow-lg">
+            <p className="text-sm text-[#805206] mb-2 font-medium">Your Order Number:</p>
+            <p className="text-3xl font-bold text-[#1a1a1a] tracking-wider font-mono">{orderNumber}</p>
+          </div>
+
+          {/* Order Details */}
+          <div className="w-full bg-white/90 backdrop-blur-sm p-8 rounded-2xl shadow-xl border border-[#a67c52]/20 space-y-6">
+            <h2 className="font-bold text-2xl mb-6 text-center text-[#1a1a1a]">Order Details</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
+              <div className="flex items-center gap-2">
+                <User className="w-4 h-4 text-[#a67c52]" />
+                <span className="font-semibold text-[#a67c52]">Name:</span> {form.name}
+              </div>
+              <div className="flex items-center gap-2">
+                <Mail className="w-4 h-4 text-[#a67c52]" />
+                <span className="font-semibold text-[#a67c52]">Email:</span> {form.email}
+              </div>
+              <div className="flex items-center gap-2">
+                <Phone className="w-4 h-4 text-[#a67c52]" />
+                <span className="font-semibold text-[#a67c52]">Phone:</span> {form.phone}
+              </div>
+              <div className="flex items-center gap-2">
+                <MapPin className="w-4 h-4 text-[#a67c52]" />
+                <span className="font-semibold text-[#a67c52]">Address:</span> {form.address}
+              </div>
+              <div className="flex items-center gap-2">
+                <CreditCard className="w-4 h-4 text-[#a67c52]" />
+                <span className="font-semibold text-[#a67c52]">Payment:</span> {paymentMethod}
+              </div>
             </div>
 
-            <div className="border-t border-border pt-4 mt-4">
-              <h3 className="font-bold mb-3 text-center">Order Summary</h3>
-              <div className="space-y-2">
+            {/* Order Summary */}
+            <div className="border-t border-[#a67c52]/30 pt-6 mt-6">
+              <h3 className="font-bold mb-4 text-center text-[#1a1a1a] text-lg">Order Summary</h3>
+              <div className="space-y-3">
                 {orderCart.map((item) => (
-                  <div key={item.id} className="flex justify-between text-sm">
-                    <span>
+                  <div key={item.id} className="flex justify-between text-sm bg-[#e7dbc7]/20 p-3 rounded-lg">
+                    <span className="text-[#1a1a1a]">
                       {item.name} ({item.size}) x {item.quantity}
                       {(() => {
                         const fit = getFitLabelByName(item.name);
                         return fit ? ` — ${fit}` : "";
                       })()}
                     </span>
-                    <span className="font-semibold">Rs {item.price * item.quantity}</span>
+                    <span className="font-semibold text-[#a67c52]">Rs {item.price * item.quantity}</span>
                   </div>
                 ))}
               </div>
 
               {deliveryFee > 0 && (
-                <div className="flex justify-between text-sm text-red-600 mt-2">
+                <div className="flex justify-between text-sm text-[#805206] mt-3 bg-red-50 p-3 rounded-lg">
                   <span>Delivery Fee:</span>
                   <span>Rs {deliveryFee}</span>
                 </div>
               )}
 
-              <div className="flex justify-between font-bold text-xl mt-4 pt-3 border-t border-border">
-                <span>Total:</span>
-                <span className="text-brand-purple">Rs {orderTotal}</span>
+              <div className="flex justify-between font-bold text-xl mt-6 pt-4 border-t border-[#a67c52]/30">
+                <span className="text-[#1a1a1a]">Total:</span>
+                <span className="text-[#a67c52]">Rs {orderTotal}</span>
               </div>
             </div>
           </div>
 
+          {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4">
             <button
-              className="px-8 py-3 rounded-xl bg-gradient-to-r from-brand-purple to-purple-600 text-white font-bold hover:from-purple-600 hover:to-brand-purple transition-all duration-300 transform hover:scale-105 shadow-lg"
+              className="px-8 py-4 rounded-xl bg-gradient-to-r from-[#a67c52] to-[#805206] text-white font-bold hover:from-[#805206] hover:to-[#a67c52] transition-all duration-300 transform hover:scale-105 shadow-lg border border-[#a67c52]/30"
               onClick={() => navigate("/")}
             >
               🏠 Back to Home
             </button>
             <button
-              className="px-8 py-3 rounded-xl bg-gradient-to-r from-[#e7dbc7] to-beige-400 text-black font-bold hover:from-beige-400 hover:to-[#e7dbc7] transition-all duration-300 transform hover:scale-105 shadow-lg"
+              className="px-8 py-4 rounded-xl bg-gradient-to-r from-[#e7dbc7] to-[#a67c52] text-[#1a1a1a] font-bold hover:from-[#a67c52] hover:to-[#e7dbc7] transition-all duration-300 transform hover:scale-105 shadow-lg border border-[#a67c52]/30"
               onClick={() => navigate("/order-history")}
             >
               📋 View Orders
@@ -239,137 +260,218 @@ const Checkout = () => {
 
   if (cartItems.length === 0) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-background text-foreground">
-        <h1 className="text-2xl font-bold mb-4">Your cart is empty.</h1>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-[#e7dbc7]/20 via-background to-[#a67c52]/10 text-foreground">
+        <div className="text-center space-y-6">
+          <div className="w-20 h-20 bg-[#a67c52]/20 rounded-full flex items-center justify-center mx-auto">
+            <ShoppingCart className="w-10 h-10 text-[#a67c52]" />
+          </div>
+          <h1 className="text-3xl font-bold text-[#1a1a1a]">Your cart is empty</h1>
+          <p className="text-[#805206] text-lg">Add some products to get started!</p>
+          <button
+            onClick={() => navigate("/")}
+            className="px-6 py-3 bg-[#a67c52] text-white rounded-lg hover:bg-[#805206] transition-colors"
+          >
+            Continue Shopping
+          </button>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col items-center px-4">
-      {/* Red Banner */}
-      <div className="w-full py-4 bg-red-600 shadow-lg mt-20">
+    <div className="min-h-screen bg-gradient-to-br from-[#e7dbc7]/20 via-background to-[#a67c52]/10 text-foreground">
+      {/* Header Navigation */}
+      <div className="absolute top-8 left-8 z-30">
+        <button
+          onClick={() => navigate(-1)}
+          className="flex items-center gap-2 bg-white/90 hover:bg-white text-[#1a1a1a] px-4 py-2 rounded-lg border border-[#a67c52]/20 shadow-lg backdrop-blur-sm transition-all duration-300"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Back
+        </button>
+      </div>
+
+      {/* Shipping Banner */}
+      <div className="w-full py-4 bg-gradient-to-r from-[#a67c52] to-[#805206] shadow-lg mt-20">
         <div className="text-center">
-          <span className="text-white font-bold text-xl tracking-wide">
-            🚚 Free shipping over 2000-Rs (for Lahore only) 🚚
-          </span>
+          <div className="flex items-center justify-center gap-2 text-white font-bold text-lg tracking-wide">
+            <Truck className="w-5 h-5" />
+            <span>Free shipping over 2000 PKR (Lahore only)</span>
+            <Truck className="w-5 h-5" />
+          </div>
         </div>
       </div>
 
-      {/* Main content */}
-      <div className="w-full max-w-lg mx-auto mt-8">
-        <h1 className="text-4xl font-black mb-8 text-center">Checkout</h1>
+      {/* Main Content */}
+      <div className="container mx-auto px-4 py-12">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h1 className="text-5xl md:text-6xl font-black text-[#1a1a1a] mb-4">Checkout</h1>
+            <p className="text-xl text-[#805206] max-w-2xl mx-auto">
+              Complete your order and get ready to receive your premium FitForge streetwear
+            </p>
+          </div>
 
-        {/* Order Summary */}
-        <div className="w-full bg-card p-6 rounded-2xl shadow-lg mb-8">
-          <h2 className="text-2xl font-bold mb-4">Order Summary</h2>
-          <div className="space-y-3">
-            {cartItems.map((item) => (
-              <div key={item.id} className="flex justify-between">
-                <span>
-                  {item.name} ({["S", "M", "L"].includes(item.size) ? item.size : "S"}) x {item.quantity}
-                  {(() => {
-                    const fit = getFitLabelByName(item.name);
-                    return fit ? ` — ${fit}` : "";
-                  })()}
-                </span>
-                <span>Rs {item.price * item.quantity}</span>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Order Summary */}
+            <div className="bg-white rounded-3xl shadow-xl border border-[#a67c52]/10 p-8">
+              <div className="flex items-center gap-3 mb-6">
+                <ShoppingCart className="w-6 h-6 text-[#a67c52]" />
+                <h2 className="text-2xl font-bold text-[#1a1a1a]">Order Summary</h2>
               </div>
-            ))}
-            <div className="border-t border-border pt-3">
-              <div className="flex justify-between">
-                <span>Subtotal:</span>
-                <span>Rs {subtotal}</span>
+              
+              <div className="space-y-4 mb-6">
+                {cartItems.map((item) => (
+                  <div key={item.id} className="flex justify-between items-center bg-[#e7dbc7]/20 p-4 rounded-xl">
+                    <div className="flex-1">
+                      <p className="font-semibold text-[#1a1a1a]">{item.name}</p>
+                      <p className="text-sm text-[#805206]">
+                        Size: {["S", "M", "L"].includes(item.size) ? item.size : "S"} | 
+                        Quantity: {item.quantity}
+                        {(() => {
+                          const fit = getFitLabelByName(item.name);
+                          return fit ? ` | Fit: ${fit}` : "";
+                        })()}
+                      </p>
+                    </div>
+                    <span className="font-bold text-[#a67c52] text-lg">Rs {item.price * item.quantity}</span>
+                  </div>
+                ))}
               </div>
-              {deliveryFee > 0 && (
-                <div className="flex justify-between text-red-600">
-                  <span>Delivery Fee:</span>
-                  <span>Rs {deliveryFee}</span>
+
+              {/* Price Breakdown */}
+              <div className="space-y-3 p-6 bg-gradient-to-r from-[#e7dbc7]/30 to-[#a67c52]/10 rounded-2xl border border-[#a67c52]/20">
+                <div className="flex justify-between text-[#1a1a1a]">
+                  <span>Subtotal:</span>
+                  <span className="font-semibold">Rs {subtotal}</span>
                 </div>
-              )}
-              <div className="flex justify-between font-bold text-xl mt-3">
-                <span>Total:</span>
-                <span>Rs {total}</span>
+                {deliveryFee > 0 && (
+                  <div className="flex justify-between text-[#805206]">
+                    <span>Delivery Fee:</span>
+                    <span className="font-semibold">Rs {deliveryFee}</span>
+                  </div>
+                )}
+                <div className="flex justify-between font-bold text-2xl pt-3 border-t border-[#a67c52]/30">
+                  <span className="text-[#1a1a1a]">Total:</span>
+                  <span className="text-[#a67c52]">Rs {total}</span>
+                </div>
               </div>
+
+              {/* Trust Badges */}
+              <div className="flex justify-center space-x-4 mt-6">
+                <div className="flex items-center gap-2 bg-[#e7dbc7]/50 px-3 py-2 rounded-full border border-[#a67c52]/20">
+                  <Shield className="w-4 h-4 text-[#a67c52]" />
+                  <span className="text-xs font-medium text-[#1a1a1a]">Secure Checkout</span>
+                </div>
+                <div className="flex items-center gap-2 bg-[#e7dbc7]/50 px-3 py-2 rounded-full border border-[#a67c52]/20">
+                  <CheckCircle className="w-4 h-4 text-[#a67c52]" />
+                  <span className="text-xs font-medium text-[#1a1a1a]">COD Available</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Checkout Form */}
+            <div className="bg-white rounded-3xl shadow-xl border border-[#a67c52]/10 p-8">
+              <h2 className="text-2xl font-bold text-[#1a1a1a] mb-6">Shipping Information</h2>
+              
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
+                  <label className="block mb-2 font-semibold text-[#1a1a1a]" htmlFor="name">
+                    <User className="w-4 h-4 inline mr-2 text-[#a67c52]" />
+                    Full Name
+                  </label>
+                  <input
+                    className="w-full p-4 rounded-xl border border-[#a67c52]/30 bg-[#e7dbc7]/10 text-lg focus:outline-none focus:ring-2 focus:ring-[#a67c52]/50 focus:border-[#a67c52] transition-all duration-300"
+                    type="text"
+                    name="name"
+                    id="name"
+                    value={form.name}
+                    onChange={handleChange}
+                    required
+                    placeholder="Enter your full name"
+                  />
+                  {errors.name && <p className="text-red-500 text-sm mt-2">{errors.name}</p>}
+                </div>
+
+                <div>
+                  <label className="block mb-2 font-semibold text-[#1a1a1a]" htmlFor="email">
+                    <Mail className="w-4 h-4 inline mr-2 text-[#a67c52]" />
+                    Email Address
+                  </label>
+                  <input
+                    className="w-full p-4 rounded-xl border border-[#a67c52]/30 bg-[#e7dbc7]/10 text-lg focus:outline-none focus:ring-2 focus:ring-[#a67c52]/50 focus:border-[#a67c52] transition-all duration-300"
+                    type="email"
+                    name="email"
+                    id="email"
+                    value={form.email}
+                    onChange={handleChange}
+                    required
+                    placeholder="Enter your email address"
+                  />
+                  {errors.email && <p className="text-red-500 text-sm mt-2">{errors.email}</p>}
+                </div>
+
+                <div>
+                  <label className="block mb-2 font-semibold text-[#1a1a1a]" htmlFor="phone">
+                    <Phone className="w-4 h-4 inline mr-2 text-[#a67c52]" />
+                    Phone Number
+                  </label>
+                  <input
+                    className="w-full p-4 rounded-xl border border-[#a67c52]/30 bg-[#e7dbc7]/10 text-lg focus:outline-none focus:ring-2 focus:ring-[#a67c52]/50 focus:border-[#a67c52] transition-all duration-300"
+                    type="tel"
+                    name="phone"
+                    id="phone"
+                    value={form.phone}
+                    onChange={handleChange}
+                    required
+                    pattern="[0-9\-\+\s\(\)]{7,15}"
+                    placeholder="e.g. 0300-1234567"
+                  />
+                  {errors.phone && <p className="text-red-500 text-sm mt-2">{errors.phone}</p>}
+                </div>
+
+                <div>
+                  <label className="block mb-2 font-semibold text-[#1a1a1a]" htmlFor="address">
+                    <MapPin className="w-4 h-4 inline mr-2 text-[#a67c52]" />
+                    Shipping Address
+                  </label>
+                  <textarea
+                    className="w-full p-4 rounded-xl border border-[#a67c52]/30 bg-[#e7dbc7]/10 text-lg focus:outline-none focus:ring-2 focus:ring-[#a67c52]/50 focus:border-[#a67c52] transition-all duration-300 resize-none"
+                    rows={3}
+                    name="address"
+                    id="address"
+                    value={form.address}
+                    onChange={handleChange}
+                    required
+                    placeholder="Enter your complete shipping address"
+                  />
+                  {errors.address && <p className="text-red-500 text-sm mt-2">{errors.address}</p>}
+                </div>
+
+                {/* Payment Method */}
+                <div className="p-4 bg-gradient-to-r from-[#e7dbc7]/30 to-[#a67c52]/10 rounded-xl border border-[#a67c52]/20">
+                  <label className="block mb-2 font-semibold text-[#1a1a1a]">
+                    <CreditCard className="w-4 h-4 inline mr-2 text-[#a67c52]" />
+                    Payment Method
+                  </label>
+                  <div className="flex items-center gap-3 text-lg text-[#805206] font-medium">
+                    <CheckCircle className="w-5 h-5 text-[#a67c52]" />
+                    Cash on Delivery (COD)
+                  </div>
+                  <p className="text-sm text-[#805206] mt-2">Pay when you receive your order</p>
+                </div>
+
+                {/* Place Order Button */}
+                <button
+                  type="submit"
+                  className="w-full py-4 rounded-xl bg-gradient-to-r from-[#a67c52] to-[#805206] text-white font-bold text-lg hover:from-[#805206] hover:to-[#a67c52] transition-all duration-300 transform hover:scale-105 shadow-lg border border-[#a67c52]/30 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                >
+                  Place Order
+                </button>
+              </form>
             </div>
           </div>
         </div>
-
-        {/* Checkout Form */}
-        <form onSubmit={handleSubmit} className="w-full bg-card p-8 rounded-2xl shadow-lg space-y-6">
-          <div>
-            <label className="block mb-2 font-semibold" htmlFor="name">Name</label>
-            <input
-              className="w-full p-3 rounded-lg border border-border bg-muted/30 text-lg focus:outline-none focus:ring-2 focus:ring-brand-purple"
-              type="text"
-              name="name"
-              id="name"
-              value={form.name}
-              onChange={handleChange}
-              required
-            />
-            {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
-          </div>
-
-          <div>
-            <label className="block mb-2 font-semibold" htmlFor="email">Email</label>
-            <input
-              className="w-full p-3 rounded-lg border border-border bg-muted/30 text-lg focus:outline-none focus:ring-2 focus:ring-brand-purple"
-              type="email"
-              name="email"
-              id="email"
-              value={form.email}
-              onChange={handleChange}
-              required
-            />
-            {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
-          </div>
-
-          <div>
-            <label className="block mb-2 font-semibold" htmlFor="phone">Phone Number</label>
-            <input
-              className="w-full p-3 rounded-lg border border-border bg-muted/30 text-lg focus:outline-none focus:ring-2 focus:ring-brand-purple"
-              type="tel"
-              name="phone"
-              id="phone"
-              value={form.phone}
-              onChange={handleChange}
-              required
-              pattern="[0-9\-\+\s\(\)]{7,15}"
-              placeholder="e.g. 0300-1234567"
-            />
-            {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
-          </div>
-
-          <div>
-            <label className="block mb-2 font-semibold" htmlFor="address">Shipping Address</label>
-            <textarea
-              className="w-full p-3 rounded-lg border border-border bg-muted/30 text-lg focus:outline-none focus:ring-2 focus:ring-brand-purple"
-              rows={3}
-              name="address"
-              id="address"
-              value={form.address}
-              onChange={handleChange}
-              required
-              placeholder="Enter your complete shipping address"
-            />
-            {errors.address && <p className="text-red-500 text-sm mt-1">{errors.address}</p>}
-          </div>
-
-          {/* Payment Method: COD only */}
-          <div>
-            <label className="block mb-2 font-semibold">Payment Method</label>
-            <div className="text-lg">Cash on Delivery (COD)</div>
-          </div>
-
-
-          <button
-            type="submit"
-            className="w-full py-3 rounded-lg bg-[hsl(0,0%,10%)] text-[hsl(45,33%,90%)] font-bold text-lg hover:bg-[hsl(0,0%,0%)] hover:text-[hsl(45,33%,100%)] transition shadow-lg border border-[hsl(45,33%,90%)]"
-          >
-            Place Order
-          </button>
-        </form>
       </div>
     </div>
   );

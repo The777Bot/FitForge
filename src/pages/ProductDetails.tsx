@@ -3,9 +3,9 @@ import { allProducts } from "@/assets/products";
 import { Button } from "@/components/ui/button";
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { X } from "lucide-react";
+import { X, Star, Truck, Shield, CheckCircle, ArrowLeft } from "lucide-react";
 import { CartContext, CartUIContext } from "@/components/CartContext";
 
 const SIZES = [ "S", "M", "L"];
@@ -51,124 +51,214 @@ const ProductDetails = () => {
     setTimeout(() => setAdded(false), 1500);
   };
 
+  // Scroll to top when component mounts or when submitted changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  // Add keyboard support for ESC key to close
+  useEffect(() => {
+    const handleEscKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        navigate(-1);
+      }
+    };
+
+    document.addEventListener('keydown', handleEscKey);
+    return () => {
+      document.removeEventListener('keydown', handleEscKey);
+    };
+  }, [navigate]);
+
   return (
-    <div
-      className="min-h-screen flex flex-col items-center justify-center relative py-16"
-      style={{
-        backgroundImage: `url(${product.image})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-      }}
-    >
-      {/* Overlay: dark and blurred */}
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-md z-0" />
-      <div className="max-w-3xl w-full bg-white rounded-3xl shadow-xl p-4 md:p-8 flex flex-col md:flex-row gap-6 md:gap-10 items-stretch relative z-10 overflow-hidden">
-        {/* Close button inside card */}
+    <div className="min-h-screen bg-gradient-to-br from-[#e7dbc7]/20 via-background to-[#a67c52]/10">
+      {/* Header Navigation */}
+      <div className="absolute top-8 left-8 z-30">
         <Button
           variant="ghost"
-          size="icon"
-          className="absolute top-4 right-4 z-20 bg-white hover:bg-gray-100 text-black border border-gray-300 shadow"
+          size="sm"
+          className="bg-white/90 hover:bg-white text-[#1a1a1a] border border-[#a67c52]/20 shadow-lg backdrop-blur-sm hover:scale-110 transition-all duration-300"
           onClick={() => navigate(-1)}
-          aria-label="Close product details"
         >
-          <X className="w-6 h-6 text-black" />
+          <ArrowLeft className="w-4 h-4 mr-2" />
+          Back
         </Button>
-        <div className="flex-shrink-0 flex items-center justify-center w-full md:w-[340px]">
-          <div className="aspect-square w-full max-w-[340px] bg-gray-100 rounded-2xl flex items-center justify-center overflow-hidden relative">
-            <img
-              src={showBack && product.imageBack ? product.imageBack : product.image}
-              alt={product.name + (showBack && product.imageBack ? ' back view' : '')}
-              className="w-full h-full object-cover transition-all duration-500"
-            />
-            {product.imageBack && (
-              <button
-                className="absolute bottom-2 right-2 bg-white/80 text-black px-3 py-1 rounded-full shadow hover:bg-gray-200 transition"
-                onClick={() => setShowBack((prev) => !prev)}
-                type="button"
-                aria-label={showBack ? 'View Front' : 'View Back'}
-              >
-                {showBack ? 'View Front' : 'View Back'}
-              </button>
-            )}
-          </div>
-        </div>
-        <div className="flex-1 flex flex-col gap-4 w-full justify-center min-w-0">
-          <h1 className="text-3xl font-bold text-black mb-1">{product.name}</h1>
-          <p className="text-base text-gray-900 font-semibold mb-1 uppercase tracking-widest">{product.category}</p>
-          <div className="flex items-center gap-4 mb-2">
-            {!product.tag || product.tag !== 'COMING SOON' ? (
-              <>
-                <span className="text-2xl font-black text-black">Rs {product.price}</span>
-                {product.originalPrice && (
-                  <span className="line-through text-gray-500 font-semibold">Rs {product.originalPrice}</span>
-                )}
-              </>
-            ) : (
-              <span className="text-base font-semibold text-muted-foreground">Coming Soon</span>
-            )}
-          </div>
-          <div className="flex gap-2 mb-2">
-            {product.isNew && <span className="bg-gray-900 text-white px-3 py-1 rounded-full text-xs font-bold mr-2">NEW</span>}
-            {product.isSale && <span className="bg-yellow-200 text-black px-3 py-1 rounded-full text-xs font-bold">SALE</span>}
-          </div>
-          {/* Options */}
-          <div className="flex flex-col gap-4 mt-4">
-            <div className="flex gap-4">
-              <div className="w-32">
-                <label className="block text-sm font-semibold mb-1 text-black">Size</label>
-                <Select value={size} onValueChange={setSize}>
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Select size" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {SIZES.map((s) => (
-                      <SelectItem key={s} value={s}>{s}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="w-24">
-                <label className="block text-sm font-semibold mb-1 text-black">Quantity</label>
-                <Input
-                  type="number"
-                  min={1}
-                  value={quantity}
-                  onChange={e => setQuantity(Number(e.target.value))}
-                  className="w-full"
-                />
-              </div>
-            </div>
-            <div>
-              <button
-                type="button"
-                className="text-sm font-semibold underline text-black hover:text-gray-700"
-                onClick={() => setShowSizeChart(true)}
-              >
-                View Size Chart
-              </button>
-            </div>
-            <Button
-              variant="brand"
-              size="lg"
-              className="mt-2 w-full md:w-auto"
-              disabled={product.tag === 'COMING SOON' || !size}
-              onClick={handleAddToCart}
+      </div>
+
+      <div className="container mx-auto px-4 py-24">
+        <div className="max-w-6xl mx-auto">
+          <div className="bg-white rounded-3xl shadow-2xl border border-[#a67c52]/10 overflow-hidden relative">
+            {/* Close Button Inside Product Card */}
+            <button
+              onClick={() => navigate(-1)}
+              className="absolute top-6 right-6 z-40 w-10 h-10 bg-[#a67c52] hover:bg-[#805206] text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 flex items-center justify-center border-2 border-white/20"
+              aria-label="Close product details"
+              title="Close (ESC)"
             >
-              {product.tag === 'COMING SOON' ? 'Coming Soon' : (added ? 'Added!' : 'Add to Cart')}
-            </Button>
-          </div>
-          {/* Description or more details can go here */}
-          <div className="mt-6 text-black text-base font-medium">
-            <p>FitForge's premium quality shirt combines ultra-soft, breathable fabric with a tailored fit for all-day comfort. Designed for durability and style, it's perfect for both casual wear and active lifestyles.</p>
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
+              {/* Image Section */}
+              <div className="relative bg-gradient-to-br from-[#e7dbc7]/30 to-[#a67c52]/10 p-8">
+                <div className="aspect-square w-full max-w-md mx-auto bg-white rounded-2xl shadow-lg overflow-hidden relative">
+                  <img
+                    src={showBack && product.imageBack ? product.imageBack : product.image}
+                    alt={product.name + (showBack && product.imageBack ? ' back view' : '')}
+                    className="w-full h-full object-cover transition-all duration-500 hover:scale-105"
+                  />
+                  {product.imageBack && (
+                    <button
+                      className="absolute bottom-4 right-4 bg-white/90 text-[#1a1a1a] px-4 py-2 rounded-full shadow-lg hover:bg-white transition-all duration-300 font-medium border border-[#a67c52]/20"
+                      onClick={() => setShowBack((prev) => !prev)}
+                      type="button"
+                      aria-label={showBack ? 'View Front' : 'View Back'}
+                    >
+                      {showBack ? 'View Front' : 'View Back'}
+                    </button>
+                  )}
+                </div>
+                
+                {/* Trust Badges */}
+                <div className="flex justify-center space-x-4 mt-6">
+                  <div className="flex items-center space-x-2 bg-white/80 px-3 py-2 rounded-full border border-[#a67c52]/20">
+                    <Shield className="w-4 h-4 text-[#a67c52]" />
+                    <span className="text-xs font-medium text-[#1a1a1a]">Authentic</span>
+                  </div>
+                  <div className="flex items-center space-x-2 bg-white/80 px-3 py-2 rounded-full border border-[#a67c52]/20">
+                    <Truck className="w-4 h-4 text-[#a67c52]" />
+                    <span className="text-xs font-medium text-[#1a1a1a]">Free Shipping</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Product Info Section */}
+              <div className="p-8 lg:p-12 bg-white">
+                {/* Product Header */}
+                <div className="mb-6">
+                  <div className="flex items-center gap-2 mb-3">
+                    {product.isNew && (
+                      <span className="bg-[#a67c52] text-white px-3 py-1 rounded-full text-xs font-bold">NEW</span>
+                    )}
+                    {product.isSale && (
+                      <span className="bg-[#e7dbc7] text-[#1a1a1a] px-3 py-1 rounded-full text-xs font-bold border border-[#a67c52]/30">SALE</span>
+                    )}
+                    {product.tag === 'COMING SOON' && (
+                      <span className="bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold">COMING SOON</span>
+                    )}
+                  </div>
+                  
+                  <h1 className="text-4xl lg:text-5xl font-bold text-[#1a1a1a] mb-3 leading-tight">
+                    {product.name}
+                  </h1>
+                  
+                  <p className="text-lg text-[#805206] font-medium mb-4 uppercase tracking-wider">
+                    {product.category}
+                  </p>
+
+                  {/* Rating */}
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="flex text-[#a67c52]">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="w-5 h-5 fill-current" />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Price Section */}
+                <div className="mb-8 p-6 bg-gradient-to-r from-[#e7dbc7]/30 to-[#a67c52]/10 rounded-2xl border border-[#a67c52]/20">
+                  {!product.tag || product.tag !== 'COMING SOON' ? (
+                    <div className="flex items-center gap-4">
+                      <span className="text-4xl font-black text-[#1a1a1a]">Rs {product.price}</span>
+                      {product.originalPrice && (
+                        <span className="line-through text-[#805206] font-semibold text-lg">Rs {product.originalPrice}</span>
+                      )}
+                      {product.originalPrice && (
+                        <span className="bg-[#a67c52] text-white px-3 py-1 rounded-full text-sm font-bold">
+                          {Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}% OFF
+                        </span>
+                      )}
+                    </div>
+                  ) : (
+                    <span className="text-2xl font-semibold text-[#805206]">Coming Soon</span>
+                  )}
+                </div>
+
+                {/* Product Options */}
+                <div className="space-y-6 mb-8">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-semibold mb-2 text-[#1a1a1a]">Size</label>
+                      <Select value={size} onValueChange={setSize}>
+                        <SelectTrigger className="w-full border-[#a67c52]/30 focus:border-[#a67c52] focus:ring-[#a67c52]/20">
+                          <SelectValue placeholder="Select size" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {SIZES.map((s) => (
+                            <SelectItem key={s} value={s}>{s}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold mb-2 text-[#1a1a1a]">Quantity</label>
+                      <Input
+                        type="number"
+                        min={1}
+                        value={quantity}
+                        onChange={e => setQuantity(Number(e.target.value))}
+                        className="w-full border-[#a67c52]/30 focus:border-[#a67c52] focus:ring-[#a67c52]/20"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center justify-between">
+                    <button
+                      type="button"
+                      className="text-sm font-semibold text-[#a67c52] hover:text-[#805206] underline transition-colors"
+                      onClick={() => setShowSizeChart(true)}
+                    >
+                      View Size Chart
+                    </button>
+                    <div className="flex items-center gap-2 text-sm text-[#805206]">
+                      <CheckCircle className="w-4 h-4 text-[#a67c52]" />
+                      <span>Free shipping on orders above 2000 PKR</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Add to Cart Button */}
+                <Button
+                  variant="default"
+                  size="lg"
+                  className="w-full bg-[#a67c52] hover:bg-[#805206] text-white font-bold text-lg py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={product.tag === 'COMING SOON' || !size}
+                  onClick={handleAddToCart}
+                >
+                  {product.tag === 'COMING SOON' ? 'Coming Soon' : (added ? 'Added to Cart!' : 'Add to Cart')}
+                </Button>
+
+                {/* Product Description */}
+                <div className="mt-8 p-6 bg-[#e7dbc7]/20 rounded-2xl border border-[#a67c52]/20">
+                  <h3 className="text-lg font-semibold text-[#1a1a1a] mb-3">Product Details</h3>
+                  <p className="text-[#1a1a1a] text-base leading-relaxed">
+                    FitForge's premium quality shirt combines ultra-soft, breathable fabric with a tailored fit for all-day comfort. 
+                    Designed for durability and style, it's perfect for both casual wear and active lifestyles. 
+                    Each piece is crafted with attention to detail and premium materials.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+
       {/* Size Chart Dialog */}
       <Dialog open={showSizeChart} onOpenChange={setShowSizeChart}>
-        <DialogContent className="bg-white border border-gray-200 rounded-2xl max-w-3xl">
+        <DialogContent className="bg-white border border-[#a67c52]/20 rounded-2xl max-w-3xl">
           <DialogHeader>
-            <DialogTitle className="text-xl font-bold text-black">Size Chart</DialogTitle>
+            <DialogTitle className="text-xl font-bold text-[#1a1a1a]">Size Chart</DialogTitle>
           </DialogHeader>
           <div className="w-full">
             <img
