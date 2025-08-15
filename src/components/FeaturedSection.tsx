@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import ProductCard from "./ProductCard";
-import { allProducts } from "@/assets/products";
+import { menProducts, womenProducts, unisexProducts } from "@/assets/products";
 import { useNavigate } from "react-router-dom";
 
 interface FeaturedSectionProps {
@@ -10,13 +10,14 @@ interface FeaturedSectionProps {
 const FeaturedSection = ({ onAddToCart }: FeaturedSectionProps) => {
   const navigate = useNavigate();
   
-  // Available products: not marked as COMING SOON
-  const availableProducts = allProducts.filter((p) => p.tag !== "COMING SOON");
+  // Get one product from each category (men, women, unisex)
+  // Filter out products marked as "COMING SOON" and select the first available one from each
+  const menProduct = menProducts.find(p => p.tag !== "COMING SOON" && p.image);
+  const womenProduct = womenProducts.find(p => p.tag !== "COMING SOON" && p.image);
+  const unisexProduct = unisexProducts.find(p => p.tag !== "COMING SOON" && p.image);
 
-  // Remove duplicates by id and take first 6 for the featured grid
-  const uniqueProducts = availableProducts.filter((product, index, self) =>
-    index === self.findIndex((p) => p.id === product.id)
-  ).slice(0, 6);
+  // Create array of the 3 selected products
+  const selectedProducts = [menProduct, womenProduct, unisexProduct].filter(Boolean);
 
   const handleViewAllProducts = () => {
     navigate('/collection');
@@ -39,9 +40,9 @@ const FeaturedSection = ({ onAddToCart }: FeaturedSectionProps) => {
           </p>
         </div>
 
-        {/* Products Grid - Up to 6 products in 3x2 layout */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-12 max-w-6xl mx-auto">
-          {uniqueProducts.map((product) => (
+        {/* Products Grid - Exactly 3 products (one from each category) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-12 max-w-4xl mx-auto">
+          {selectedProducts.map((product) => (
             <ProductCard
               key={product.id}
               {...product}

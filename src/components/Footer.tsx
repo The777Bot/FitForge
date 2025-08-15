@@ -62,14 +62,6 @@ const Footer = () => {
           <p className="text-[hsl(45,33%,90%)] text-sm">
             © 2025 FitForge. All rights reserved.
           </p>
-          <div className="flex space-x-6 mt-4 md:mt-0">
-            <span className="text-[hsl(45,33%,90%)] text-sm">Payment methods:</span>
-            <div className="flex space-x-2">
-              <div className="w-8 h-5 bg-[hsl(45,33%,40%)] rounded"></div>
-              <div className="w-8 h-5 bg-[hsl(45,33%,40%)] rounded"></div>
-              <div className="w-8 h-5 bg-[hsl(45,33%,40%)] rounded"></div>
-            </div>
-          </div>
           <a
             href="mailto:ubadahme@gmail.com"
             className="relative md:static md:ml-auto text-xs md:text-sm text-[hsl(45,33%,90%)] bg-[hsl(0,0%,10%)] px-4 py-2 rounded-full shadow-lg hover:bg-[hsl(45,33%,90%)] hover:text-[hsl(0,0%,5%)] transition-all duration-300 font-semibold flex items-center group border border-[hsl(45,33%,90%)] hover:shadow-2xl hover:shadow-brand-purple/40 mt-4 md:mt-0 mx-auto md:mx-0"

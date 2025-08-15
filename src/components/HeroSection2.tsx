@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 const HeroSection2 = () => {
   return (
-    <section className="relative min-h-[80vh] flex flex-col md:flex-row overflow-hidden">
+    <section className="hidden md:block relative min-h-[80vh] flex flex-col md:flex-row overflow-hidden">
       {/* Image Section (30%) */}
       <div className="w-full md:w-[30%] relative h-[40vh] md:h-[80vh]">
         <img
