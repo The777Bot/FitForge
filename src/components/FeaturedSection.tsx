@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import ProductCard from "./ProductCard";
-import { menProducts, womenProducts, unisexProducts, animeProducts } from "@/assets/products";
+import { allProducts } from "@/assets/products";
 import { useNavigate } from "react-router-dom";
 
 interface FeaturedSectionProps {
@@ -10,17 +10,12 @@ interface FeaturedSectionProps {
 const FeaturedSection = ({ onAddToCart }: FeaturedSectionProps) => {
   const navigate = useNavigate();
   
-  // Get unique premium products from all collections (T-shirts and Anime)
-  const allPremiumProducts = [
-    ...menProducts.filter(product => product.category === "T-shirts"),
-    ...womenProducts.filter(product => product.category === "T-shirts"),
-    ...unisexProducts.filter(product => product.category === "T-shirts"),
-    ...animeProducts.filter(product => product.category === "T-shirts")
-  ];
-  
-  // Remove duplicates and get first 6
-  const uniqueProducts = allPremiumProducts.filter((product, index, self) => 
-    index === self.findIndex(p => p.id === product.id)
+  // Available products: not marked as COMING SOON
+  const availableProducts = allProducts.filter((p) => p.tag !== "COMING SOON");
+
+  // Remove duplicates by id and take first 6 for the featured grid
+  const uniqueProducts = availableProducts.filter((product, index, self) =>
+    index === self.findIndex((p) => p.id === product.id)
   ).slice(0, 6);
 
   const handleViewAllProducts = () => {

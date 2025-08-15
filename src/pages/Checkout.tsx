@@ -1,6 +1,8 @@
 import { useContext, useState, useEffect } from "react";
 import { CartContext } from "@/components/CartContext";
 import { useNavigate } from "react-router-dom";
+import { getFitLabelByName } from "@/lib/utils";
+
 
 const Checkout = () => {
   const { cartItems, clearCart } = useContext(CartContext);
@@ -190,7 +192,13 @@ const Checkout = () => {
               <div className="space-y-2">
                 {orderCart.map((item) => (
                   <div key={item.id} className="flex justify-between text-sm">
-                    <span>{item.name} ({item.size}) x {item.quantity}</span>
+                    <span>
+                      {item.name} ({item.size}) x {item.quantity}
+                      {(() => {
+                        const fit = getFitLabelByName(item.name);
+                        return fit ? ` — ${fit}` : "";
+                      })()}
+                    </span>
                     <span className="font-semibold">Rs {item.price * item.quantity}</span>
                   </div>
                 ))}
@@ -260,6 +268,10 @@ const Checkout = () => {
               <div key={item.id} className="flex justify-between">
                 <span>
                   {item.name} ({["S", "M", "L"].includes(item.size) ? item.size : "S"}) x {item.quantity}
+                  {(() => {
+                    const fit = getFitLabelByName(item.name);
+                    return fit ? ` — ${fit}` : "";
+                  })()}
                 </span>
                 <span>Rs {item.price * item.quantity}</span>
               </div>

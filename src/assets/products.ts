@@ -53,7 +53,7 @@ export const featuredProducts: Product[] = [
     originalPrice: 2399,
     image: beigeboyfront,
     imageBack: beigeboyback,
-    category: "Unisex T-shirts",
+    category: "Regular Fit",
     isNew: true,
     isSale: false,
     tag: "NEW" 
@@ -65,7 +65,7 @@ export const featuredProducts: Product[] = [
     originalPrice: 2249,
     image: charcoalboyfront,
     imageBack: charcoalboyback,
-    category: "MensT-shirts",
+    category: "Regular Fit",
     isNew: true,
     isSale: false,
     tag: "NEW" 
@@ -77,7 +77,7 @@ export const featuredProducts: Product[] = [
     originalPrice: 2399,
     image: blackwarriorback,
     imageBack: blackwarriorfront,
-    category: "MensT-shirts",
+    category: "Oversized Tee",
     isNew: true,
     isSale: false,
     tag: "NEW" 
@@ -89,7 +89,7 @@ export const featuredProducts: Product[] = [
     originalPrice: 2499,
     image: unisexgracefront,
     imageBack: unisexgraceback,
-    category: "Womens T-shirts",
+    category: "Drop Shoulder",
     isNew: true,
     isSale: false,
     tag: "COMING SOON"
@@ -101,7 +101,7 @@ export const featuredProducts: Product[] = [
     originalPrice: 2499,
     image: unisexeightysfront,
     imageBack: unisexeightysback,
-    category: "Unisex T-shirts",
+    category: "Oversized Tee",
     isNew: true,
     isSale: false,
     tag: "COMING SOON"
@@ -113,33 +113,13 @@ export const featuredProducts: Product[] = [
     originalPrice: 2249,
     image: whitegirlfront,
     imageBack: whitegirlback,
-    category: "Womens T-shirts",
+    category: "Crop Top",
     isNew: true,
     isSale: false,
     tag: "NEW"
-  },
+  }
   // Anime Collection (Premium products)
   
-  {
-    id: "a2",
-    name: "Zoro Style T-shirt",
-    price: 2499,
-    image: zoroStyleFront,
-    imageBack: zoroStyleBack,
-    category: "Anime",
-    isNew: true,
-    isSale: false
-  },
-  {
-    id: "a3",
-    name: "Zenitsu T-shirt",
-    price: 2499,
-    image: zenitsuFront,
-    imageBack: zenitsuBack,
-    category: "Anime",
-    isNew: true,
-    isSale: false
-  }
 
 ];
 
@@ -153,7 +133,7 @@ export const menProducts: Product[] = [
     originalPrice: 2249,
     image: charcoalboyfront,
     imageBack: charcoalboyback,
-    category: "T-shirts",
+    category: "Regular Fit",
     isNew: true,
     isSale: false,
     tag: "NEW" 
@@ -165,7 +145,7 @@ export const menProducts: Product[] = [
     originalPrice: 2399,
     image: blackwarriorback,
     imageBack: blackwarriorfront,
-    category: "T-shirts",
+    category: "Oversized Tee",
     isNew: true,
     isSale: false,
     tag: "NEW" 
@@ -177,7 +157,7 @@ export const menProducts: Product[] = [
     originalPrice: 2399,
     image: visionVoidWhiteBack,
     imageBack: visionVoidWhiteFront,
-    category: "T-shirts",
+    category: "Oversized Tee",
     isNew: true,
     isSale: false,
     tag: "NEW" 
@@ -191,7 +171,7 @@ export const menProducts: Product[] = [
     originalPrice: 2399,
     image: beigeboyfront,
     imageBack: beigeboyback,
-    category: "T-shirts",
+    category: "Regular Fit",
     isNew: true,
     isSale: false,
     tag: "NEW" 
@@ -203,7 +183,7 @@ export const menProducts: Product[] = [
     originalPrice: 2499,
     image: unisexeightysfront,
     imageBack: unisexeightysback,
-    category: "T-shirts",
+    category: "Oversized Tee",
     isNew: true,
     isSale: false,
     tag: "COMING SOON"
@@ -220,7 +200,7 @@ export const womenProducts: Product[] = [
     originalPrice: 2499,
     image: unisexgracefront,
     imageBack: unisexgraceback,
-    category: "T-shirts",
+    category: "Drop Shoulder",
     isNew: true,
     isSale: false,
     tag: "COMING SOON"
@@ -232,7 +212,7 @@ export const womenProducts: Product[] = [
     originalPrice: 2249,
     image: whitegirlfront,
     imageBack: whitegirlback,
-    category: "T-shirts",
+    category: "Crop Top",
     isNew: true,
     isSale: false,
     tag: "NEW"
@@ -245,7 +225,7 @@ export const womenProducts: Product[] = [
     originalPrice: 2499,
     image: unisexeightysfront,
     imageBack: unisexeightysback,
-    category: "T-shirts",
+    category: "Oversized Tee",
     isNew: true,
     isSale: false,
     tag: "COMING SOON"
@@ -257,7 +237,7 @@ export const womenProducts: Product[] = [
     originalPrice: 2399,
     image: blackwarriorback,
     imageBack: blackwarriorfront,
-    category: "T-shirts",
+    category: "Oversized Tee",
     isNew: true,
     isSale: false,
     tag: "NEW" 
@@ -269,7 +249,7 @@ export const womenProducts: Product[] = [
     originalPrice: 2399,
     image: visionVoidWhiteBack,
     imageBack: visionVoidWhiteFront,
-    category: "T-shirts",
+    category: "Oversized Tee",
     isNew: true,
     isSale: false,
     tag: "NEW" 
@@ -290,7 +270,7 @@ export const unisexProducts: Product[] = [
     originalPrice: 2499,
     image: unisexeightysfront,
     imageBack: unisexeightysback,
-    category: "T-shirts",
+    category: "Oversized Tee",
     isNew: true,
     isSale: false,
     tag: "COMING SOON"
@@ -302,7 +282,7 @@ export const unisexProducts: Product[] = [
     originalPrice: 2399,
     image: blackwarriorback,
     imageBack: blackwarriorfront,
-    category: "T-shirts",
+    category: "Oversized Tee",
     isNew: true,
     isSale: false,
     tag: "NEW" 
@@ -314,7 +294,7 @@ export const unisexProducts: Product[] = [
     originalPrice: 2399,
     image: visionVoidWhiteBack,
     imageBack: visionVoidWhiteFront,
-    category: "T-shirts",
+    category: "Oversized Tee",
     isNew: true,
     isSale: false,
     tag: "NEW" 

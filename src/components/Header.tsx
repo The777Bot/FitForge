@@ -20,6 +20,7 @@ import { CartContext, CartUIContext } from "@/components/CartContext";
 import { useHeroBg } from "@/components/HeroBgContext";
 import FFlogo from "@/assets/FFlogo.png";
 import { allProducts } from "@/assets/products";
+import { getFitLabelByName } from "@/lib/utils";
 import { getImageUrl } from "@/lib/imageUtils";
 
 const FALLBACK_IMAGE = "https://via.placeholder.com/150?text=Custom+Design";
@@ -149,7 +150,11 @@ const Header = () => {
     <img src={getImageUrl(item.image)} alt={item.name} className="w-16 h-16 rounded-lg object-cover bg-muted" onError={e => { e.currentTarget.src = FALLBACK_IMAGE; }} />
     <div className="flex-1">
       <div className="font-semibold text-foreground">{item.name}</div>
-      <div className="text-sm text-muted-foreground">
+      <div className="text-xs text-muted-foreground">
+        {(() => {
+          const fit = getFitLabelByName(item.name);
+          return fit ? `${fit} • ` : "";
+        })()}
         Size: {item.size} | Rs {item.price} x {item.quantity}
       </div>
     </div>

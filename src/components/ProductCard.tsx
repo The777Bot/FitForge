@@ -60,11 +60,11 @@ const ProductCard = ({
     normalizedName === "the blacksmith" ||
     normalizedName === "blacksmith"
   ) {
-    displayCategory = "Regular-Fit Tee";
+    displayCategory = "Regular Fit ";
   } else if (normalizedName === "afterlight") {
-    displayCategory = "Crop-Top Tee";
+    displayCategory = "Crop Top ";
   } else if (normalizedName === "varsity grace") {
-    displayCategory = "Drop-Shoulder Tee";
+    displayCategory = "Drop Shoulder ";
   } else if (
     normalizedName === "city eighty" ||
     normalizedName === "vision void" ||

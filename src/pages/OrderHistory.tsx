@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { getFitLabelByName } from "@/lib/utils";
 
 const OrderHistory = () => {
   const [identifier, setIdentifier] = useState("");
@@ -91,7 +92,13 @@ const OrderHistory = () => {
                 <ul className="mb-2">
                   {order.items.map((item: any) => (
                     <li key={item.id} className="flex justify-between text-sm mb-1">
-                      <span>{item.name} x {item.quantity}</span>
+                      <span>
+                        {item.name} x {item.quantity}
+                        {(() => {
+                          const fit = getFitLabelByName(item.name);
+                          return fit ? ` — ${fit}` : "";
+                        })()}
+                      </span>
                       <span>Rs {item.price * item.quantity}</span>
                     </li>
                   ))}
