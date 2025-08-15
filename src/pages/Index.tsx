@@ -92,7 +92,7 @@ const Index = () => {
                   <CheckCircle className="w-8 h-8 text-brand-purple" />
                 </div>
                 <h3 className="font-semibold text-[#1a1a1a] mb-2">Easy Returns</h3>
-                <p className="text-sm text-[#805206]">30-day return policy</p>
+                <p className="text-sm text-[#805206]">7-10 day return policy</p>
               </div>
               
               <div className="text-center p-6 bg-[#e7dbc7] rounded-xl shadow-lg border border-[#a67c52]/20 hover:shadow-xl transition-all duration-300">
@@ -186,7 +186,7 @@ const Index = () => {
             <div className="text-center bg-[#e7dbc7] p-8 rounded-2xl shadow-lg border border-[#a67c52]/20">
               <div className="flex items-center justify-center mb-6">
                 <Users className="w-8 h-8 text-brand-purple mr-3" />
-                <h3 className="text-2xl font-bold text-[#1a1a1a]">Join 10,000+ Happy Customers</h3>
+                <h3 className="text-2xl font-bold text-[#1a1a1a]"> Join In Fit Forge Customers</h3>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 <div className="text-center">
