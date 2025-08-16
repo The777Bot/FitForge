@@ -246,6 +246,15 @@ All colors MUST be HSL.
     }
   }
 
+  /* Hide scrollbars */
+  .scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari and Opera */
+  }
+
   /* Accessibility: prefers-reduced-motion */
   @media (prefers-reduced-motion: reduce) {
     .animate-hero-fade-in,

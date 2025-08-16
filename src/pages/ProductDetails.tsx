@@ -5,7 +5,7 @@ import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@
 import { Input } from "@/components/ui/input";
 import { useState, useContext, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { X, Star, Truck, Shield, CheckCircle, ArrowLeft } from "lucide-react";
+import { X, Star, Truck, Shield, CheckCircle, ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
 import { CartContext, CartUIContext } from "@/components/CartContext";
 
 const SIZES = [ "S", "M", "L"];
@@ -19,8 +19,50 @@ const ProductDetails = () => {
   const [size, setSize] = useState<string>("");
   const [quantity, setQuantity] = useState<number>(1);
   const [added, setAdded] = useState(false);
-  const [showBack, setShowBack] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showSizeChart, setShowSizeChart] = useState(false);
+
+  // Create array of all available images for the product
+  const productImages = [
+    product?.image,
+    product?.imageBack,
+  ].filter(Boolean); // Remove any undefined/null values
+
+  // Navigation functions for image gallery
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % productImages.length);
+  };
+
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => (prev - 1 + productImages.length) % productImages.length);
+  };
+
+  // Touch/swipe handling for mobile
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe && productImages.length > 1) {
+      nextImage();
+    }
+    if (isRightSwipe && productImages.length > 1) {
+      prevImage();
+    }
+  };
 
   if (!product) {
     return (
@@ -56,19 +98,23 @@ const ProductDetails = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  // Add keyboard support for ESC key to close
+  // Add keyboard support for ESC key to close and arrow keys for navigation
   useEffect(() => {
-    const handleEscKey = (event: KeyboardEvent) => {
+    const handleKeyPress = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         navigate(-1);
+      } else if (event.key === 'ArrowRight') {
+        nextImage();
+      } else if (event.key === 'ArrowLeft') {
+        prevImage();
       }
     };
 
-    document.addEventListener('keydown', handleEscKey);
+    document.addEventListener('keydown', handleKeyPress);
     return () => {
-      document.removeEventListener('keydown', handleEscKey);
+      document.removeEventListener('keydown', handleKeyPress);
     };
-  }, [navigate]);
+  }, [navigate, nextImage, prevImage]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#e7dbc7]/20 via-background to-[#a67c52]/10">
@@ -99,23 +145,60 @@ const ProductDetails = () => {
             </button>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
-              {/* Image Section */}
+              {/* Image Gallery Section */}
               <div className="relative bg-gradient-to-br from-[#e7dbc7]/30 to-[#a67c52]/10 p-8">
-                <div className="aspect-square w-full max-w-md mx-auto bg-white rounded-2xl shadow-lg overflow-hidden relative">
-                  <img
-                    src={showBack && product.imageBack ? product.imageBack : product.image}
-                    alt={product.name + (showBack && product.imageBack ? ' back view' : '')}
-                    className="w-full h-full object-cover transition-all duration-500 hover:scale-105"
-                  />
-                  {product.imageBack && (
-                    <button
-                      className="absolute bottom-4 right-4 bg-white/90 text-[#1a1a1a] px-4 py-2 rounded-full shadow-lg hover:bg-white transition-all duration-300 font-medium border border-[#a67c52]/20"
-                      onClick={() => setShowBack((prev) => !prev)}
-                      type="button"
-                      aria-label={showBack ? 'View Front' : 'View Back'}
-                    >
-                      {showBack ? 'View Front' : 'View Back'}
-                    </button>
+                <div className="aspect-square w-full max-w-md mx-auto bg-white rounded-2xl shadow-lg overflow-hidden relative group">
+                  {/* Main Image Display */}
+                  <div 
+                    className="relative w-full h-full overflow-hidden"
+                    onTouchStart={handleTouchStart}
+                    onTouchMove={handleTouchMove}
+                    onTouchEnd={handleTouchEnd}
+                  >
+                    <img
+                      src={productImages[currentImageIndex]}
+                      alt={`${product.name} - Image ${currentImageIndex + 1}`}
+                      className="w-full h-full object-contain bg-gradient-to-b from-[#f8f9fa] to-[#e9ecef] transition-all duration-500 hover:scale-105 select-none"
+                      draggable={false}
+                    />
+                    
+                    {/* Navigation Arrows - Only show if multiple images */}
+                    {productImages.length > 1 && (
+                      <>
+                        <button
+                          onClick={prevImage}
+                          className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-[#1a1a1a] p-2 rounded-full shadow-lg transition-all duration-300 opacity-0 group-hover:opacity-100"
+                          aria-label="Previous image"
+                        >
+                          <ChevronLeft className="w-5 h-5" />
+                        </button>
+                        <button
+                          onClick={nextImage}
+                          className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-[#1a1a1a] p-2 rounded-full shadow-lg transition-all duration-300 opacity-0 group-hover:opacity-100"
+                          aria-label="Next image"
+                        >
+                          <ChevronRight className="w-5 h-5" />
+                        </button>
+                      </>
+                    )}
+                  </div>
+
+                  {/* Image Dots Indicator - Only show if multiple images */}
+                  {productImages.length > 1 && (
+                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                      {productImages.map((_, index) => (
+                        <button
+                          key={index}
+                          onClick={() => setCurrentImageIndex(index)}
+                          className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                            index === currentImageIndex
+                              ? 'bg-[#a67c52] w-6'
+                              : 'bg-white/60 hover:bg-white/80'
+                          }`}
+                          aria-label={`View image ${index + 1}`}
+                        />
+                      ))}
+                    </div>
                   )}
                 </div>
                 
