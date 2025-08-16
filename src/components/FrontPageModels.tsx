@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-
 // Import the model images
 import model1 from "@/assets/Front_page_models/Front_model1.png";
 import model2 from "@/assets/Front_page_models/Front_model2.png";
@@ -7,8 +5,6 @@ import model3 from "@/assets/Front_page_models/Front_model3.png";
 import model4 from "@/assets/Front_page_models/Front_model.png";
 
 const FrontPageModels = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  
   // Model images array
   const models = [
     { src: model1, alt: "Front Model 1" },
@@ -16,17 +12,6 @@ const FrontPageModels = () => {
     { src: model3, alt: "Front Model 3" },
     { src: model4, alt: "Front Model" },
   ];
-
-  // Auto-advance slides
-  useEffect(() => {
-    if (models.length === 0) return;
-    
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % models.length);
-    }, 3000); // Change slide every 3 seconds
-
-    return () => clearInterval(interval);
-  }, [models.length]);
 
   if (models.length === 0) {
     return null; // Don't render if no models
@@ -47,25 +32,30 @@ const FrontPageModels = () => {
           </p>
         </div>
 
-        {/* Carousel Container */}
-        <div className="relative max-w-6xl mx-auto">
-          {/* Slides */}
-          <div className="relative h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden rounded-2xl">
+        {/* Grid Layout for Individual Model Boxes */}
+        <div className="max-w-7xl mx-auto">
+          {/* Mobile: Single column carousel-like, Desktop: Grid layout */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {models.map((model, index) => (
               <div
                 key={index}
-                className={`absolute inset-0 transition-all duration-700 ease-in-out ${
-                  index === currentSlide
-                    ? "opacity-100 transform translate-x-0"
-                    : "opacity-0 transform translate-x-full"
-                }`}
+                className="group relative bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
               >
-                <img
-                  src={model.src}
-                  alt={model.alt}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+                {/* Vertical Image Container */}
+                <div className="aspect-[3/4] relative overflow-hidden">
+                  <img
+                    src={model.src}
+                    alt={model.alt}
+                    className="w-full h-full object-contain bg-gradient-to-b from-[#f8f9fa] to-[#e9ecef] group-hover:scale-110 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+                
+                {/* Model Info Overlay */}
+                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                  <h3 className="font-semibold text-lg mb-1">{model.alt}</h3>
+                  <p className="text-sm opacity-90">Latest Collection</p>
+                </div>
               </div>
             ))}
           </div>
