@@ -2,6 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import { CartContext } from "@/components/CartContext";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
+import FrontPageModels from "@/components/FrontPageModels";
 import FeaturedSection from "@/components/FeaturedSection";
 import Categories from "@/components/Categories";
 import Newsletter from "@/components/Newsletter";
@@ -59,6 +60,9 @@ const Index = () => {
             </div>
           </div>
         </div>
+
+        {/* Front Page Models Carousel */}
+        <FrontPageModels />
 
         <div className="bg-background">
           <FeaturedSection onAddToCart={addToCart} />

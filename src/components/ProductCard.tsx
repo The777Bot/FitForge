@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ShoppingCart } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   Dialog,
   DialogContent,
@@ -41,6 +41,12 @@ const ProductCard = ({
   const [showSizeDialog, setShowSizeDialog] = useState(false);
   const [selectedSize, setSelectedSize] = useState("");
   const [showSizeChart, setShowSizeChart] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [currentX, setCurrentX] = useState(0);
+  
+  const imageContainerRef = useRef<HTMLDivElement>(null);
   
   // Determine if this is one of the shirts that should be zoomed out
   const isZoomedOutShirt = name === "Visionary + Beige Boy T-shirt" || name === "Charcoal Boy T-shirt" || name === "White girl T-shirt";
@@ -51,6 +57,9 @@ const ProductCard = ({
     : 0;
   
   const isComingSoon = tag === "COMING SOON";
+
+  // Create images array with front and back images
+  const images = imageBack ? [image, imageBack] : [image];
 
   // Map specific product names to display garment type labels
   const normalizedName = name.trim().toLowerCase();
@@ -83,6 +92,77 @@ const ProductCard = ({
     setShowSizeDialog(false);
     onAddToCart && onAddToCart({ id, name, price, image, size });
   };
+
+  // Touch/Swipe handlers
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (images.length <= 1) return;
+    setIsDragging(true);
+    setStartX(e.touches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDragging || images.length <= 1) return;
+    setCurrentX(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!isDragging || images.length <= 1) return;
+    
+    const diff = startX - currentX;
+    const threshold = 50; // Minimum swipe distance
+    
+    if (Math.abs(diff) > threshold) {
+      if (diff > 0) {
+        // Swipe left - next image
+        setCurrentImageIndex((prev) => (prev + 1) % images.length);
+      } else {
+        // Swipe right - previous image
+        setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+      }
+    }
+    
+    setIsDragging(false);
+  };
+
+  // Mouse drag handlers
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (images.length <= 1) return;
+    setIsDragging(true);
+    setStartX(e.clientX);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || images.length <= 1) return;
+    setCurrentX(e.clientX);
+  };
+
+  const handleMouseUp = () => {
+    if (!isDragging || images.length <= 1) return;
+    
+    const diff = startX - currentX;
+    const threshold = 50;
+    
+    if (Math.abs(diff) > threshold) {
+      if (diff > 0) {
+        setCurrentImageIndex((prev) => (prev + 1) % images.length);
+      } else {
+        setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+      }
+    }
+    
+    setIsDragging(false);
+  };
+
+  // Auto-advance images if multiple images exist
+  useEffect(() => {
+    if (images.length <= 1) return;
+    
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % images.length);
+    }, 4000); // Change every 4 seconds
+
+    return () => clearInterval(interval);
+  }, [images.length]);
 
   return (
     <motion.div
@@ -121,23 +201,48 @@ const ProductCard = ({
           style={{ textDecoration: "none", color: "inherit" }}
         >
           <div className="relative overflow-hidden rounded-t-2xl sm:rounded-t-3xl">
-            {/* Image Container */}
+            {/* Image Container with Swipe Functionality */}
             <div
-              className="aspect-square overflow-hidden rounded-t-2xl sm:rounded-t-3xl relative"
+              ref={imageContainerRef}
+              className="aspect-square overflow-hidden rounded-t-2xl sm:rounded-t-3xl relative cursor-grab active:cursor-grabbing"
               style={{ background: "linear-gradient(145deg, hsl(0 0% 12%), hsl(45 33% 80%))" }}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+              onMouseDown={handleMouseDown}
+              onMouseMove={handleMouseMove}
+              onMouseUp={handleMouseUp}
+              onMouseLeave={handleMouseUp}
             >
-              <img
-                src={image}
-                alt={name}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-              {imageBack && (
+              {images.map((img, index) => (
                 <img
-                  src={imageBack}
-                  alt={`${name} back view`}
-                  className="w-full h-full object-cover absolute inset-0 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  key={index}
+                  src={img}
+                  alt={index === 0 ? name : `${name} view ${index + 1}`}
+                  className={`w-full h-full object-cover transition-all duration-700 ${
+                    index === currentImageIndex
+                      ? "opacity-100 scale-100"
+                      : "opacity-0 scale-105 absolute inset-0"
+                  }`}
                 />
+              ))}
+              
+              {/* Image Counter Dots */}
+              {images.length > 1 && (
+                <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
+                  {images.map((_, index) => (
+                    <div
+                      key={index}
+                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                        index === currentImageIndex
+                          ? "bg-white scale-125"
+                          : "bg-white/50"
+                      }`}
+                    />
+                  ))}
+                </div>
               )}
+              
               {isComingSoon && (
                 <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px] flex items-center justify-center z-20">
                   <span className="px-3 py-1 rounded-full text-xs font-bold bg-orange-500 text-white shadow">

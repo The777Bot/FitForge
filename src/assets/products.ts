@@ -30,6 +30,15 @@ import zoroStyleBack from "@/assets/Anime/Zoro-Style_back.png";
 import zenitsuFront from "@/assets/Anime/Zenitsu_front.png";
 import zenitsuBack from "@/assets/Anime/Zenitsu_back.png";
 
+// New model imports for updated products
+import beigeBoyModel from "@/assets/mens-collection-framed/BeigeBoymodel.png";
+import beigeBoyModel2 from "@/assets/mens-collection-framed/BeigeBoymodel2.png";
+import afterlightModel from "@/assets/womens-collection-framed/Afterlightmodel.png";
+import visionVoidBModel from "@/assets/unisex-collection-framed/Vision_Void_Bmodel.png";
+import visionVoidBModel2 from "@/assets/unisex-collection-framed/Vision_Void_Bmodel2.png";
+import visionVoidModel from "@/assets/unisex-collection-framed/Vision_Void_model.png";
+import visionVoidModel2 from "@/assets/unisex-collection-framed/Vision_Void_model2.png";
+
 // Add a type for products that includes optional imageBack
 export interface Product {
   id: string;
@@ -51,8 +60,8 @@ export const featuredProducts: Product[] = [
     name: "Breath of SEA ",
     price: 1899,
     originalPrice: 2399,
-    image: beigeboyfront,
-    imageBack: beigeboyback,
+    image: beigeBoyModel,
+    imageBack: beigeBoyModel2,
     category: "Regular Fit",
     isNew: true,
     isSale: false,
@@ -92,7 +101,7 @@ export const featuredProducts: Product[] = [
     category: "Drop Shoulder",
     isNew: true,
     isSale: false,
-    tag: "COMING SOON"
+    tag: "NEW"
   },
   {
     id: "u2",
@@ -104,15 +113,15 @@ export const featuredProducts: Product[] = [
     category: "Oversized Tee",
     isNew: true,
     isSale: false,
-    tag: "COMING SOON"
+    tag: "NEW"
   },
   {
     id: "w3",
     name: "Afterlight ",
     price: 1799,
     originalPrice: 2249,
-    image: whitegirlfront,
-    imageBack: whitegirlback,
+    image: afterlightModel,
+    imageBack: whitegirlfront,
     category: "Crop Top",
     isNew: true,
     isSale: false,
@@ -124,8 +133,20 @@ export const featuredProducts: Product[] = [
 ];
 
 export const menProducts: Product[] = [
-  // Real products first
+  // Real products first - NEW MODEL IMAGES FIRST
   
+  {
+    id: "u1",
+    name: "Breath of SEA",
+    price: 1899,
+    originalPrice: 2399,
+    image: beigeBoyModel,
+    imageBack: beigeBoyModel2,
+    category: "Regular Fit",
+    isNew: true,
+    isSale: false,
+    tag: "NEW" 
+  },
   {
     id: "m4",
     name: "The Blacksmith ",
@@ -162,20 +183,6 @@ export const menProducts: Product[] = [
     isSale: false,
     tag: "NEW" 
   },
- 
- 
-  {
-    id: "u1",
-    name: "Breath of SEA",
-    price: 1899,
-    originalPrice: 2399,
-    image: beigeboyfront,
-    imageBack: beigeboyback,
-    category: "Regular Fit",
-    isNew: true,
-    isSale: false,
-    tag: "NEW" 
-  },
   {
     id: "u2",
     name: "City Eighty",
@@ -186,13 +193,26 @@ export const menProducts: Product[] = [
     category: "Oversized Tee",
     isNew: true,
     isSale: false,
-    tag: "COMING SOON"
+    tag: "NEW"
   }
   
 ];
 
 export const womenProducts: Product[] = [
-  // Real products first
+  // Real products first - NEW MODEL IMAGE FIRST
+  
+  {
+    id: "w3",
+    name: "Afterlight ",
+    price: 1799,
+    originalPrice: 2249,
+    image: afterlightModel,
+    imageBack: whitegirlfront,
+    category: "Crop Top",
+    isNew: true,
+    isSale: false,
+    tag: "NEW"
+  },
   {
     id: "w1", // Varsity Grace is women's only
     name: "Varsity Grace",
@@ -203,85 +223,32 @@ export const womenProducts: Product[] = [
     category: "Drop Shoulder",
     isNew: true,
     isSale: false,
-    tag: "COMING SOON"
+    tag: "NEW"
   },
   {
-    id: "w3",
-    name: "Afterlight ",
-    price: 1799,
-    originalPrice: 2249,
-    image: whitegirlfront,
-    imageBack: whitegirlback,
-    category: "Crop Top",
+    id: "u2",
+    name: "City Eighty",
+    price: 1999,
+    originalPrice: 2499,
+    image: unisexeightysfront,
+    imageBack: unisexeightysback,
+    category: "Oversized Tee",
     isNew: true,
     isSale: false,
     tag: "NEW"
-  },
-  
-  {
-    id: "u2",
-    name: "City Eighty",
-    price: 1999,
-    originalPrice: 2499,
-    image: unisexeightysfront,
-    imageBack: unisexeightysback,
-    category: "Oversized Tee",
-    isNew: true,
-    isSale: false,
-    tag: "COMING SOON"
-  },
-  {
-    id: "m5",
-    name: "Vision Void ",
-    price: 1899,
-    originalPrice: 2399,
-    image: blackwarriorback,
-    imageBack: blackwarriorfront,
-    category: "Oversized Tee",
-    isNew: true,
-    isSale: false,
-    tag: "NEW" 
-  },
-  {
-    id: "m6",
-    name: "Vision Void (White Version)",
-    price: 1899,
-    originalPrice: 2399,
-    image: visionVoidWhiteBack,
-    imageBack: visionVoidWhiteFront,
-    category: "Oversized Tee",
-    isNew: true,
-    isSale: false,
-    tag: "NEW" 
   }
- 
-  // Coming soon products last
-  
-  
 ];
 
 export const unisexProducts: Product[] = [
-  // Real unisex products
+  // Real unisex products - NEW MODEL IMAGES FIRST
   
-  {
-    id: "u2",
-    name: "City Eighty",
-    price: 1999,
-    originalPrice: 2499,
-    image: unisexeightysfront,
-    imageBack: unisexeightysback,
-    category: "Oversized Tee",
-    isNew: true,
-    isSale: false,
-    tag: "COMING SOON"
-  },
   {
     id: "m5",
     name: "Vision Void ",
     price: 1899,
     originalPrice: 2399,
-    image: blackwarriorback,
-    imageBack: blackwarriorfront,
+    image: visionVoidBModel,
+    imageBack: visionVoidBModel2,
     category: "Oversized Tee",
     isNew: true,
     isSale: false,
@@ -292,12 +259,24 @@ export const unisexProducts: Product[] = [
     name: "Vision Void (White Version)",
     price: 1899,  
     originalPrice: 2399,
-    image: visionVoidWhiteBack,
-    imageBack: visionVoidWhiteFront,
+    image: visionVoidModel,
+    imageBack: visionVoidModel2,
     category: "Oversized Tee",
     isNew: true,
     isSale: false,
     tag: "NEW" 
+  },
+  {
+    id: "u2",
+    name: "City Eighty",
+    price: 1999,
+    originalPrice: 2499,
+    image: unisexeightysfront,
+    imageBack: unisexeightysback,
+    category: "Oversized Tee",
+    isNew: true,
+    isSale: false,
+    tag: "NEW"
   }
  
 ];
