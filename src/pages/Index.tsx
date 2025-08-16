@@ -131,7 +131,7 @@ const Index = () => {
                     A
                   </div>
                   <div>
-                    <p className="font-semibold text-[#1a1a1a]">Ahmed K.</p>
+                    <p className="font-semibold text-[#1a1a1a]">Armghan Tariq.</p>
                     <p className="text-sm text-[#805206]">Verified Buyer</p>
                   </div>
                 </div>
@@ -175,7 +175,7 @@ const Index = () => {
                     R
                   </div>
                   <div>
-                    <p className="font-semibold text-[#1a1a1a]">Rahul S.</p>
+                    <p className="font-semibold text-[#1a1a1a]">Ali Farooq.</p>
                     <p className="text-sm text-[#805206]">Verified Buyer</p>
                   </div>
                 </div>
