@@ -262,59 +262,84 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 bg-card border-t border-border">
-              <Link
-                to="/collection"
-                className="block px-3 py-2 text-foreground hover:text-brand-purple transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Collection
-              </Link>
-              <Link
-                to="/men"
-                className="block px-3 py-2 text-foreground hover:text-brand-purple transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Men
-              </Link>
-              <Link
-                to="/women"
-                className="block px-3 py-2 text-foreground hover:text-brand-purple transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Women
-              </Link>
-              <Link
-                to="/unisex"
-                className="block px-3 py-2 text-foreground hover:text-brand-purple transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Unisex
-              </Link>
-              <Link
-                to="/customized"
-                className="block px-3 py-2 text-foreground hover:text-brand-purple transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Customized
-              </Link>
-              <div className="flex items-center space-x-4 px-3 py-2">
-                <Button variant="ghost" size="icon" onClick={() => setSearchOpen(true)}>
-                  <Search className="h-5 w-5" />
-                </Button>
-                <Button variant="ghost" size="icon" onClick={() => window.location.href = '/order-history'}>
-                  <Clock className="h-5 w-5" />
-                </Button>
-                <Button variant="ghost" size="icon" className="relative" onClick={() => setCartOpen(true)}>
-                  <ShoppingBag className="h-5 w-5" />
-                  <span className="absolute -top-1 -right-1 bg-brand-purple text-brand-light text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                    {cartCount}
-                  </span>
+          <>
+            {/* Backdrop Overlay - Touch to Close */}
+            <div 
+              className="md:hidden fixed inset-0 bg-black/50 z-40"
+              onClick={() => setIsMenuOpen(false)}
+            />
+            
+            {/* Mobile Menu */}
+            <div className="md:hidden relative z-50">
+              {/* Mobile Menu Header with Close Button */}
+              <div className="flex items-center justify-between px-4 py-3 bg-card border-t border-border">
+                <h3 className="text-lg font-semibold text-foreground">Menu</h3>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="hover:bg-brand-purple/20"
+                >
+                  <X className="h-5 w-5" />
                 </Button>
               </div>
+              
+              {/* Mobile Menu Content */}
+              <div className="px-2 pb-3 space-y-1 bg-card">
+                <Link
+                  to="/collection"
+                  className="block px-3 py-3 text-foreground hover:text-brand-purple hover:bg-brand-purple/10 transition-colors rounded-lg"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Collection
+                </Link>
+                <Link
+                  to="/men"
+                  className="block px-3 py-3 text-foreground hover:text-brand-purple hover:bg-brand-purple/10 transition-colors rounded-lg"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Men
+                </Link>
+                <Link
+                  to="/women"
+                  className="block px-3 py-3 text-foreground hover:text-brand-purple hover:bg-brand-purple/10 transition-colors rounded-lg"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Women
+                </Link>
+                <Link
+                  to="/unisex"
+                  className="block px-3 py-3 text-foreground hover:text-brand-purple hover:bg-brand-purple/10 transition-colors rounded-lg"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Unisex
+                </Link>
+                <Link
+                  to="/customized"
+                  className="block px-3 py-3 text-foreground hover:text-brand-purple hover:bg-brand-purple/10 transition-colors rounded-lg"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Customized
+                </Link>
+                
+                {/* Action Buttons */}
+                <div className="flex items-center justify-center space-x-4 px-3 py-4 border-t border-border mt-4">
+                  <Button variant="ghost" size="icon" onClick={() => setSearchOpen(true)} className="hover:bg-brand-purple/20">
+                    <Search className="h-5 w-5" />
+                  </Button>
+                  <Button variant="ghost" size="icon" onClick={() => window.location.href = '/order-history'} className="hover:bg-brand-purple/20">
+                    <Clock className="h-5 w-5" />
+                  </Button>
+                  <Button variant="ghost" size="icon" className="relative hover:bg-brand-purple/20" onClick={() => setCartOpen(true)}>
+                    <ShoppingBag className="h-5 w-5" />
+                    <span className="absolute -top-1 -right-1 bg-brand-purple text-brand-light text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                      {cartCount}
+                    </span>
+                  </Button>
+                </div>
+              </div>
             </div>
-          </div>
+          </>
         )}
       </div>
     </header>
