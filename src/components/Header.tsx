@@ -111,7 +111,7 @@ const Header = () => {
                       className="flex items-center gap-4 px-2 py-3 hover:bg-muted/40 transition rounded-lg"
                       onClick={() => setSearchOpen(false)}
                     >
-                      <img src={product.image} alt={product.name} className="w-12 h-12 object-cover rounded-lg border border-border" />
+                      <img src={product.image} alt={product.name} className="w-12 h-12 object-contain bg-gradient-to-b from-[#f8f9fa] to-[#e9ecef] rounded-lg border border-border" />
                       <div className="flex-1">
                         <div className="font-semibold text-foreground">{product.name}</div>
                         <div className="text-xs text-muted-foreground">{product.category}</div>
@@ -147,7 +147,7 @@ const Header = () => {
 
 {cartItems.map((item) => (
   <div key={`${item.id}-${item.size}`} className="flex items-center gap-4 border-b pb-2 relative">
-    <img src={getImageUrl(item.image)} alt={item.name} className="w-16 h-16 rounded-lg object-cover bg-muted" onError={e => { e.currentTarget.src = FALLBACK_IMAGE; }} />
+    <img src={getImageUrl(item.image)} alt={item.name} className="w-16 h-16 rounded-lg object-contain bg-gradient-to-b from-[#f8f9fa] to-[#e9ecef]" onError={e => { e.currentTarget.src = FALLBACK_IMAGE; }} />
     <div className="flex-1">
       <div className="font-semibold text-foreground">{item.name}</div>
       <div className="text-xs text-muted-foreground">

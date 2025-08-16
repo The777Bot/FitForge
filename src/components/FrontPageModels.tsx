@@ -63,7 +63,7 @@ const FrontPageModels = () => {
                       <img
                         src={model.src}
                         alt={model.alt}
-                        className="w-full h-full object-cover object-top"
+                        className="w-full h-full object-contain bg-gradient-to-b from-[#f8f9fa] to-[#e9ecef]"
                       />
                     </div>
                   </div>
@@ -99,7 +99,7 @@ const FrontPageModels = () => {
                   <img
                     src={model.src}
                     alt={model.alt}
-                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-110"
+                    className="w-full h-full object-contain bg-gradient-to-b from-[#f8f9fa] to-[#e9ecef] transition-transform duration-500 group-hover:scale-110"
                   />
                   {/* Subtle overlay on hover */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

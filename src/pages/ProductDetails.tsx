@@ -26,6 +26,7 @@ const ProductDetails = () => {
   const productImages = [
     product?.image,
     product?.imageBack,
+    ...(product?.additionalImages || [])
   ].filter(Boolean); // Remove any undefined/null values
 
   // Navigation functions for image gallery

@@ -219,7 +219,7 @@ const ProductCard = ({
                   key={index}
                   src={img}
                   alt={index === 0 ? name : `${name} view ${index + 1}`}
-                  className={`w-full h-full object-cover transition-all duration-700 ${
+                  className={`w-full h-full object-contain bg-gradient-to-b from-[#f8f9fa] to-[#e9ecef] transition-all duration-700 ${
                     index === currentImageIndex
                       ? "opacity-100 scale-100"
                       : "opacity-0 scale-105 absolute inset-0"

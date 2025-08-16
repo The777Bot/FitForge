@@ -65,7 +65,7 @@ const Categories = () => {
                 <img
                   src={category.image}
                   alt={category.title}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                  className="w-full h-full object-contain bg-gradient-to-b from-[#f8f9fa] to-[#e9ecef] transition-transform duration-300 group-hover:scale-110"
                 />
                 
                 {/* Gradient Overlay */}

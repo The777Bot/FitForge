@@ -39,7 +39,7 @@ import visionVoidBModel2 from "@/assets/unisex-collection-framed/Vision_Void_Bmo
 import visionVoidModel from "@/assets/unisex-collection-framed/Vision_Void_model.png";
 import visionVoidModel2 from "@/assets/unisex-collection-framed/Vision_Void_model2.png";
 
-// Add a type for products that includes optional imageBack
+// Add a type for products that includes optional imageBack and additional images
 export interface Product {
   id: string;
   name: string;
@@ -47,6 +47,7 @@ export interface Product {
   originalPrice?: number;
   image: string;
   imageBack?: string;
+  additionalImages?: string[]; // For products with multiple images like models + product shots
   category: string;
   isNew?: boolean;
   isSale?: boolean;
@@ -62,6 +63,7 @@ export const featuredProducts: Product[] = [
     originalPrice: 2399,
     image: beigeBoyModel,
     imageBack: beigeBoyModel2,
+    additionalImages: [beigeboyfront, beigeboyback],
     category: "Regular Fit",
     isNew: true,
     isSale: false,
@@ -84,8 +86,9 @@ export const featuredProducts: Product[] = [
     name: "Vision Void",
     price: 1899,
     originalPrice: 2399,
-    image: blackwarriorback,
-    imageBack: blackwarriorfront,
+    image: visionVoidBModel,
+    imageBack: visionVoidBModel2,
+    additionalImages: [visionVoidModel, visionVoidModel2, blackwarriorback, blackwarriorfront],
     category: "Oversized Tee",
     isNew: true,
     isSale: false,
@@ -122,6 +125,7 @@ export const featuredProducts: Product[] = [
     originalPrice: 2249,
     image: afterlightModel,
     imageBack: whitegirlfront,
+    additionalImages: [whitegirlback],
     category: "Crop Top",
     isNew: true,
     isSale: false,
@@ -142,6 +146,7 @@ export const menProducts: Product[] = [
     originalPrice: 2399,
     image: beigeBoyModel,
     imageBack: beigeBoyModel2,
+    additionalImages: [beigeboyfront, beigeboyback],
     category: "Regular Fit",
     isNew: true,
     isSale: false,
@@ -164,8 +169,9 @@ export const menProducts: Product[] = [
     name: "Vision Void ",
     price: 1899,
     originalPrice: 2399,
-    image: blackwarriorback,
-    imageBack: blackwarriorfront,
+    image: visionVoidBModel,
+    imageBack: blackwarriorback,
+    additionalImages: [blackwarriorfront],
     category: "Oversized Tee",
     isNew: true,
     isSale: false,
@@ -176,8 +182,9 @@ export const menProducts: Product[] = [
     name: "Vision Void (White Version)",
     price: 1899,
     originalPrice: 2399,
-    image: visionVoidWhiteBack,
-    imageBack: visionVoidWhiteFront,
+    image: visionVoidBModel,
+    imageBack: visionVoidWhiteBack,
+    additionalImages: [visionVoidWhiteFront],
     category: "Oversized Tee",
     isNew: true,
     isSale: false,
@@ -208,6 +215,7 @@ export const womenProducts: Product[] = [
     originalPrice: 2249,
     image: afterlightModel,
     imageBack: whitegirlfront,
+    additionalImages: [whitegirlback],
     category: "Crop Top",
     isNew: true,
     isSale: false,
@@ -236,6 +244,32 @@ export const womenProducts: Product[] = [
     isNew: true,
     isSale: false,
     tag: "NEW"
+  },
+  {
+    id: "w4",
+    name: "Vision Void ",
+    price: 1899,
+    originalPrice: 2399,
+    image: visionVoidBModel2,
+    imageBack: visionVoidModel,
+    additionalImages: [visionVoidModel2, blackwarriorback, blackwarriorfront],
+    category: "Oversized Tee",
+    isNew: true,
+    isSale: false,
+    tag: "NEW" 
+  },
+  {
+    id: "w5",
+    name: "Vision Void (White Version)",
+    price: 1899,
+    originalPrice: 2399,
+    image: visionVoidModel,
+    imageBack: visionVoidModel2,
+    additionalImages: [visionVoidBModel2, visionVoidWhiteBack, visionVoidWhiteFront],
+    category: "Oversized Tee",
+    isNew: true,
+    isSale: false,
+    tag: "NEW" 
   }
 ];
 
@@ -249,6 +283,7 @@ export const unisexProducts: Product[] = [
     originalPrice: 2399,
     image: visionVoidBModel,
     imageBack: visionVoidBModel2,
+    additionalImages: [visionVoidModel, visionVoidModel2, blackwarriorback, blackwarriorfront],
     category: "Oversized Tee",
     isNew: true,
     isSale: false,
@@ -261,6 +296,7 @@ export const unisexProducts: Product[] = [
     originalPrice: 2399,
     image: visionVoidModel,
     imageBack: visionVoidModel2,
+    additionalImages: [visionVoidBModel, visionVoidWhiteBack, visionVoidWhiteFront],
     category: "Oversized Tee",
     isNew: true,
     isSale: false,
