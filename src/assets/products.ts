@@ -1,43 +1,49 @@
 import featuredImage from "@/assets/featured-collection.png";
-import beigeboyfront from "@/assets/mens-collection-framed/beigeboyfront.png";
-import beigeboyback from "@/assets/mens-collection-framed/beigeboyback.png";
-import charcoalboyfront from "@/assets/mens-collection-framed/charcoalboyfront.png";
-import charcoalboyback from "@/assets/mens-collection-framed/charcoalboyback.png";
-import whitegirlfront from "@/assets/womens-collection-framed/whitegirlfront.png";
-import whitegirlback from "@/assets/womens-collection-framed/whitegirlback.png";
+import mensBeigeShirtFront from "@/assets/mens-collection-framed/beigeboyfront.png";
+import mensBeigeShirtBack from "@/assets/mens-collection-framed/beigeboyback.png";
+import mensCharcoalShirtFront from "@/assets/mens-collection-framed/charcoalboyfront.png";
+import mensCharcoalShirtBack from "@/assets/mens-collection-framed/charcoalboyback.png";
+import womensWhiteShirtFront from "@/assets/womens-collection-framed/whitegirlfront.png";
+import womensWhiteShirtBack from "@/assets/womens-collection-framed/whitegirlback.png";
 
 // New product imports
-import blackwarriorfront from "@/assets/mens-collection-framed/black-warrior.png";
-import blackwarriorback from "@/assets/mens-collection-framed/black-warrior(back).png";
-import gracefront from "@/assets/mens-collection-framed/gracefront.jpg";
-import graceback from "@/assets/mens-collection-framed/graceback.jpg";
-import eightysfront from "@/assets/mens-collection-framed/eightysfront.jpg";
-import eightysback from "@/assets/mens-collection-framed/eightysback.jpg";
-import visionVoidWhiteBack from "@/assets/mens-collection-framed/Vision Void (White Version).png";
-import visionVoidWhiteFront from "@/assets/mens-collection-framed/Vision Void (White Version)f.png";
+import mensBlackVisionVoidFront from "@/assets/mens-collection-framed/black-warrior.png";
+import mensBlackVisionVoidBack from "@/assets/mens-collection-framed/black-warrior(back).png";
+import mensGraceFront from "@/assets/mens-collection-framed/gracefront.jpg";
+import mensGraceBack from "@/assets/mens-collection-framed/graceback.jpg";
+import mensEightysFront from "@/assets/mens-collection-framed/eightysfront.jpg";
+import mensEightysBack from "@/assets/mens-collection-framed/eightysback.jpg";
+import mensWhiteVisionVoidBack from "@/assets/mens-collection-framed/Vision Void (White Version).png";
+import mensWhiteVisionVoidFront from "@/assets/mens-collection-framed/Vision Void (White Version)f.png";
 
 // Unisex collection imports
-import unisexgracefront from "@/assets/unisex-collection-framed/gracefront.png";
-import unisexgraceback from "@/assets/unisex-collection-framed/graceback.png";
-import unisexeightysfront from "@/assets/unisex-collection-framed/eightysfront.png";
-import unisexeightysback from "@/assets/unisex-collection-framed/eightysback.png";
+import unisexGraceShirtFront from "@/assets/unisex-collection-framed/gracefront.png";
+import unisexGraceShirtBack from "@/assets/unisex-collection-framed/graceback.png";
+import unisexEightysShirtFront from "@/assets/unisex-collection-framed/eightysfront.png";
+import unisexEightysShirtBack from "@/assets/unisex-collection-framed/eightysback.png";
 
 // Anime collection imports
-import soloLevelingFront from "@/assets/Anime/Solo-Leveling_front.png";
-import soloLevelingBack from "@/assets/Anime/Solo-Leveling_back.png";
-import zoroStyleFront from "@/assets/Anime/Zoro-Style_front.png";
-import zoroStyleBack from "@/assets/Anime/Zoro-Style_back.png";
-import zenitsuFront from "@/assets/Anime/Zenitsu_front.png";
-import zenitsuBack from "@/assets/Anime/Zenitsu_back.png";
+import animeSoloLevelingFront from "@/assets/Anime/Solo-Leveling_front.png";
+import animeSoloLevelingBack from "@/assets/Anime/Solo-Leveling_back.png";
+import animeZoroStyleFront from "@/assets/Anime/Zoro-Style_front.png";
+import animeZoroStyleBack from "@/assets/Anime/Zoro-Style_back.png";
+import animeZenitsuFront from "@/assets/Anime/Zenitsu_front.png";
+import animeZenitsuBack from "@/assets/Anime/Zenitsu_back.png";
+
+// Front page models imports
+import frontModel1 from "@/assets/Front_page_models/Front_model1.png";
+import frontModel2 from "@/assets/Front_page_models/Front_model2.png";
+import frontModel3 from "@/assets/Front_page_models/Front_model3.png";
+import frontModel4 from "@/assets/Front_page_models/Front_model.png";
 
 // New model imports for updated products
-import beigeBoyModel from "@/assets/mens-collection-framed/BeigeBoymodel.png";
-import beigeBoyModel2 from "@/assets/mens-collection-framed/BeigeBoymodel2.png";
-import afterlightModel from "@/assets/womens-collection-framed/Afterlightmodel.png";
-import visionVoidBModel from "@/assets/unisex-collection-framed/Vision_Void_Bmodel.png";
-import visionVoidBModel2 from "@/assets/unisex-collection-framed/Vision_Void_Bmodel2.png";
-import visionVoidModel from "@/assets/unisex-collection-framed/Vision_Void_model.png";
-import visionVoidModel2 from "@/assets/unisex-collection-framed/Vision_Void_model2.png";
+import modelMensBeigeShirt from "@/assets/mens-collection-framed/BeigeBoymodel.png";
+import modelMensBeigeShirt2 from "@/assets/mens-collection-framed/BeigeBoymodel2.png";
+import modelWomensAfterlightShirt from "@/assets/womens-collection-framed/Afterlightmodel.png";
+import modelUnisexBlackVisionVoid from "@/assets/unisex-collection-framed/Vision_Void_Bmodel.png";
+import modelUnisexBlackVisionVoid2 from "@/assets/unisex-collection-framed/Vision_Void_Bmodel2.png";
+import modelUnisexVisionVoid from "@/assets/unisex-collection-framed/Vision_Void_model.png";
+import modelUnisexVisionVoid2 from "@/assets/unisex-collection-framed/Vision_Void_model2.png";
 
 // Add a type for products that includes optional imageBack and additional images
 export interface Product {
@@ -61,9 +67,9 @@ export const featuredProducts: Product[] = [
     name: "Breath of SEA ",
     price: 1899,
     originalPrice: 2399,
-    image: beigeBoyModel,
-    imageBack: beigeBoyModel2,
-    additionalImages: [beigeboyfront, beigeboyback],
+    image: modelMensBeigeShirt,
+    imageBack: modelMensBeigeShirt2,
+    additionalImages: [mensBeigeShirtFront, mensBeigeShirtBack],
     category: "Regular Fit",
     isNew: true,
     isSale: false,
@@ -74,8 +80,8 @@ export const featuredProducts: Product[] = [
     name: "The Blacksmith ",
     price: 1799,
     originalPrice: 2249,
-    image: charcoalboyfront,
-    imageBack: charcoalboyback,
+    image: mensCharcoalShirtFront,
+    imageBack: mensCharcoalShirtBack,
     category: "Regular Fit",
     isNew: true,
     isSale: false,
@@ -86,9 +92,9 @@ export const featuredProducts: Product[] = [
     name: "Vision Void",
     price: 1899,
     originalPrice: 2399,
-    image: visionVoidBModel,
-    imageBack: visionVoidBModel2,
-    additionalImages: [visionVoidModel, visionVoidModel2, blackwarriorback, blackwarriorfront],
+    image: modelUnisexBlackVisionVoid,
+    imageBack: modelUnisexBlackVisionVoid2,
+    additionalImages: [mensBlackVisionVoidBack, mensBlackVisionVoidFront],
     category: "Oversized Tee",
     isNew: true,
     isSale: false,
@@ -99,8 +105,8 @@ export const featuredProducts: Product[] = [
     name: "Varsity Grace ",
     price: 1999,
     originalPrice: 2499,
-    image: unisexgracefront,
-    imageBack: unisexgraceback,
+    image: unisexGraceShirtFront,
+    imageBack: unisexGraceShirtBack,
     category: "Drop Shoulder",
     isNew: true,
     isSale: false,
@@ -111,8 +117,8 @@ export const featuredProducts: Product[] = [
     name: "City Eighty ",
     price: 1999,
     originalPrice: 2499,
-    image: unisexeightysfront,
-    imageBack: unisexeightysback,
+    image: unisexEightysShirtFront,
+    imageBack: unisexEightysShirtBack,
     category: "Oversized Tee",
     isNew: true,
     isSale: false,
@@ -123,9 +129,9 @@ export const featuredProducts: Product[] = [
     name: "Afterlight ",
     price: 1799,
     originalPrice: 2249,
-    image: afterlightModel,
-    imageBack: whitegirlfront,
-    additionalImages: [whitegirlback],
+    image: modelWomensAfterlightShirt,
+    imageBack: womensWhiteShirtFront,
+    additionalImages: [womensWhiteShirtBack],
     category: "Crop Top",
     isNew: true,
     isSale: false,
@@ -144,9 +150,9 @@ export const menProducts: Product[] = [
     name: "Breath of SEA",
     price: 1899,
     originalPrice: 2399,
-    image: beigeBoyModel,
-    imageBack: beigeBoyModel2,
-    additionalImages: [beigeboyfront, beigeboyback],
+    image: modelMensBeigeShirt,
+    imageBack: modelMensBeigeShirt2,
+    additionalImages: [mensBeigeShirtFront, mensBeigeShirtBack],
     category: "Regular Fit",
     isNew: true,
     isSale: false,
@@ -157,8 +163,8 @@ export const menProducts: Product[] = [
     name: "The Blacksmith ",
     price: 1799,
     originalPrice: 2249,
-    image: charcoalboyfront,
-    imageBack: charcoalboyback,
+    image: mensCharcoalShirtFront,
+    imageBack: mensCharcoalShirtBack,
     category: "Regular Fit",
     isNew: true,
     isSale: false,
@@ -169,9 +175,9 @@ export const menProducts: Product[] = [
     name: "Vision Void ",
     price: 1899,
     originalPrice: 2399,
-    image: visionVoidBModel,
-    imageBack: blackwarriorback,
-    additionalImages: [blackwarriorfront],
+    image: frontModel4,
+    imageBack: mensBlackVisionVoidBack,
+    additionalImages: [mensBlackVisionVoidFront],
     category: "Oversized Tee",
     isNew: true,
     isSale: false,
@@ -182,9 +188,9 @@ export const menProducts: Product[] = [
     name: "Vision Void (White Version)",
     price: 1899,
     originalPrice: 2399,
-    image: visionVoidBModel,
-    imageBack: visionVoidWhiteBack,
-    additionalImages: [visionVoidWhiteFront],
+    image: modelUnisexBlackVisionVoid,
+    imageBack: mensWhiteVisionVoidBack,
+    additionalImages: [mensWhiteVisionVoidFront],
     category: "Oversized Tee",
     isNew: true,
     isSale: false,
@@ -195,8 +201,8 @@ export const menProducts: Product[] = [
     name: "City Eighty",
     price: 1999,
     originalPrice: 2499,
-    image: unisexeightysfront,
-    imageBack: unisexeightysback,
+    image: unisexEightysShirtFront,
+    imageBack: unisexEightysShirtBack,
     category: "Oversized Tee",
     isNew: true,
     isSale: false,
@@ -213,9 +219,9 @@ export const womenProducts: Product[] = [
     name: "Afterlight ",
     price: 1799,
     originalPrice: 2249,
-    image: afterlightModel,
-    imageBack: whitegirlfront,
-    additionalImages: [whitegirlback],
+    image: modelWomensAfterlightShirt,
+    imageBack: womensWhiteShirtFront,
+    additionalImages: [womensWhiteShirtBack],
     category: "Crop Top",
     isNew: true,
     isSale: false,
@@ -226,8 +232,8 @@ export const womenProducts: Product[] = [
     name: "Varsity Grace",
     price: 1999,
     originalPrice: 2499,
-    image: unisexgracefront,
-    imageBack: unisexgraceback,
+    image: unisexGraceShirtFront,
+    imageBack: unisexGraceShirtBack,
     category: "Drop Shoulder",
     isNew: true,
     isSale: false,
@@ -238,8 +244,8 @@ export const womenProducts: Product[] = [
     name: "City Eighty",
     price: 1999,
     originalPrice: 2499,
-    image: unisexeightysfront,
-    imageBack: unisexeightysback,
+    image: unisexEightysShirtFront,
+    imageBack: unisexEightysShirtBack,
     category: "Oversized Tee",
     isNew: true,
     isSale: false,
@@ -250,9 +256,9 @@ export const womenProducts: Product[] = [
     name: "Vision Void ",
     price: 1899,
     originalPrice: 2399,
-    image: visionVoidBModel2,
-    imageBack: visionVoidModel,
-    additionalImages: [visionVoidModel2, blackwarriorback, blackwarriorfront],
+    image: modelUnisexBlackVisionVoid2,
+    imageBack: modelUnisexVisionVoid,
+    additionalImages: [mensBlackVisionVoidBack, mensBlackVisionVoidFront],
     category: "Oversized Tee",
     isNew: true,
     isSale: false,
@@ -263,9 +269,9 @@ export const womenProducts: Product[] = [
     name: "Vision Void (White Version)",
     price: 1899,
     originalPrice: 2399,
-    image: visionVoidModel,
-    imageBack: visionVoidModel2,
-    additionalImages: [visionVoidBModel2, visionVoidWhiteBack, visionVoidWhiteFront],
+    image: modelUnisexVisionVoid2,
+    imageBack: modelUnisexVisionVoid,
+    additionalImages: [mensWhiteVisionVoidFront],
     category: "Oversized Tee",
     isNew: true,
     isSale: false,
@@ -281,9 +287,9 @@ export const unisexProducts: Product[] = [
     name: "Vision Void ",
     price: 1899,
     originalPrice: 2399,
-    image: visionVoidBModel,
-    imageBack: visionVoidBModel2,
-    additionalImages: [visionVoidModel, visionVoidModel2, blackwarriorback, blackwarriorfront],
+    image: modelUnisexBlackVisionVoid,
+    imageBack: modelUnisexBlackVisionVoid2,
+    additionalImages: [mensBlackVisionVoidBack],
     category: "Oversized Tee",
     isNew: true,
     isSale: false,
@@ -294,9 +300,9 @@ export const unisexProducts: Product[] = [
     name: "Vision Void (White Version)",
     price: 1899,  
     originalPrice: 2399,
-    image: visionVoidModel,
-    imageBack: visionVoidModel2,
-    additionalImages: [visionVoidBModel, visionVoidWhiteBack, visionVoidWhiteFront],
+    image: modelUnisexVisionVoid,
+    imageBack: modelUnisexVisionVoid2,
+    additionalImages: [mensWhiteVisionVoidBack, mensWhiteVisionVoidFront],
     category: "Oversized Tee",
     isNew: true,
     isSale: false,
@@ -307,8 +313,8 @@ export const unisexProducts: Product[] = [
     name: "City Eighty",
     price: 1999,
     originalPrice: 2499,
-    image: unisexeightysfront,
-    imageBack: unisexeightysback,
+    image: unisexEightysShirtFront,
+    imageBack: unisexEightysShirtBack,
     category: "Oversized Tee",
     isNew: true,
     isSale: false,
@@ -338,8 +344,8 @@ export const animeProducts: Product[] = [
     id: "a1",
     name: "Solo Leveling T-shirt",
     price: 2499,
-    image: soloLevelingFront,
-    imageBack: soloLevelingBack,
+    image: animeSoloLevelingFront,
+    imageBack: animeSoloLevelingBack,
     category: "T-shirts",
     isNew: true,
     isSale: false,
@@ -349,8 +355,8 @@ export const animeProducts: Product[] = [
     id: "a2",
     name: "Zoro Style T-shirt",
     price: 2499,
-    image: zoroStyleFront,
-    imageBack: zoroStyleBack,
+    image: animeZoroStyleFront,
+    imageBack: animeZoroStyleBack,
     category: "T-shirts",
     isNew: true,
     isSale: false,
@@ -360,8 +366,8 @@ export const animeProducts: Product[] = [
     id: "a3",
     name: "Zenitsu T-shirt",
     price: 2499,
-    image: zenitsuFront,
-    imageBack: zenitsuBack,
+    image: animeZenitsuFront,
+    imageBack: animeZenitsuBack,
     category: "T-shirts",
     isNew: true,
     isSale: false,

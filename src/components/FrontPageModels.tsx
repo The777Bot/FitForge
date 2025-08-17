@@ -35,12 +35,10 @@ const FrontPageModels = () => {
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold text-[#1a1a1a] mb-4">
             Featured
-            <span className="block bg-gradient-to-r from-[#a67c52] to-[#805206] bg-clip-text text-transparent">
-              Models
-            </span>
+            
           </h2>
           <p className="text-lg text-[#805206] max-w-2xl mx-auto">
-            Discover our latest collections through stunning model photography
+            Discover our latest collections 
           </p>
         </div>
 
