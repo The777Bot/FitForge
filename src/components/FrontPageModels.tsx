@@ -33,11 +33,8 @@ const FrontPageModels = () => {
     <section className="py-16 bg-gradient-to-b from-background to-[#e7dbc7]/10">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-[#1a1a1a] mb-4">
-            Featured
-            
-          </h2>
-          <p className="text-lg text-[#805206] max-w-2xl mx-auto">
+          
+          <p className="text-lg text-[#805208] max-w-2xl mx-auto">
             Discover our latest collections 
           </p>
         </div>
