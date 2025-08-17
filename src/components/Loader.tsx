@@ -1,26 +1,42 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useLoader } from './LoaderContext';
+import FFlogo from '@/assets/FFlogo.png';
 
 const Loader = () => {
+  const { progress } = useLoader();
   return (
     <StyledWrapper>
-      <div>
-        <div className="loader">
-          <span><span /><span /><span /><span /></span>
-          <div className="base">
-            <span />
-            <div className="face" />
-          </div>
+      <div className="content">
+        <img src={FFlogo} alt="FitForge" className="logo" />
+        <div className="progress-wrap" aria-hidden>
+          <div className="progress-bar" style={{ width: `${progress}%` }} />
         </div>
-        <div className="longfazers">
-          <span /><span /><span /><span />
-        </div>
+        <div className="progress-text">{progress}%</div>
       </div>
     </StyledWrapper>
   );
 };
 
 const StyledWrapper = styled.div`
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #fff, #f7f4ee);
+  z-index: 9999;
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  .logo { width: 120px; height: 120px; object-fit: contain; border-radius: 12px; box-shadow: 0 6px 32px rgba(0,0,0,0.12); }
+  .progress-wrap { width: 240px; height: 10px; background: #eee; border-radius: 999px; overflow: hidden; }
+  .progress-bar { height: 100%; background: linear-gradient(90deg,#a67c52,#c89b61); transition: width 300ms ease; }
+  .progress-text { font-weight: 700; color: #8b5d2b; }
+
   .loader {
     position: absolute;
     top: 50%;
