@@ -219,6 +219,8 @@ const ProductCard = ({
                   key={index}
                   src={img}
                   alt={index === 0 ? name : `${name} view ${index + 1}`}
+                  loading="lazy"
+                  decoding="async"
                   className={`w-full h-full object-contain bg-gradient-to-b from-[#f8f9fa] to-[#e9ecef] transition-all duration-700 ${
                     index === currentImageIndex
                       ? "opacity-100 scale-100"
@@ -339,6 +341,8 @@ const ProductCard = ({
              <img
                src="/assets/size_chart.jpg"
                alt="Size chart"
+               loading="lazy"
+               decoding="async"
                className="w-full h-auto max-h-[80vh] object-contain rounded-lg"
              />
            </div>

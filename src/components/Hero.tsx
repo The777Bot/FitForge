@@ -57,12 +57,11 @@ const Hero = () => {
   const { heroBg, toggleHeroBg } = useHeroBg();
   const tagline = useTypewriter("Luxury streetwear, crafted for royalty.", 40);
 
-  // Auto-toggle hero background every 1 second
+  // Auto-toggle hero background every 4 seconds (less frequent)
   useEffect(() => {
     const interval = setInterval(() => {
       toggleHeroBg();
-    }, 1000);
-    
+    }, 4000);
     return () => clearInterval(interval);
   }, [toggleHeroBg]);
 
@@ -109,15 +108,36 @@ const Hero = () => {
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
       aria-label="Hero section"
     >
-      {/* Video Background */}
+      {/* Video Background - defer loading until visible to reduce initial payload */}
       <video
         className="absolute inset-0 w-full h-full object-cover z-0"
-        src={heroVideo}
-        autoPlay
+        data-src={heroVideo}
         loop
         muted
         playsInline
         aria-hidden="true"
+        ref={(el) => {
+          // use attribute to allow lazy-loading via IntersectionObserver
+          if (!el) return;
+          // If src already set (SSR/hydration), skip
+          if ((el as HTMLVideoElement).src) return;
+          const observer = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  // set src and play when hero becomes visible
+                  (el as HTMLVideoElement).src = heroVideo;
+                  (el as HTMLVideoElement).play().catch(() => {
+                    /* play may be blocked; that's okay */
+                  });
+                  observer.disconnect();
+                }
+              });
+            },
+            { root: null, rootMargin: '200px', threshold: 0.01 }
+          );
+          observer.observe(el);
+        }}
       />
       {/* Parallax Background Image (fallback, can be removed if not needed) */}
       {/*
