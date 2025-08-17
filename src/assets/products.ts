@@ -15,6 +15,7 @@ import mensEightysFront from "@/assets/mens-collection-framed/eightysfront.jpg";
 import mensEightysBack from "@/assets/mens-collection-framed/eightysback.jpg";
 import mensWhiteVisionVoidBack from "@/assets/mens-collection-framed/Vision Void (White Version).png";
 import mensWhiteVisionVoidFront from "@/assets/mens-collection-framed/Vision Void (White Version)f.png";
+import mensVisionaryWhiteFront from "@/assets/mens-collection-framed/Visionary_w_front.png";
 
 // Unisex collection imports
 import unisexGraceShirtFront from "@/assets/unisex-collection-framed/gracefront.png";
@@ -177,7 +178,7 @@ export const menProducts: Product[] = [
     originalPrice: 2399,
     image: frontModel4,
     imageBack: frontModel2,
-    additionalImages: [mensBlackVisionVoidFront],
+    additionalImages: [mensBlackVisionVoidFront, mensBlackVisionVoidBack],
     category: "Oversized Tee",
     isNew: true,
     isSale: false,
@@ -188,9 +189,9 @@ export const menProducts: Product[] = [
     name: "Vision Void (White Version)",
     price: 1899,
     originalPrice: 2399,
-    image: modelUnisexBlackVisionVoid,
-    imageBack: mensWhiteVisionVoidBack,
-    additionalImages: [mensWhiteVisionVoidFront],
+  image: mensVisionaryWhiteFront,
+  imageBack: modelUnisexBlackVisionVoid,
+  additionalImages: [mensWhiteVisionVoidBack, mensWhiteVisionVoidFront],
     category: "Oversized Tee",
     isNew: true,
     isSale: false,
@@ -296,13 +297,13 @@ export const unisexProducts: Product[] = [
     tag: "NEW" 
   },
   {
-    id: "m6",
+    id: "n6",
     name: "Vision Void (White Version)",
-    price: 1899,  
+    price: 1899,
     originalPrice: 2399,
-    image: modelUnisexVisionVoid2,
+    image: mensVisionaryWhiteFront,
     imageBack: modelUnisexBlackVisionVoid,
-    additionalImages: [mensWhiteVisionVoidBack, mensWhiteVisionVoidFront],
+    additionalImages: [modelUnisexVisionVoid2, mensWhiteVisionVoidBack, mensWhiteVisionVoidFront],
     category: "Oversized Tee",
     isNew: true,
     isSale: false,
