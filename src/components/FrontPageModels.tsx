@@ -1,5 +1,5 @@
 // Import the model images
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import model1 from "@/assets/Front_page_models/Front_model1.png";
 import model2 from "@/assets/Front_page_models/Front_model2.png";
 import model3 from "@/assets/Front_page_models/Front_model3.png";
@@ -15,9 +15,64 @@ const FrontPageModels = () => {
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [loaded, setLoaded] = useState<boolean[]>(() => models.map(() => false));
 
-  // NOTE: auto-scroll removed to prevent models from reloading repeatedly in some browsers
-  // Users can still tap the indicators to switch images on mobile.
+  const markLoaded = (i: number) => {
+    setLoaded((prev) => {
+      const next = prev.slice();
+      next[i] = true;
+      return next;
+    });
+  };
+
+  // Pause control for the auto-advance carousel
+  const pausedRef = useRef(false);
+  const resumeTimerRef = useRef<number | null>(null);
+
+  const setPaused = (v: boolean) => {
+    pausedRef.current = v;
+    if (!v && resumeTimerRef.current) {
+      window.clearTimeout(resumeTimerRef.current as number);
+      resumeTimerRef.current = null;
+    }
+  };
+
+  // Pause when the tab is hidden (user switches away)
+  useEffect(() => {
+    const onVisibility = () => {
+      if (document.hidden) setPaused(true);
+      else setPaused(false);
+    };
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => document.removeEventListener('visibilitychange', onVisibility);
+  }, []);
+
+  // Detect iOS/iPadOS (including iOS in-app browsers). We'll avoid native lazy loading there
+  // because some iOS webviews have inconsistent support and can leave images unloaded.
+  const isIOS = useMemo(() => {
+    if (typeof navigator === 'undefined') return false;
+    const ua = navigator.userAgent || '';
+    const isIPhone = /iPhone|iPad|iPod/.test(ua);
+    // Mac with touch points is iPadOS 13+ reporting Mac platform
+    const isIPadOS = (navigator.platform === 'MacIntel' && (navigator as any).maxTouchPoints > 1);
+    return isIPhone || isIPadOS;
+  }, []);
+
+  // Image loading props, use eager on iOS to ensure they load reliably in webviews
+  const imageProps = useMemo(() => {
+    if (isIOS) return { decoding: 'async' as const };
+    return { loading: 'lazy' as const, decoding: 'async' as const };
+  }, [isIOS]);
+
+  // Auto-advance carousel every 4 seconds. Pauses on unmount.
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (!pausedRef.current) {
+        setCurrentIndex((prev) => (prev + 1) % models.length);
+      }
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [models.length]);
 
   if (models.length === 0) {
     return null; // Don't render if no models
@@ -36,8 +91,23 @@ const FrontPageModels = () => {
         {/* Auto-scrolling Carousel Layout */}
         <div className="max-w-7xl mx-auto">
           {/* Mobile: Single image carousel */}
-          <div className="md:hidden relative overflow-hidden">
-            <div 
+          <div
+            className="md:hidden relative overflow-hidden"
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+            onTouchStart={() => {
+              setPaused(true);
+              if (resumeTimerRef.current) {
+                window.clearTimeout(resumeTimerRef.current as number);
+                resumeTimerRef.current = null;
+              }
+            }}
+            onTouchEnd={() => {
+              // resume after a short delay to avoid immediate flip
+              resumeTimerRef.current = window.setTimeout(() => setPaused(false), 1200);
+            }}
+          >
+            <div
               className="flex transition-transform duration-500 ease-in-out"
               style={{ transform: `translateX(-${currentIndex * 100}%)` }}
             >
@@ -49,12 +119,19 @@ const FrontPageModels = () => {
                   <div className="bg-white rounded-2xl shadow-lg overflow-hidden mx-auto max-w-sm">
                     {/* Vertical Image Container - Fixed aspect ratio to prevent cropping */}
                     <div className="aspect-[3/4] relative overflow-hidden">
+                      {/* Subtle skeleton while the image loads */}
+                      {!loaded[index] && (
+                        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-b from-gray-100 to-gray-200 animate-pulse">
+                          <div className="w-24 h-32 bg-gradient-to-br from-gray-200 to-gray-300 rounded-md shadow-inner" />
+                        </div>
+                      )}
                       <img
                         src={model.src}
                         alt={model.alt}
-                        loading="lazy"
-                        decoding="async"
-                        className="w-full h-full object-contain bg-gradient-to-b from-[#f8f9fa] to-[#e9ecef]"
+                        {...imageProps}
+                        onLoad={() => markLoaded(index)}
+                        onError={() => markLoaded(index)}
+                        className={`w-full h-full object-contain bg-gradient-to-b from-[#f8f9fa] to-[#e9ecef] transition-opacity duration-500 ${loaded[index] ? 'opacity-100' : 'opacity-0'}`}
                       />
                     </div>
                   </div>
@@ -77,8 +154,14 @@ const FrontPageModels = () => {
           </div>
 
           {/* Desktop: Grid layout with auto-scroll highlight */}
-          <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {models.map((model, index) => (
+          <div
+            className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-6"
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+            onFocus={() => setPaused(true)}
+            onBlur={() => setPaused(false)}
+          >
+              {models.map((model, index) => (
               <div
                 key={index}
                 className={`group relative bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-500 ${
@@ -87,15 +170,22 @@ const FrontPageModels = () => {
               >
                 {/* Vertical Image Container - Improved for desktop to prevent cropping */}
                 <div className="aspect-[3/4] relative overflow-hidden">
-                  <img
-                    src={model.src}
-                    alt={model.alt}
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-contain bg-gradient-to-b from-[#f8f9fa] to-[#e9ecef] transition-transform duration-500 group-hover:scale-110"
-                  />
-                  {/* Subtle overlay on hover */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    {/* Subtle skeleton while the image loads */}
+                    {!loaded[index] && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-b from-gray-100 to-gray-200 animate-pulse">
+                        <div className="w-32 h-40 bg-gradient-to-br from-gray-200 to-gray-300 rounded-md shadow-inner" />
+                      </div>
+                    )}
+                    <img
+                      src={model.src}
+                      alt={model.alt}
+                      {...imageProps}
+                      onLoad={() => markLoaded(index)}
+                      onError={() => markLoaded(index)}
+                      className={`w-full h-full object-contain bg-gradient-to-b from-[#f8f9fa] to-[#e9ecef] transition-opacity duration-500 group-hover:scale-110 ${loaded[index] ? 'opacity-100' : 'opacity-0'}`}
+                    />
+                    {/* Subtle overlay on hover */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
               </div>
             ))}
