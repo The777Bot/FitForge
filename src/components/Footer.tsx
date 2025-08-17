@@ -40,11 +40,11 @@ const Footer = () => {
             © 2025 FitForge. All rights reserved.
           </p>
           <a
-            href="mailto:ubadahme@gmail.com"
+            href="mailto:fitforge.pk@gmail.com"
             className="text-xs text-[hsl(45,33%,90%)] hover:text-brand-purple transition-colors"
             title="Contact the developer"
           >
-            Developed by ubadahme@gmail.com
+            Developed by fitforge.pk@gmail.com
           </a>
         </div>
       </div>
