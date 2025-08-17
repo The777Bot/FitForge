@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ShoppingCart } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import {
   Dialog,
   DialogContent,
@@ -57,6 +57,20 @@ const ProductCard = ({
     : 0;
   
   const isComingSoon = tag === "COMING SOON";
+
+  // Detect iOS/iPadOS (including in-app webviews). Avoid native lazy-loading there.
+  const isIOS = useMemo(() => {
+    if (typeof navigator === 'undefined') return false;
+    const ua = navigator.userAgent || '';
+    const isIPhone = /iPhone|iPad|iPod/.test(ua);
+    const isIPadOS = (navigator.platform === 'MacIntel' && (navigator as any).maxTouchPoints > 1);
+    return isIPhone || isIPadOS || /Instagram|FBAN|FBAV|FB_IAB/i.test(ua);
+  }, []);
+
+  const imageProps = useMemo(() => {
+    if (isIOS) return { decoding: 'async' as const };
+    return { loading: 'lazy' as const, decoding: 'async' as const };
+  }, [isIOS]);
 
   // Create images array with front and back images
   const images = imageBack ? [image, imageBack] : [image];
@@ -219,8 +233,7 @@ const ProductCard = ({
                   key={index}
                   src={img}
                   alt={index === 0 ? name : `${name} view ${index + 1}`}
-                  loading="lazy"
-                  decoding="async"
+                  {...imageProps}
                   className={`w-full h-full object-contain bg-gradient-to-b from-[#f8f9fa] to-[#e9ecef] transition-all duration-700 ${
                     index === currentImageIndex
                       ? "opacity-100 scale-100"
@@ -341,8 +354,7 @@ const ProductCard = ({
              <img
                src="/assets/size_chart.jpg"
                alt="Size chart"
-               loading="lazy"
-               decoding="async"
+               {...imageProps}
                className="w-full h-auto max-h-[80vh] object-contain rounded-lg"
              />
            </div>

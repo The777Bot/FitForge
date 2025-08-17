@@ -7,6 +7,87 @@ import heroImage2 from "@/assets/beigeblack2.png";
 import heroVideo from "@/assets/hero-back.mp4";
 import FFlogo from "@/assets/FFlogo.png";
 
+// BlurUpImage component for progressive image loading
+const BlurUpImage = ({ 
+  src, 
+  alt, 
+  className = "", 
+  style = {}, 
+  placeholderSrc = null 
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+  style?: React.CSSProperties;
+  placeholderSrc?: string | null;
+}) => {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [imageSrc, setImageSrc] = useState<string | null>(null);
+  
+  useEffect(() => {
+    // Create a tiny blurred version for placeholder
+    if (placeholderSrc) {
+      setImageSrc(placeholderSrc);
+    } else {
+      // Generate a tiny version by scaling down the original
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          // Create a very small version (20x20) for the blur effect
+          canvas.width = 20;
+          canvas.height = 20;
+          ctx.drawImage(img, 0, 0, 20, 20);
+          const tinyUrl = canvas.toDataURL('image/jpeg', 0.1);
+          setImageSrc(tinyUrl);
+        }
+      };
+      img.src = src;
+    }
+  }, [src, placeholderSrc]);
+
+  const handleImageLoad = () => {
+    setIsLoaded(true);
+  };
+
+  return (
+    <div className={`relative overflow-hidden ${className}`} style={style}>
+      {/* Blurred placeholder */}
+      {imageSrc && (
+        <img
+          src={imageSrc}
+          alt={alt}
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
+            isLoaded ? 'opacity-0' : 'opacity-100'
+          }`}
+          style={{
+            filter: 'blur(20px)',
+            transform: 'scale(1.1)',
+          }}
+          aria-hidden={isLoaded}
+        />
+      )}
+      
+      {/* Full resolution image */}
+      <img
+        src={src}
+        alt={alt}
+        className={`w-full h-full object-cover transition-opacity duration-700 ${
+          isLoaded ? 'opacity-100' : 'opacity-0'
+        }`}
+        onLoad={handleImageLoad}
+        style={style}
+      />
+      
+      {/* Skeleton loading state */}
+      {!imageSrc && (
+        <div className="absolute inset-0 bg-gray-300 animate-pulse rounded" />
+      )}
+    </div>
+  );
+};
+
 // Typewriter effect hook
 function useTypewriter(text: string, speed = 60) {
   const [displayed, setDisplayed] = useState("");
@@ -143,10 +224,15 @@ const Hero = () => {
       {/*
       <div
         ref={bgRef}
-        className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat will-change-transform transition-transform duration-700 z-10"
-        style={{ backgroundImage: `url(${heroBg === 'beigeblack.jpg' ? heroImage1 : heroImage2})`, opacity: 0.5 }}
+        className="absolute inset-0 w-full h-full will-change-transform transition-transform duration-700 z-10"
         aria-hidden="true"
       >
+        <BlurUpImage
+          src={heroBg === 'beigeblack.jpg' ? heroImage1 : heroImage2}
+          alt="Hero background"
+          className="w-full h-full opacity-50"
+          style={{ objectFit: 'cover', objectPosition: 'center' }}
+        />
         <div className="absolute inset-0 bg-gradient-to-r from-brand-dark/80 via-brand-dark/60 to-transparent" />
       </div>
       */}
@@ -171,7 +257,12 @@ const Hero = () => {
         {/* <div className="absolute inset-0 mx-auto max-w-3xl h-full rounded-3xl bg-white/30 backdrop-blur-xl shadow-2xl border border-white/40 z-[-1]" aria-hidden="true"></div> */}
         <h1 className="text-6xl md:text-8xl lg:text-9xl font-black text-white mb-8 leading-tight tracking-tight animate-hero-slide-in flex flex-col items-center animate-float-slow" style={{ fontFamily: 'Ethnocentric Bold, Playfair Display, DM Serif Display, serif' }}>
           <span className="block mb-4 pt-6 md:pt-8 relative">
-            <img src={FFlogo} alt="FitForge Logo" className="mx-auto animate-bounce-slow rounded-full shadow-2xl border-4 border-white/70" style={{ width: '120px', height: '120px', objectFit: 'cover', boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)' }} />
+            <BlurUpImage 
+              src={FFlogo} 
+              alt="FitForge Logo" 
+              className="mx-auto animate-bounce-slow rounded-full shadow-2xl border-4 border-white/70" 
+              style={{ width: '120px', height: '120px', objectFit: 'cover', boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)' }} 
+            />
             {/* Glowing circle behind logo, color changes with toggle */}
             <span
               className={`absolute inset-0 rounded-full z-[-1] blur-2xl opacity-70 animate-pulse-slow ${heroBg === 'beigeblack.jpg' ? 'bg-yellow-200' : 'bg-gray-200'}`}
