@@ -88,11 +88,11 @@ export const featuredProducts: Product[] = [
     tag: "NEW" 
   },
   {
-    id: "m5",
+    id: "m7",
     name: "Vision Void",
     price: 1899,
     originalPrice: 2399,
-    image: modelUnisexBlackVisionVoid,
+    image: frontModel4,
     imageBack: modelUnisexBlackVisionVoid2,
     additionalImages: [mensBlackVisionVoidBack, mensBlackVisionVoidFront],
     category: "Oversized Tee",
@@ -176,7 +176,7 @@ export const menProducts: Product[] = [
     price: 1899,
     originalPrice: 2399,
     image: frontModel4,
-    imageBack: mensBlackVisionVoidBack,
+    imageBack: frontModel2,
     additionalImages: [mensBlackVisionVoidFront],
     category: "Oversized Tee",
     isNew: true,
@@ -270,8 +270,8 @@ export const womenProducts: Product[] = [
     price: 1899,
     originalPrice: 2399,
     image: modelUnisexVisionVoid2,
-    imageBack: modelUnisexVisionVoid,
-    additionalImages: [mensWhiteVisionVoidFront],
+    imageBack: frontModel3,
+    additionalImages: [mensWhiteVisionVoidFront, mensWhiteVisionVoidBack],
     category: "Oversized Tee",
     isNew: true,
     isSale: false,
@@ -283,7 +283,7 @@ export const unisexProducts: Product[] = [
   // Real unisex products - NEW MODEL IMAGES FIRST
   
   {
-    id: "m5",
+    id: "m7",
     name: "Vision Void ",
     price: 1899,
     originalPrice: 2399,
