@@ -8,7 +8,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { orderNumber, name, email, phone, address, items, total, date } = req.body;
+  const { orderNumber, name, email, phone, address, items, subtotal, deliveryFee, total, date } = req.body;
 
   try {
     // Format items
@@ -35,6 +35,8 @@ export default async function handler(req, res) {
       Phone: ${phone}
       Address: ${address}
       Order Summary: ${itemListHtml}
+      Subtotal: Rs${subtotal}
+      ${deliveryFee ? `Delivery Fee: Rs${deliveryFee}` : ''}
       Total: Rs${total}
     `);
 
@@ -46,6 +48,8 @@ export default async function handler(req, res) {
       Order Number: ${orderNumber}
       Date: ${date}
       Order Summary: ${itemListHtml}
+      Subtotal: Rs${subtotal}
+      ${deliveryFee ? `Delivery Fee: Rs${deliveryFee}` : ''}
       Total: Rs${total}
       We will contact you soon for confirmation and shipping details.
       If you have any questions, contact us at fitforge.pk@gmail.com.

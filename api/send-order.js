@@ -15,7 +15,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { orderNumber, name, email, phone, address, items, total, date, bankProof } = req.body;
+  const { orderNumber, name, email, phone, address, items, subtotal, deliveryFee, total, date, bankProof } = req.body;
 
   console.log('📦 Order data received:', { 
     orderNumber, 
@@ -73,6 +73,8 @@ export default async function handler(req, res) {
         <p><b>Address:</b> ${address}</p>
         <h3>Order Summary</h3>
         <ul>${itemListHtml}</ul>
+        <p><b>Subtotal:</b> Rs${subtotal}</p>
+        ${deliveryFee ? `<p><b>Delivery Fee:</b> Rs${deliveryFee}</p>` : ''}
         <p><b>Total:</b> Rs${total}</p>
         ${bankProof ? `<p><b>Payment Reference:</b> ${bankProof}</p>` : ''}
       `,
@@ -95,6 +97,8 @@ export default async function handler(req, res) {
           <p><b>Date:</b> ${date}</p>
           <h3>Order Summary</h3>
           <ul>${itemListHtml}</ul>
+          <p><b>Subtotal:</b> Rs${subtotal}</p>
+          ${deliveryFee ? `<p><b>Delivery Fee:</b> Rs${deliveryFee}</p>` : ''}
           <p><b>Total:</b> Rs${total}</p>
           ${bankProof ? `<p><b>Payment Reference:</b> ${bankProof}</p>` : ''}
           <p>We will contact you soon for confirmation and shipping details.</p>
@@ -117,6 +121,8 @@ export default async function handler(req, res) {
             <p><b>Date:</b> ${date}</p>
             <h3>Order Summary</h3>
             <ul>${itemListHtml}</ul>
+            <p><b>Subtotal:</b> Rs${subtotal}</p>
+            ${deliveryFee ? `<p><b>Delivery Fee:</b> Rs${deliveryFee}</p>` : ''}
             <p><b>Total:</b> Rs${total}</p>
             <p>We will contact you soon for confirmation and shipping details.</p>
             <p>If you have any questions, contact us at fitforge.pk@gmail.com.</p>
