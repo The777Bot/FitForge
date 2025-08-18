@@ -2,7 +2,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { useEffect, useRef } from "react";
 import { Analytics } from "@vercel/analytics/react";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
@@ -33,6 +34,33 @@ const AppLoader = () => {
   return loading ? <Loader /> : null;
 };
 
+// Sends GA4 page_view on client-side route changes (skip initial load to avoid double-counting)
+const RouteAnalytics = () => {
+  const location = useLocation();
+  const isFirstRenderRef = useRef(true);
+
+  useEffect(() => {
+    if (isFirstRenderRef.current) {
+      isFirstRenderRef.current = false;
+      return;
+    }
+    const pagePath = `${location.pathname}${location.search}${location.hash}`;
+    const pageLocation = typeof window !== "undefined" ? window.location.href : undefined;
+    const pageTitle = typeof document !== "undefined" ? document.title : undefined;
+    const gtag = (typeof window !== "undefined" && (window as any).gtag) ? (window as any).gtag : null;
+    if (gtag) {
+      gtag("event", "page_view", {
+        page_title: pageTitle,
+        page_location: pageLocation,
+        page_path: pagePath,
+        send_to: "G-L0H5JX07ZV",
+      });
+    }
+  }, [location.pathname, location.search, location.hash]);
+
+  return null;
+};
+
 const App = () => {
   return (
     <CartUIProvider>
@@ -46,6 +74,7 @@ const App = () => {
               <AppLoader />
               <BrowserRouter>
                 <Header />
+                <RouteAnalytics />
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/anime" element={<Anime />} />
