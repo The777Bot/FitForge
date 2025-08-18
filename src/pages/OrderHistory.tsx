@@ -94,6 +94,7 @@ const OrderHistory = () => {
                     <li key={item.id} className="flex justify-between text-sm mb-1">
                       <span>
                         {item.name} x {item.quantity}
+                        {item.size && ` (Size: ${item.size})`}
                         {(() => {
                           const fit = getFitLabelByName(item.name);
                           return fit ? ` — ${fit}` : "";

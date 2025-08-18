@@ -43,7 +43,7 @@ export default async function handler(req, res) {
   try {
     // ✅ Format items
     const itemListHtml = items.map(item =>
-      `<li>${item.name} x${item.quantity} - Rs${item.price * item.quantity}</li>`
+      `<li>${item.name} x${item.quantity} (Size: ${item.size || 'N/A'}) - Rs${item.price * item.quantity}</li>`
     ).join('');
 
     // ✅ Use verified sender email address - try multiple options
