@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLazyLoadImage } from '@/hooks/use-image-lazy-load';
-import { getOptimizedImageUrl, createSrcSet } from '@/lib/imageFormatUtils';
+import { getOptimizedImageUrl, createSrcSet, getBestImageFormat, isSafariOrInAppBrowser } from '@/lib/imageFormatUtils';
 import { cn } from '@/lib/utils';
 
 export interface OptimizedImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
@@ -13,6 +13,8 @@ export interface OptimizedImageProps extends React.ImgHTMLAttributes<HTMLImageEl
   sizes?: string;
   onLoad?: () => void;
   onError?: () => void;
+  quality?: number;
+  disableOptimization?: boolean;
 }
 
 /**
@@ -20,7 +22,8 @@ export interface OptimizedImageProps extends React.ImgHTMLAttributes<HTMLImageEl
  * 
  * Features:
  * - Lazy loading using Intersection Observer
- * - Image format optimization based on browser support
+ * - Image format optimization based on browser support (WebP/AVIF)
+ * - Special handling for Safari and in-app browsers
  * - Responsive images with srcset
  * - Loading placeholder
  * - Error handling
@@ -35,13 +38,30 @@ export function OptimizedImage({
   sizes = '100vw',
   onLoad,
   onError,
+  quality = 80,
+  disableOptimization = false,
   ...props
 }: OptimizedImageProps) {
-  // Get the optimized image URL
-  const optimizedSrc = getOptimizedImageUrl(src);
+  // State to track browser info for debugging
+  const [browserInfo, setBrowserInfo] = useState<string>('');
   
-  // Create srcset for responsive images
-  const srcSet = createSrcSet(src);
+  // Get the best format for the current browser
+  const bestFormat = getBestImageFormat();
+  
+  // Get the optimized image URL with format conversion (if optimization is enabled)
+  const optimizedSrc = disableOptimization ? src : getOptimizedImageUrl(src);
+  
+  // Create srcset for responsive images (if optimization is enabled)
+  const srcSet = disableOptimization ? '' : createSrcSet(src);
+  
+  // Set browser info for debugging
+  useEffect(() => {
+    if (import.meta.env.DEV) {
+      const isSafari = isSafariOrInAppBrowser();
+      setBrowserInfo(`Using ${disableOptimization ? 'original format' : bestFormat + ' format'}${isSafari ? ' (Safari/in-app browser)' : ''}`);
+      console.log(`Image optimization: ${disableOptimization ? 'disabled' : 'enabled'} - ${browserInfo}`);
+    }
+  }, [bestFormat, disableOptimization, browserInfo]);
   
   // Use lazy loading hook (skip if priority is true)
   const { isLoaded, isLoading, error, imageRef } = useLazyLoadImage({
@@ -80,6 +100,13 @@ export function OptimizedImage({
             height: height ? `${height}px` : '100%',
           }}
         />
+      )}
+      
+      {/* Debug info in development mode */}
+      {import.meta.env.DEV && browserInfo && (
+        <div className="absolute top-0 left-0 bg-black bg-opacity-50 text-white text-xs p-1 z-10">
+          {browserInfo}
+        </div>
       )}
       
       {/* Image */}

@@ -1,5 +1,6 @@
 /**
  * Utility functions for image format detection and optimization
+ * Enhanced for better cross-browser support including Safari and in-app browsers
  */
 
 /**
@@ -19,15 +20,50 @@ export function checkImageFormatSupport(format: string): boolean {
   if (!mime) return false;
   
   // Use a more reliable method to check image format support
-  // HTMLImageElement doesn't have canPlayType method (that's for media elements)
   const canvas = document.createElement('canvas');
-  return canvas.getContext('2d') !== null && canvas.toDataURL(mime).indexOf(mime) !== -1;
+  if (!canvas.getContext) return false;
+  
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return false;
+  
+  // For Safari and in-app browsers, we need a more reliable detection
+  try {
+    canvas.width = 1;
+    canvas.height = 1;
+    const dataUrl = canvas.toDataURL(mime);
+    return dataUrl.indexOf(mime) !== -1;
+  } catch (e) {
+    return false;
+  }
+}
+
+/**
+ * Detect if the browser is Safari or an in-app browser
+ */
+export function isSafariOrInAppBrowser(): boolean {
+  if (typeof navigator === 'undefined') return false;
+  
+  const ua = navigator.userAgent;
+  const isSafari = /^((?!chrome|android).)*safari/i.test(ua);
+  const isInAppBrowser = ua.includes('Instagram') || 
+                         ua.includes('FBAV') || 
+                         ua.includes('FBAN') || 
+                         ua.includes('Twitter');
+  
+  return isSafari || isInAppBrowser;
 }
 
 /**
  * Get the best supported image format for the current browser
  */
 export function getBestImageFormat(): string {
+  // Safari and in-app browsers have better support for WebP than AVIF
+  if (isSafariOrInAppBrowser()) {
+    if (checkImageFormatSupport('webp')) return 'webp';
+    return 'jpg'; // Fallback to jpg for Safari
+  }
+  
+  // For other browsers, prefer AVIF if supported
   if (checkImageFormatSupport('avif')) return 'avif';
   if (checkImageFormatSupport('webp')) return 'webp';
   return 'jpg'; // Fallback to jpg
@@ -35,100 +71,71 @@ export function getBestImageFormat(): string {
 
 /**
  * Get an optimized URL for an image based on the current environment
- * In development, this returns the original URL
- * In production, it would transform the URL to use optimized formats
  */
 export function getOptimizedImageUrl(url: string | undefined): string {
   if (!url) return '';
   
-  // In development, just return the original URL
-  if (import.meta.env.DEV) {
-    // Handle special cases
-    
-    // Data URLs
-    if (url.startsWith('data:')) {
-      return url;
+  // Handle special cases
+  if (url.startsWith('data:')) return url;
+  
+  // For production, use optimized formats
+  if (import.meta.env.PROD) {
+    try {
+      // Get the best format for the current browser
+      const bestFormat = getBestImageFormat();
+      
+      // Extract path and extension
+      const urlParts = url.split('.');
+      if (urlParts.length <= 1) return url;
+      
+      // Replace the extension with the best format
+      const basePath = urlParts.slice(0, -1).join('.');
+      return `${basePath}.${bestFormat}`;
+    } catch (error) {
+      console.error('Error optimizing image URL:', error);
+      return url; // Fallback to original URL
     }
-    
-    // Vite imported assets in dev mode
-    if (url.startsWith('/assets/')) {
-      return url;
-    }
-    
-    // URLs without extensions or with import query parameters
-    if (url.includes('?import') || !url.match(/\.(jpg|jpeg|png|gif|svg|webp|avif)$/i)) {
-      return url;
-    }
-    
-    // Already optimized formats
-    if (url.match(/\.(avif|webp)$/i)) {
-      return url;
-    }
-    
-    // External URLs
-    if (url.startsWith('http')) {
-      return url;
-    }
-    
-    // For development, return the original URL
-    return url;
   }
   
-  // In production, we would transform the URL to use optimized formats
-  // This is commented out for now as it would be implemented based on the production setup
-  /*
-  const bestFormat = getBestImageFormat();
-  const baseUrl = url.replace(/\.(jpg|jpeg|png|gif|svg|webp|avif)$/i, '');
-  return `${baseUrl}.${bestFormat}`;
-  */
-  
+  // In development, just return the original URL
   return url;
 }
 
 /**
  * Create a srcset attribute for responsive images
- * In development, this returns an empty string
- * In production, it would generate a srcset with different sizes and formats
  */
 export function createSrcSet(url: string | undefined): string {
   if (!url) return '';
   
-  // In development, skip srcset generation
-  if (import.meta.env.DEV) {
-    // Skip for empty URLs
-    if (!url) return '';
+  // Skip for data URLs
+  if (url.startsWith('data:')) return '';
+  
+  // In development, just return empty string (no srcset)
+  if (!import.meta.env.PROD) return '';
+  
+  try {
+    // Get the best format for the current browser
+    const bestFormat = getBestImageFormat();
     
-    // Skip for data URLs
-    if (url.startsWith('data:')) return '';
+    // Extract path and extension
+    const urlParts = url.split('.');
+    if (urlParts.length <= 1) return '';
     
-    // Skip for Vite imported assets in dev mode
-    if (url.startsWith('/assets/')) return '';
+    // Get the base path without extension
+    const basePath = urlParts.slice(0, -1).join('.');
     
-    // Skip for URLs without extensions or with import query parameters
-    if (url.includes('?import') || !url.match(/\.(jpg|jpeg|png|gif|svg|webp|avif)$/i)) return '';
+    // Define responsive widths
+    const sizes = [320, 640, 960, 1280, 1920];
     
-    // Skip for already optimized formats
-    if (url.match(/\.(avif|webp)$/i)) return '';
-    
-    // Skip for external URLs
-    if (url.startsWith('http')) return '';
-    
-    return '';
+    // Generate srcset with different sizes
+    return sizes
+      .map(size => {
+        // Format: path-320w.webp 320w, path-640w.webp 640w, etc.
+        return `${basePath}-${size}w.${bestFormat} ${size}w`;
+      })
+      .join(', ');
+  } catch (error) {
+    console.error('Error creating srcset:', error);
+    return ''; // Return empty string on error
   }
-  
-  // In production, we would generate a srcset with different sizes and formats
-  // This is commented out for now as it would be implemented based on the production setup
-  /*
-  const bestFormat = getBestImageFormat();
-  const baseUrl = url.replace(/\.(jpg|jpeg|png|gif|svg|webp|avif)$/i, '');
-  
-  const sizes = [320, 640, 960, 1280, 1920];
-  const srcSet = sizes
-    .map(size => `${baseUrl}-${size}.${bestFormat} ${size}w`)
-    .join(', ');
-  
-  return srcSet;
-  */
-  
-  return '';
 }
