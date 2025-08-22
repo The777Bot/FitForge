@@ -103,6 +103,7 @@ export function getOptimizedImageUrl(url: string | undefined): string {
 
 /**
  * Create a srcset attribute for responsive images
+ * Enhanced to use Cloudinary for responsive images
  */
 export function createSrcSet(url: string | undefined): string {
   if (!url) return '';
@@ -110,28 +111,22 @@ export function createSrcSet(url: string | undefined): string {
   // Skip for data URLs
   if (url.startsWith('data:')) return '';
   
-  // In development, just return empty string (no srcset)
-  if (!import.meta.env.PROD) return '';
-  
   try {
+    // Extract just the filename without path
+    const filename = url.split('/').pop();
+    if (!filename) return '';
+    
     // Get the best format for the current browser
     const bestFormat = getBestImageFormat();
-    
-    // Extract path and extension
-    const urlParts = url.split('.');
-    if (urlParts.length <= 1) return '';
-    
-    // Get the base path without extension
-    const basePath = urlParts.slice(0, -1).join('.');
     
     // Define responsive widths
     const sizes = [320, 640, 960, 1280, 1920];
     
-    // Generate srcset with different sizes
+    // Generate srcset using Cloudinary
     return sizes
       .map(size => {
-        // Format: path-320w.webp 320w, path-640w.webp 640w, etc.
-        return `${basePath}-${size}w.${bestFormat} ${size}w`;
+        const optimizedUrl = `https://res.cloudinary.com/${cloudinaryConfig.cloud_name}/image/upload/f_${bestFormat},q_auto,w_${size}/${filename}`;
+        return `${optimizedUrl} ${size}w`;
       })
       .join(', ');
   } catch (error) {

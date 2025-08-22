@@ -2,6 +2,7 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import model1 from "@/assets/Front_page_models/Front_model1.png";
 import model2 from "@/assets/Front_page_models/Front_model2.png";
+// Removed model2 import to test Cloudinary integration
 import model3 from "@/assets/Front_page_models/Front_model3.png";
 import model4 from "@/assets/Front_page_models/Front_model.png";
 
@@ -9,7 +10,7 @@ const FrontPageModels = () => {
   // Model images array
   const models = [
     { src: model1, alt: "Front Model 1" },
-    { src: model2, alt: "Front Model 2" },
+    { src: model2, alt: "Front Model 2" }, // Using original asset path for Cloudinary
     { src: model3, alt: "Front Model 3" },
     { src: model4, alt: "Front Model" },
   ];

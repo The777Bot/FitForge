@@ -102,13 +102,6 @@ export function OptimizedImage({
         />
       )}
       
-      {/* Debug info in development mode */}
-      {import.meta.env.DEV && browserInfo && (
-        <div className="absolute top-0 left-0 bg-black bg-opacity-50 text-white text-xs p-1 z-10">
-          {browserInfo}
-        </div>
-      )}
-      
       {/* Image */}
       <img
         ref={imageRef}
