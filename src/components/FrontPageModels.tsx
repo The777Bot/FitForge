@@ -1,5 +1,6 @@
 // Import the model images
 import { useState, useEffect, useMemo, useRef } from "react";
+import { OptimizedImage } from "./OptimizedImage";
 import model1 from "@/assets/Front_page_models/Front_model1.png";
 import model2 from "@/assets/Front_page_models/Front_model2.png";
 // Removed model2 import to test Cloudinary integration
@@ -126,13 +127,13 @@ const FrontPageModels = () => {
                           <div className="w-24 h-32 bg-gradient-to-br from-gray-200 to-gray-300 rounded-md shadow-inner" />
                         </div>
                       )}
-                      <img
+                      <OptimizedImage
                         src={model.src}
                         alt={model.alt}
-                        {...imageProps}
+                        priority={index === currentIndex}
                         onLoad={() => markLoaded(index)}
                         onError={() => markLoaded(index)}
-                        className={`w-full h-full object-contain bg-gradient-to-b from-[#f8f9fa] to-[#e9ecef] transition-opacity duration-500 ${loaded[index] ? 'opacity-100' : 'opacity-0'}`}
+                        className={`w-full h-full object-contain bg-gradient-to-b from-[#f8f9fa] to-[#e9ecef]`}
                       />
                     </div>
                   </div>
@@ -177,13 +178,13 @@ const FrontPageModels = () => {
                         <div className="w-32 h-40 bg-gradient-to-br from-gray-200 to-gray-300 rounded-md shadow-inner" />
                       </div>
                     )}
-                    <img
+                    <OptimizedImage
                       src={model.src}
                       alt={model.alt}
-                      {...imageProps}
+                      priority={index === currentIndex}
                       onLoad={() => markLoaded(index)}
                       onError={() => markLoaded(index)}
-                      className={`w-full h-full object-contain bg-gradient-to-b from-[#f8f9fa] to-[#e9ecef] transition-opacity duration-500 group-hover:scale-110 ${loaded[index] ? 'opacity-100' : 'opacity-0'}`}
+                      className={`w-full h-full object-contain bg-gradient-to-b from-[#f8f9fa] to-[#e9ecef] group-hover:scale-110`}
                     />
                     {/* Subtle overlay on hover */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
